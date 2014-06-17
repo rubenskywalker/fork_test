@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'rufus/scheduler'
 
-scheduler = Rufus::Scheduler.start_new
+scheduler = Rufus::Scheduler.new
 
 scheduler.cron '1 0 * * *' do
   TransactionStatus.where(:category => "Listing").each do |ts|

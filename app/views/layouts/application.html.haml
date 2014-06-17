@@ -9,8 +9,9 @@
           %title= content_for?(:title) ? yield(:title) : "Tm"
           = csrf_meta_tags
           = stylesheet_link_tag "application", :media => "all"
+          = javascript_include_tag "application"
           %link{:href => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/themes/ui-lightness/jquery-ui.css", :rel => "stylesheet", :type => "text/css"}
-          = airbrake_javascript_notifier
+          =# airbrake_javascript_notifier
   %body{class: "#{params[:controller]} #{params[:action]} #{@body_class}"}
     = render "header" unless params[:controller].include?("devise") || params[:action].include?("pricing")
     #super_alert.alert.hidden_item

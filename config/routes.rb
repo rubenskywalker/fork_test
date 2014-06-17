@@ -18,6 +18,7 @@ Tm::Application.routes.draw do
   get 'checklists/new' => 'checklist_masters#new'
   get 'documents/' => 'libraries#index'
   get 'pricing/' => 'welcome#pricing'
+
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -219,6 +220,8 @@ Tm::Application.routes.draw do
   # just remember to delete public/index.html.
 
 	get "home(/:action)", :controller => "pages"
+  get 'register' => 'pages#index'
+
 
   root :to => 'welcome#index'
 
