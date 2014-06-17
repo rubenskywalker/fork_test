@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  itemable_type: MyString
+  itemable_id: 1
+  company_id: 
+  deleted_at: 2013-05-14 17:03:44
+
+two:
+  itemable_type: MyString
+  itemable_id: 1
+  company_id: 
+  deleted_at: 2013-05-14 17:03:44

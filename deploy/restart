@@ -1,0 +1,8 @@
+bundle exec pumactl -S /tmp/puma.state stop
+RAILS_ENV=production bundle exec puma -e production -t 8:32 -w 3 -d -b unix:///tmp/puma.sock -S /tmp/puma.state --control 'unix:///tmp/puma_pumactl.sock'
+
+echo "restarting Puma app"
+
+kill `cat /home/ubuntu/deploy/tm/tmp/pids/sidekiq.pid`
+bundle exec sidekiq -C /home/ubuntu/deploy/tm/config/sidekiq.yml -e production -P /home/ubuntu/deploy/tm/tmp/pids/sidekiq.pid >> /home/ubuntu/deploy/tm/log/sidekiq.log 2>&1 &
+echo "Sidekiq app started successfully 1"

@@ -1,0 +1,35 @@
+!!!
+%html{:lang => "en", :style => params[:controller].include?("devise") ? "background-color: #fff !important" : ""}
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:content => STRIPE_PUBLIC_KEY, :name => "stripe-key"}
+      %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+        %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+          
+          %title= content_for?(:title) ? yield(:title) : "Tm"
+          = csrf_meta_tags
+          = stylesheet_link_tag "application", :media => "all"
+          %link{:href => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/themes/ui-lightness/jquery-ui.css", :rel => "stylesheet", :type => "text/css"}
+          = airbrake_javascript_notifier
+  %body{class: "#{params[:controller]} #{params[:action]} #{@body_class}"}
+    = render "header" unless params[:controller].include?("devise") || params[:action].include?("pricing")
+    #super_alert.alert.hidden_item
+    .container{id: "main_container"}
+      #flash
+        .container
+          =# bootstrap_flash
+          - if flash[:notice]
+            .flash_notice.hidden_item{"data-type" => "success"}= notice
+          - elsif flash[:alert]
+            .flash_notice.hidden_item{"data-type" => "error"}= alert
+      = yield
+      %footer
+        %p 
+    / /container
+    /
+      Javascripts
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    = javascript_include_tag "https://js.stripe.com/v1/", "application"
+    = yield :extra_js
+    #loader

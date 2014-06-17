@@ -1,0 +1,35 @@
+.row
+  .col-md-12
+    %h1 Checklists
+.row.defailt_padding
+  .col-md-12
+    = link_to icon("plus-sign", "Add New Checklist"), "/checklists/new", :class => "btn btn-default"
+.row.defailt_padding
+  .col-md-12
+    .well.well-light
+      %table.table.table-condensed.table-hover
+        %thead
+          %tr
+            %th Checklist Name
+            %th Default for transactions type:
+            %th 
+              .pull-right Actions
+        %tbody#checklists_position{"data-update-url" => sort_checklist_masters_path}
+          - @checklist_masters.each do |master|
+            %tr.sortable_item{:id => dom_id(master)}
+              %td
+                %span.glyphicon.glyphicon-resize-vertical
+                = master.name
+              %td= master.transaction_types.map(&:name).join(", ")
+              %td
+                .pull-right
+                  .btn-group
+                    %button.btn.btn-info.btn-xs Actions
+                    %button.btn.btn-info.btn-xs.dropdown-toggle{"data-toggle" => "dropdown"}
+                      %span.caret
+                    %ul.dropdown-menu
+                      %li= link_to icon("pencil", "Edit"), edit_checklist_master_path(master)
+                      %li= link_to icon("trash", "Delete"), checklist_master_path(master), :method => :delete, :confirm => "Are you sure?"
+
+                  
+            

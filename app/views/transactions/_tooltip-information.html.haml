@@ -1,0 +1,17 @@
+- activity = transaction.recent_activities.order("created_at DESC").limit(3)
+- if activity.any?
+  %h4.heading Recent Activity
+  %ul
+    - transaction.recent_activities.order("created_at DESC").limit(3).each do |ra|
+      %li= "#{ra.user.fullname} on #{ra.created_at.strftime('%b %d, %Y')}"
+- else
+  %h4.heading No recent activity
+
+- contacts = transaction.attach_contacts.select{|c| (current_user.contact_accesses.map(&:contact_id).include?(c.user.id) || c.user.company_id == current_user.company_id) }.map{|c| "#{c.user.fullname} (#{c.role.name})"}
+- if contacts.any?
+  %h4.heading Contacts
+  %ul
+    - contacts.each do |c|
+      %li= c
+- else
+  %h4.heading No contacts

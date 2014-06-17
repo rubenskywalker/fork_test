@@ -1,0 +1,48 @@
+.row.defailt_padding
+  .col-md-12
+    %span.label.label-default 
+      Billing plan:
+      = @global_company.plan_name
+.row.defailt_padding
+  .col-md-8
+    - if @global_company.disabled?
+      %center
+        %strong.color_red This Account Is Currently Inactive. Please Contact Us To Resolve.
+    - if @global_company.trial_ended?
+      %strong.color_red 
+        Trial expired please choose billing plan below.
+    - if @global_company.users_ended? || @global_company.transactions_ended?
+      %center
+        %strong.color_red 
+          Heads up! You`ve reached limit for your trial account.
+          %br
+          Upgrade to lift the limit
+    - if @global_company.users_included == 0
+      %center Unlimited users are included
+    - else
+      .progress
+        %span= "#{@global_company.users.company_users.length - 1} / #{@global_company.users_included} users used"
+        .progress-bar{:style => "width: #{bar_width(@global_company.users_included, @global_company.users.company_users.length - 1)}%;"}
+    %br
+    - if @global_company.transactions_included == 0
+      %center Unlimited transactions are included
+    - else
+    -#
+      .progress
+        %span= "#{@global_company.transactions.length} / #{@global_company.transactions_included} transactions used"
+        .progress-bar{:style => "width: #{bar_width(@global_company.transactions_included, @global_company.transactions.length)}%;"}
+    %br
+    .progress
+      %span= "#{@global_company.trial_days - @global_company.days_from_creation.to_i} days remained"
+      .progress-bar{:style => "width: #{bar_width(@global_company.trial_days, @global_company.days_from_creation)}%;"}
+
+  .col-md-4
+    = render "welcome/profiles/user"
+
+.row
+  .col-md-12
+    %h3 Upgrade to full account
+= render "welcome/profiles/payment_plans"
+
+
+

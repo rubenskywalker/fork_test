@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  checklist_master_id: 1
+  name: MyString
+
+two:
+  checklist_master_id: 1
+  name: MyString

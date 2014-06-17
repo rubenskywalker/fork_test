@@ -1,0 +1,164 @@
+.transaction,
+.transaction-box
+  cursor: pointer
+  line-height: 1.4
+  border-bottom: 1px solid rgba(black, .1)
+  &:hover
+    background-color: rgba($primary, .05)
+    text-decoration: none
+    .address,
+    .address a
+      color: $link-hover-color
+      text-decoration: underline
+  
+  .information
+    .glyphicon
+      color: rgba(black, .6)
+      font-size: 20px
+  
+  .tooltip
+    width: 300px
+    .tooltip-inner
+      text-align: left
+    ol, ul
+      margin-bottom: 15px
+      margin-left: 10px
+    .heading
+      font-size: 18px
+  
+  .address
+    font-weight: bold
+    text-decoration: underline
+  
+  .status
+    color: rgba(black, .8)
+    font-weight: bold
+    &.active,
+    &.active_
+      color: $green
+    &.listing,
+    &.listing_
+      color: $green
+    &.pending,
+    &.pending_
+      color: $orange
+    &.closed,
+    &.closed_
+      color: rgba(black, .8)
+    &.cancelled,
+    &.cancelled_
+      color: $grey
+    &.expired,
+    &.expired_
+      color: $red
+      
+  .checklist
+    .label
+      position: relative
+      width: 100%
+      display: block
+      padding: 3px 0
+      font-size: 12px
+      cursor: help
+      .number
+        position: relative
+        z-index: 10
+    .progress-bar
+      position: absolute
+      z-index: 9
+      top: 0
+      left: 0
+      height: 18px
+      background-color: $green
+      border-radius: 3px
+      
+  .location
+    color: rgba(black, .6)
+    
+  .date
+    color: rgba(black, .8)
+    font-weight: bold
+
+.transaction
+  &:last-child
+    border-bottom: 0
+  
+  .information
+    width: 1%
+    min-width: 50px
+    padding-left: 2%
+    padding-right: 2%
+  
+  .address
+    width: 33%
+    padding-right: 3%
+    
+  .status
+    width: 11%
+    
+  .checklist
+    width: 14%
+    padding-right: 3%
+      
+  .location
+    width: 13%
+    padding-right: 3%
+    
+  .date
+    width: 13%
+    padding-right: 2%
+
+.transaction-box
+  +clearfix
+  display: block
+  margin: 0 0 15px
+  padding: 0 0 10px
+  text-decoration: none
+  
+  .data
+    display: block
+    overflow: hidden
+    padding: 5px 10px
+  
+  .photo
+    height: 150px
+    padding: 0
+    margin-bottom: 5px
+    background-size: cover
+    background-position: 50% 50%
+    background-color: black
+    border-radius: 3px 3px 0 0
+    overflow: hidden
+  
+  .information
+    float: right
+    margin-left: 20px
+    margin-right: 10px
+    text-align: right
+  
+  .address
+    height: 46px
+    font-weight: bold
+    text-decoration: underline
+    
+  .status
+    clear: both
+    float: left
+    width: 50%
+    height: 28px
+  
+  .checklist
+    float: right
+    width: 80px
+  
+  .location
+    clear: both
+    float: left
+    width: 50%
+    height: 28px
+    
+  .date
+    float: right
+    width: 50%
+    height: 28px
+    text-align: right

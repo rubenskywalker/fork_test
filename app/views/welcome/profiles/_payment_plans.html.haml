@@ -1,0 +1,28 @@
+.row.defailt_padding
+  - DefaultPlan::PLANS[2..6].each_with_index do |p, index|
+    .col-md-4
+      .well.well-light
+        %h2.text-warning= p
+        %ul
+          %li= "Minimum monthly fee: $#{DefaultPlan::PRICES[index+2]}"
+          %li= "Price per User: $#{DefaultPlan::PRICE_PER_USER[index+2]}"
+          %li= "Minimum users included: #{DefaultPlan::USERS_INCLUDED[index+2]}"
+        %hr
+          %p
+            %a.btn.btn-success.btn-lg.toggle_on_plans{:href => "#", "data-title" => "Upgrade to #{p}", "data-plan" => index+2}
+              %i.glyphicon.glyphicon-ok
+              Select plan
+              
+  .col-md-4
+    .well.well-light
+      %h2.text-warning Enterprise
+      %ul
+        %li= "Please contact us for details"
+        
+      %hr
+        %p
+          %a.btn.btn-success.btn-lg{:href => "mailto:info@piratetesternow.com"}
+            %i.glyphicon.glyphicon-ok
+            Select plan
+              
+= render "welcome/profiles/credit_card"

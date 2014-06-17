@@ -1,0 +1,5 @@
+.progress.progress-success
+  .progress-bar{:style => "width: #{bar_width(checklist.checklist_items.length, checklist.checklist_items.checked_only.length)}%;"}
+    = "#{checklist.checklist_items.checked_only.length} / #{checklist.checklist_items.length}"
+    
+    

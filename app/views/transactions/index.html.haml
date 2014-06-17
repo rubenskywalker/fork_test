@@ -1,0 +1,56 @@
+- @body_class = "transactions"
+
+.page-header
+
+  %h1.heading
+    Transactions
+  
+  .actions
+    - unless disable_access(:create, Transaction.last) || @global_company.transactions_ended? 
+      %a.btn.btn-default{href: new_transaction_path}
+        %i.glyphicon.glyphicon-plus-sign
+        Add a Transaction
+      
+- if @transactions.any?
+
+  .style-switcher
+    %a.toggle-style.active{href: "#list", data: {on: ".transactions-table", off: ".transactions-switch"}}
+      %span.glyphicon.glyphicon-list
+    %a.toggle-style{href: "#box", data: {on: ".transactions-grid", off: ".transactions-switch"}}
+      %span.glyphicon.glyphicon-th
+
+  .sort-results
+    %span.sort-label Sort by:
+    %select.sort-results-select{name: "sort_results"}
+      - %w{Latest Status State Date}.each do |option|
+        %option{value: "#{request.path}?search=#{params[:search]}&sort=#{option.downcase}", selected: (true if params[:sort] == option.downcase)}= option
+      
+.tab-content
+  
+  #transactions.tab-pane.active
+    .row
+      .col-md-3.filters= render partial: "transactions/filters"
+      .col-md-9.results
+    
+        - if @transactions.any?
+
+          %table.transactions-switch.transactions-table.active
+            %tr.headings
+              %th &nbsp;
+              %th Address
+              %th Status
+              %th Checklist
+              %th.hidden-xs Location
+              %th.hidden-xs Closing date
+            - @transactions.each do |transaction|
+              = render partial: "transactions/overview-list", locals: {transaction: transaction}
+      
+  
+          .transactions-switch.transactions-grid
+            .row
+              - @transactions.each do |transaction|
+                .col-md-4= render partial: "transactions/overview-box", locals: {transaction: transaction}
+    
+        - else
+      
+          %p.empty There are no transactions yet.

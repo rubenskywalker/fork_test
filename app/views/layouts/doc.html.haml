@@ -1,0 +1,17 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:content => STRIPE_PUBLIC_KEY, :name => "stripe-key"}
+      %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+        %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+          
+          %title= content_for?(:title) ? yield(:title) : "Tm"
+          = csrf_meta_tags
+          = stylesheet_link_tag "application", :media => "all"
+  %body
+   
+    .container{:id => "main_container"}
+      .row
+        .col-md-12= yield
+    = javascript_include_tag "https://js.stripe.com/v1/", "doc"

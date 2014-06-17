@@ -1,0 +1,14 @@
+.navbar.navbar-default.navbar-fixed-top{:style => "position: absolute; margin-top: 92px; z-index: 20;"}
+  .container{:style => "width: auto; padding: 0 18px;"}
+
+    %ul.nav.navbar-nav.main_nav_b
+      %li
+        = link_to "Users", "/users" unless disable_access(:create, User.last)
+      %li.active
+        = link_to "Locations", locations_path if current_user.super_admin?
+      %li
+        = link_to "Transaction Details", transaction_details_path if current_user.super_admin?
+      %li
+        = link_to "Checklists", "/checklists"  unless disable_access(:manage, ChecklistMaster.last)
+    
+

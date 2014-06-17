@@ -1,0 +1,60 @@
+.row.defailt_padding
+  .col-md-12
+    = form_for @note = Note.new(), :url => transaction_notes_path(@transaction), :remote => true do |f|
+      = f.hidden_field :user_id, :value => current_user.id
+      .well.well-light
+        %span.label.label-info= "New note to #{tname(@global_company.transaction_details.first, @transaction)}"
+        .row
+          .col-md-12
+            %br
+            %br
+            = f.text_area :status, :style => "width: 99%", :placeholder => "Type in your note. It will be added to the transaction, and optionally sent via email to the selected people", :rows => 6, :class => "form-control"
+        .row.defailt_padding
+          
+          .col-md-3 
+            %span.label.label-default Select Contacts To Email
+            %br
+            %input{:type => "checkbox", :class=> "all_contacts"}
+            All
+            - uids = []
+            - @transaction.attach_contacts.all.each do |c|
+              - if (current_user.contact_accesses.map(&:contact_id).include?(c.user.id) || c.user.super_admin? || c.user.p_all?) || (current_user.super_admin? || current_user.p_all?)
+                - uids << c.user.id
+                %br
+                = check_box_tag 'contacts_ids[]', c.user.id, false, :class => "one_contact"
+                = "#{c.user.first_name} #{c.user.last_name} (#{c.role.name if c.role})"
+            - @transaction.location.location_permissions.for_notes.each do |lp|
+              - unless uids.include?(lp.user.id)
+                %br
+                = check_box_tag 'contacts_ids[]', lp.user.id, false, :class => "one_contact"
+                = "#{lp.user.first_name} #{lp.user.last_name}"
+          .col-md-3
+            %span.label.label-default Select Checklists to Inclide
+            %br
+            %input{:type => "checkbox", :class=> "all_items"}
+            All
+            %br
+            = f.check_box :complete_items, :class => "one_item"
+            Complete Items
+            %br
+            = f.check_box :incomplete_items, :class => "one_item"
+            Incomplete Items
+            %br
+            %br
+          .col-md-3
+            %span.label.label-default Select Files to Attach
+            %br
+            %input{:type => "checkbox", :class=> "all_docs"}
+            All
+            - @transaction.docs.each do |doc|
+              %br
+              = check_box_tag 'docs_ids[]', doc.id, false, :class => "one_doc"
+              = doc.filename
+            
+        .row.defailt_padding
+          .col-md-12
+            %button.btn.btn-info
+              %i.glyphicon.glyphicon-plus 
+              Send Email
+            = link_to icon("share-alt", "Cancel"), "#", :class => "btn add_an_note_hide"
+            

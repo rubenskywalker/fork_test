@@ -1,0 +1,26 @@
+%td.checkbox
+  %input{:id => "check_checklist_item_#{dom_id(checklist_item)}",:type => "checkbox", "checked" => checklist_item.checked?, :class => "check_checklist_item", "data-url" => check_checklist_item_path(checklist_item), :disabled => disable_access(:check_off_checklists, @transaction)}
+%td.name
+  %label{for: "check_checklist_item_#{dom_id(checklist_item)}"}
+    = on_the_spot_edit checklist_item, :name, :url => update_attribute_on_the_spot_checklist_items_path
+-#
+  %td.documents
+    .btn-group
+      %button.btn.btn-info.btn-xs.dropdown-toggle{"data-toggle" => "dropdown", :disabled => disable_access(:assign_files, @transaction)}
+        Documents
+        %span.caret
+      %ul.dropdown-menu{:id => "ul_#{dom_id(checklist_item)}"}
+        = render "checklist_items/files", :checklist_item => checklist_item
+          
+  %td.assigned{:id => "assigned_to_item#{dom_id(checklist_item)}"}= render "checklist_items/assigned", :checklist_item => checklist_item
+ 
+  %td.actions
+    .btn-group
+      %button.btn.btn-info.btn-xs.dropdown-toggle{"data-toggle" => "dropdown"}
+        Actions
+        %span.caret
+      %ul.dropdown-menu
+        - unless disable_access(:upload_files, @transaction)
+          %li= link_to icon("upload", "Upload & Assign"), "#", :upload_path => checklist_item_docs_path(checklist_item), :id => "upload_#{dom_id(checklist_item)}", :upload_container => "assigned_to_item#{dom_id(checklist_item)}", :process_view => "false", :after_view => "checklist_item_upload", :class => "uploader_button"
+        - unless disable_access(:add_remove_checklists, @transaction)
+          %li= link_to icon("trash", "Delete item"), checklist_item_path(checklist_item), :method => :delete, :remote => true, :confirm => "Are you sure?"

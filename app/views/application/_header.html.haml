@@ -1,0 +1,57 @@
+%header
+  
+  .container
+    
+    %button.navbar-toggle.btn-default{type: "button", "data-target" => ".header-secondary", "data-toggle" => "collapse"}
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    
+    .header-primary
+    
+      %a.brand{href: root_path}
+        = image_tag "logo-transactionbox.png", size: "260x35"
+    
+      %form.form-search.form-inline{method: "get", action: "/search"}
+        %input{type: "text", placeholder: "Search", name: "search"}
+        %button.btn.btn-default{type: "submit", data: {content: (render("as_form").html_safe if user_signed_in?)}}    
+          Search
+    
+    .header-secondary.collapse.navbar-collapse
+    
+      - if user_signed_in?
+        %nav.nav.nav-secondary
+          %span.user
+            Hello #{current_user.fullname}
+          %a{href: profile_path} My Account
+          %a{"data-method" => "delete", href: destroy_user_session_path} Logout
+    
+        %nav.nav.nav-primary
+          - unless current_user.real_guest?
+            %a{href: root_path, class: menu_active("welcome")}
+              %span.glyphicon.glyphicon-dashboard
+              Dashboard
+          %a{href: transactions_path, class: menu_active("transactions")}
+            %span.glyphicon.glyphicon-list-alt
+            Transactions
+          - unless current_user.real_guest?
+            %a{href: libraries_path, class: menu_active("library")}
+              %span.glyphicon.glyphicon-book
+              Documents
+            %a{href: contacts_path, class: menu_active("contacts")}
+              %span.glyphicon.glyphicon-user
+              Contacts
+            - unless disable_access(:create, User.last) || (user_signed_in? && current_user.real_guest?)
+              %span.dropdown
+                %a.dropdown-toggle{href: "#", class: menu_active("contacts"), data: {toggle: "dropdown"}}
+                  %span.glyphicon.glyphicon-cog
+                  Settings
+                  %span.caret
+                %nav.dropdown-menu
+                  - unless disable_access(:create, User.last) || (user_signed_in? && current_user.real_guest?)
+                    %a{href: users_path} Users
+                  - if user_signed_in? && current_user.super_admin?
+                    %a{href: locations_path} Locations
+                    %a{href: transaction_details_path} Transaction Details
+                  - unless disable_access(:manage, ChecklistMaster.last)
+                    %a{href: checklists_path} Checklists

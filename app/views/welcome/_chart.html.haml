@@ -1,0 +1,54 @@
+- month_map = date_months.map {|d| "\"#{d.strftime('%b')}\"" }.join(",").html_safe 
+- detail_map = date_months.map {|d| transactions.widget_month_total(Date.parse(d.strftime('%b 1 %Y').downcase), Date.parse(d.strftime('%b 1 %Y').downcase) + 1.month).length }.join(",").html_safe 
+- total_map = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+- TransactionStatus::STATUSES.each do |ts|
+  - i = date_months.map {|d| Transaction.widget_month_status_by_categories(transactions, Date.parse(d.strftime('%b 1 %Y').downcase), Date.parse(d.strftime('%b 1 %Y').downcase) + 1.month, ts).length.to_i }
+  - total_map.each_with_index do |tm, index|
+    - t = tm.to_i + i[index].to_i
+    - total_map[index] = t
+    
+%script
+  $(function(){
+    
+  $('.graph-canvas').highcharts({
+  chart: {
+  type: 'column'
+  },
+  plotOptions: {
+  series: {
+  stacking: 'normal'
+  }
+  },
+  title: {
+  text: ''
+  },
+  exporting: {
+  enabled: false
+  },
+  xAxis: {
+  categories: [
+  #{month_map}
+  ]
+  },
+  yAxis: {
+  min: 0,
+  title: {
+  text: 'No. of Transactions'
+  }
+  },
+  series: [
+  - TransactionStatus::STATUSES.each_with_index do |ts, index|
+    {
+    name: "#{ts}",
+    data: [
+    - detail_map = date_months.map {|d| Transaction.widget_month_status_by_categories(transactions, Date.parse(d.strftime('%b 1 %Y').downcase), Date.parse(d.strftime('%b 1 %Y').downcase) + 1.month, ts).length }.join(",").html_safe
+    = detail_map
+    ]
+    }
+    = "," if index < TransactionStatus::STATUSES.size - 1
+
+  ]});
+  
+  });
+
+  

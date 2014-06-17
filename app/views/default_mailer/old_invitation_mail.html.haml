@@ -1,0 +1,4 @@
+%p= "#{@from_user.fullname} of #{@from_user.company.name} has invited you to be added to his account at piratetesternow.com"
+%p= "Please click the following link to verify that you would like to affiliated with #{@from_user.company.name}."
+
+%p= link_to accept_invitation_settings_user_url(@invite.id), accept_invitation_settings_user_url(@invite.id)

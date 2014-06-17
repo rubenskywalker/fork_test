@@ -1,0 +1,3 @@
+- mail_template = MailTemplate.find_by_category(MailTemplate::CATEGORIES_LIST[0]).body
+- mail_template = mail_template.gsub("#user_name", @user.fullname)
+= mail_template.html_safe

@@ -1,0 +1,11 @@
+- main_uid = []
+- user_names = []
+- @global_company.users.each do |u|
+  - if u.super_admin? || u.p_all?
+    - user_names << u.fullname
+- doc.users.each do |user|
+  - if @transaction.attach_contacts.map(&:user_id).include?(user.id)
+    - user_names << user.fullname
+
+%i.glyphicon.glyphicon-user.big{:rel => "tooltip", :title => user_names.uniq.join(", "), :class => "assigned_users"}
+%span= "(#{user_names.uniq.length})" # doc.users_assigned? ? "(#{user_names.length})" : "(ALL)"

@@ -1,0 +1,71 @@
+.page-header
+  
+  %h1.heading Dashboard
+  
+  .actions
+    
+    %span.dashboard_edit_mode_well
+      
+      - unless disable_access(:create, Transaction.last) || @global_company.transactions_ended?
+        %a.btn.btn-default.create_contact_well_on{href: new_transaction_path}
+          %i.glyphicon.glyphicon-plus-sign
+          Add Transaction
+          
+      %button.btn.btn-default.dashboard_edit_mode_on
+        %i.glyphicon.glyphicon-pencil
+        Edit Dashboard
+    
+    %span.dashboard_edit_mode_well.hidden_item
+    
+      %a.btn.btn-default{href: root_path}
+        %i.glyphicon.glyphicon-ok-circle
+        Finish Editing
+  
+      %a.btn.btn-default.create_contact_well_on{href: "#"}
+        %i.glyphicon.glyphicon-plus-sign
+        Add Widget
+
+.create_contact_well.hidden_item
+  = render "add_widget"
+  
+
+#dashboards{"data-update-url" => sort_user_widgets_path(current_user)}
+
+  .recent-transactions.panel.panel-default.panel-blank
+    .panel-heading
+      %h2.heading
+        Recently Viewed
+    .panel-body
+      .row
+        - %w{active pending expired closed}.each do |s|
+          .col-md-3.col-xs-6
+            = render partial: "transactions/overview-box-mock", locals: {status: s}
+
+  - current_user.widgets.each_with_index do |widget, index|
+    
+    - case widget.widget_type
+
+    - when "transactions_summary_grid"
+      =# render "widget_1", :title => "Transactions Summary Grid", :widget => widget, :transactions => widget.transactions_list
+
+    - when "transactions_summary"
+      = render "widget_4", :title => "Transactions Summary by Category", :widget => widget, :transactions => widget.transactions_list
+
+    - when "transactions_past"
+      = render "widget_2", :title => "Transactions Past Their Closing Date", :transactions => widget.transactions_list, :widget => widget
+
+    - when "transaction_added"
+      = render "widget_2", :transactions => widget.transactions_list, :title => "Transactions Added In The Past 30 Days", :widget => widget
+
+    - when "unreviewed_documents"
+      = render "widget_2", :transactions => widget.transactions_list, :title => "Transactions With Unreviewed Documents", :widget => widget
+
+    - when "transactions_alosing"
+      = render "widget_2", :transactions => widget.transactions_list, :title => "Transactions Closing In The Next 30 Days", :widget => widget
+
+    - when "recent_activity"
+      = render "widget_3", :title => "Recent Activity", :widget => widget
+
+    - when "listings"
+      = render "widget_2", :transactions => widget.transactions_list, :title => "Listings", :widget => widget
+

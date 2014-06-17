@@ -1,0 +1,37 @@
+- doc ||= library_doc
+- library = doc.doc_accesses.first.docable
+- doc_file_rand = "rand_doc_#{1+Random.rand(21890232190823212)}"
+- dublicate = Doc.where("docs.file = ? AND docs.created_at < ? AND doc_accesses.docable_type = 'Library' AND doc_accesses.docable_id = ?", doc.filename, doc.created_at, @global_company.id).includes(:doc_accesses).first
+%tr{:id => "current_#{dom_id(doc)}"}
+  %td{:id => "scroll_#{doc_file_rand}"}
+    %i.glyphicon.glyphicon-file.big
+    = link_to doc.filename, "#", "data-id" => doc_file_rand, :class => "show_doc_embed_file", "data-key" => get_secret_key_doc_path(doc), "data-iframe" => "iframe_#{dom_id(doc)}"
+    - if dublicate
+      .pull-right
+        = link_to "Overwrite", overwrite_library_doc_path(library, doc), :class => "btn btn-xs btn-danger"
+        = link_to "Cancel", doc_path(doc), :method => :delete, :class => "btn btn-xs cancel_after_close", "data-url" => doc_path(doc)
+  %td
+    = link_to icon("trash", "D"), doc_path(doc), :disabled => disable_access(:manage, Library.last), :method => :delete, :confirm => "Are you sure?", :class => "btn btn-xs btn-info"
+    = link_to icon("download", "DL"), download_doc_path(doc), :class => "btn btn-info btn-xs", :target => "blank"
+  -#
+    %td
+      .btn-group{:disabled => disable_access(:manage, Library.last)}
+        %button.btn.btn-info.btn-xs{:disabled => disable_access(:manage, Library.last)}
+          = icon("folder", "Category")
+        %button.btn.btn-info.btn-xs.dropdown-toggle{"data-toggle" => "dropdown", :disabled => disable_access(:manage, Library.last)}
+          %span.caret
+        %ul.dropdown-menu
+          - @global_company.libraries.each do |lib|
+            %li
+              = link_to ms_link_items(lib.name, "only_l", lib, doc), "#", :class => "multicheck singlecheck #{'checked' if doc.doc_accesses.only_l.map(&:docable_id).include?(lib.id)}", "data-fileid" => lib.id
+          %li
+            .popup_buttons_container
+              = link_to icon("ok", "Save"), "#", :class => "btn btn-xs btn-info assign_files_to", "data-url" => assign_libs_doc_path(doc)
+              = link_to icon("share-alt", "Cancel"), "#", :class => "close_assign_files btn btn-xs"
+  %td= "#{doc.user.name}"
+  %td
+    .pull-right
+      = doc.created_at.strftime('%b %d, %Y')
+%tr
+  %td.hidden_item.file_iframe{:colspan => 7, :id => doc_file_rand}
+    %div{:style => "width: 100%; height: 100%;", :frameborder => 0, :id => "iframe_#{dom_id(doc)}"}

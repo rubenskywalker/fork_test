@@ -1,0 +1,32 @@
+.row.defailt_padding
+  .col-md-12
+    %span.label.label-default 
+      Billing plan:
+      = @global_company.plan_name
+.row.defailt_padding
+  .col-md-8
+    - if @global_company.disabled?
+      %center
+        %strong.color_red This Account Is Currently Inactive. Please Contact Us To Resolve.
+    - if !@global_company.real_free?
+      = "Users added in this month: #{@global_company.users.length}"
+      %br
+      = "Currently monthly usage: #{number_to_currency @global_company.plan_per_user_monthly}"
+      %br
+      %br
+      %br
+      You card ending 
+      %strong= @global_company.card_four
+      will be billed on 
+      = "#{Date.today.at_beginning_of_month.next_month.strftime('%b %d, %Y')}."
+      = link_to "Update Credit Card", "#", :href => "#", "data-title" => "Update Credit Card", "data-plan" => (@global_company.plan_name == "Pay Per Transaction" ? "transaction" : "user"), :class => "toggle_on_plans"
+      %br
+      %br
+    
+  .col-md-4
+    = render "welcome/profiles/user"
+
+.row
+  .col-md-12
+    %h3 Upgrade to:
+= render "welcome/profiles/payment_plans"

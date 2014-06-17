@@ -1,0 +1,7 @@
+%tr
+  %td= transaction_detail.created_at
+  %td 2
+  %td
+    .pull-right
+      = link_to icon("pencil", "Edit"), edit_transaction_detail_path(transaction_detail), :class => "btn btn-xs btn-info"
+      = link_to icon("trash", "Remove"), transaction_detail_path(transaction_detail), :class => "btn btn-xs btn-info", :method => :delete

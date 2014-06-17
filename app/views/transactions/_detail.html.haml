@@ -1,0 +1,132 @@
+.panel-heading
+  %h3.panel-title Details
+.row.custom-row#dynamic_tables
+  .col-md-6{:style => "min-width: 240px"}
+    %table.table.table-condensed.table-hover#table_a
+      %tbody
+        - if @transaction.location
+          %tr
+            %td
+              %strong Location:
+            %td
+              .pull-right= @transaction.location.name if @transaction.location
+        
+        - unless @transaction.mls.blank?
+          %tr
+            %td
+              %strong MLS:
+            %td
+              .pull-right= @transaction.mls
+              
+        - unless @transaction.address_1.blank?
+          %tr
+            %td
+              %strong= "Street Address 1:"
+            %td
+              .pull-right= @transaction.address_1 
+            
+        - unless @transaction.address_2.blank?
+          %tr
+            %td
+              %strong= "Street Address 2:"
+            %td
+              .pull-right= @transaction.address_2
+        
+        - unless @transaction.county.blank?
+          %tr
+            %td
+              %strong= "County:"
+            %td
+              .pull-right= @transaction.county
+        
+        - unless @transaction.city.blank?
+          %tr
+            %td
+              %strong= "City:"
+            %td
+              .pull-right= @transaction.city
+        - unless @transaction.zip.blank?
+          %tr
+            %td
+              %strong= "Zip:"
+            %td
+              .pull-right= @transaction.zip
+        
+        - unless @transaction.state.blank?
+          %tr
+            %td
+              %strong= "State:"
+            %td
+              .pull-right= @transaction.state
+        
+        - if @transaction.transaction_status
+          %tr
+            %td
+              %strong Status:
+            %td
+              .pull-right= @transaction.transaction_status.name if @transaction.transaction_status
+  .col-md-6{:style => "min-width: 240px"}
+    %table.table.table-condensed.table-hover#table_b
+      %tbody
+      
+        - if @transaction.transaction_type
+          %tr
+            %td
+              %strong Transaction type:
+            %td
+              .pull-right= @transaction.transaction_type.name if @transaction.transaction_type
+        
+        - unless @transaction.acceptance_date.blank?
+          %tr
+            %td
+              %strong= "Acceptance Date:"
+            %td
+              .pull-right= @transaction.acceptance_date.strftime('%b %d, %Y') unless @transaction.acceptance_date.blank?
+              
+        - unless @transaction.close_sate.blank?
+          %tr
+            %td
+              %strong= "Closing Date:"
+            %td
+              .pull-right= @transaction.close_sate.strftime('%b %d, %Y') unless @transaction.close_sate.blank?
+        
+        - unless @transaction.expiration_date.blank?
+          %tr
+            %td
+              %strong= "Expiration Date:"
+            %td
+              .pull-right= @transaction.expiration_date.strftime('%b %d, %Y') unless @transaction.expiration_date.blank?
+        
+        - unless @transaction.list_price.blank?    
+          %tr
+            %td
+              %strong= "List Price:"
+            %td
+              .pull-right=number_to_currency @transaction.list_price, :precision => 0
+        
+        - unless @transaction.sale_price.blank?
+          %tr
+            %td
+              %strong= "Sale Price:"
+            %td
+              .pull-right=number_to_currency @transaction.sale_price, :precision => 0
+            
+        %tr
+          %td
+            %strong Added By:
+          %td
+            .pull-right= @transaction.user.fullname
+        %tr
+          %td
+            %strong Added On:
+          %td
+            .pull-right= @transaction.created_at.strftime('%b %d, %Y')
+        - @transaction.attach_contacts.each do |contact|
+          %tr
+            %td
+              %strong= "#{contact.role.name}:"
+            %td
+              .pull-right= icon("user", contact.user.fullname)
+        
+
+  

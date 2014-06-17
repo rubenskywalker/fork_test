@@ -1,0 +1,63 @@
+.row.defailt_padding
+  .col-md-12.defailt_padding
+    %h1 Admin Console
+.row.defailt_padding
+  .col-md-12.defailt_padding
+    %h3 Mail Templates
+.row.defailt_padding
+  .col-md-12
+    .well.well-light
+      %table.table.table-condensed.table-hover
+        %thead
+          %tr
+            %th Name
+            %th Variables
+            %th Actions
+        %tbody
+          = render :partial => "mail_template", :collection => MailTemplate.all
+.row.defailt_padding
+  .col-md-12.defailt_padding
+    %h3 Default plans
+.row.defailt_padding
+  .col-md-12
+    .well.well-light
+      %table.table.table-condensed.table-hover
+        %thead
+          %tr
+            %th Plan
+            %th Transactions Included
+            %th Users Included
+            %th Price per transaction
+            %th Price per user
+            %th Monthly fee
+        %tbody
+          = render :partial => "plan", :collection => DefaultPlan.where("plan_name != ?", "Trial")
+.row.defailt_padding
+  .col-md-12.defailt_padding
+    %h3 Companies
+.row.defailt_padding
+  .col-md-12
+    .well.well-light
+      %table.table.table-condensed.table-hover
+        %thead
+          %tr
+            %th Company
+            %th Owner
+            %th Plan
+            %th Transactions Included
+            %th Users Included
+            %th Price per user
+            %th Monthly fee
+            %th Actions&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        %tbody
+          = render :partial => "company", :collection => @companies
+            
+.row.defailt_padding
+  .col-md-12.defailt_padding
+    %h3 Login as user
+.row.defailt_padding
+  .col-md-12
+    .well.well-light
+      = collection_select :user, :company_id, Company.order(:name), :id, :owner_company_name, :prompt => "Select company"
+      = grouped_collection_select :user, :user_id, Company.all, :users, :owner_company_name, :id, :fullname, :prompt => "Select User"
+      

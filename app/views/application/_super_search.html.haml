@@ -1,0 +1,3 @@
+= form_tag('/search', :method => :get, :class => '') do
+  = text_field_tag :search, "", :placeholder => "Search", :class => "search-query", :style => "width: 100px", :autocomplete => "off"
+  %a{:href => "#", :class => "show_as", :title => "Advanced Search", "data-content" => (render("as_form").html_safe if user_signed_in?)}

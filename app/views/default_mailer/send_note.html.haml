@@ -1,0 +1,17 @@
+= "#{@parent.fullname} has added a new note to #{@transaction.tname}:"
+%p
+  = h(@note.status).gsub(/\n/, '<br />').html_safe unless @note.status.blank?
+%p
+  - if @note.complete_items?
+    Complete items in this transaction:
+    - @transaction.checklist_items.checked_only.each do |ci|
+      %br
+      = ci.name
+   
+%p
+  - if @note.incomplete_items?
+    Incomplete items in this transaction:
+    - @transaction.checklist_items.unchecked_only.each do |ci|
+      %br
+      = ci.name
+   

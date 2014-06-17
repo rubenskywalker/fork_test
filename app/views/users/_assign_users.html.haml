@@ -1,0 +1,7 @@
+- user_names = []
+- User.where("(parent_id = ? OR id IN (?)) AND id != ?", current_user.id, @transaction.attach_contacts.map(&:user_id), current_user.id).each do |user|
+  - if user.contact_accesses.where(:transaction_id => @transaction.id).map(&:contact_id).include?(super_contact.id)
+    - user_names << user.fullname
+
+%i.glyphicon.glyphicon-user.big{:rel => "tooltip", :title => user_names.join(", "), :class => "assigned_users"}
+%span= ""

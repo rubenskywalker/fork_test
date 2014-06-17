@@ -1,0 +1,18 @@
+- unless disable_access(:read, transaction)
+  %tr
+    %td= link_to tname(@global_company.transaction_details.first, transaction), transaction_path(transaction)
+    %td
+      %span.label.label-success= transaction.transaction_status.name if transaction.transaction_status
+    - unless current_user.real_guest?
+      %td{ "data-value" => (bar_width(transaction.checklist_items.length, transaction.checklist_items.checked_only.length) / 10) }
+        .progress{:class => "super_tooltip", :title => render("welcome/transaction_info", :transaction => transaction).html_safe}
+          %span= "#{transaction.checklist_items.checked_only.length} / #{transaction.checklist_items.length}"
+          .progress-bar{:style => "width: #{bar_width(transaction.checklist_items.length, transaction.checklist_items.checked_only.length)}%;"}
+         
+    
+      %td
+        - users_map = transaction.attach_contacts.map{|c| "#{c.user.fullname} (#{c.role.name})"}.join(", ")
+        - unless users_map.empty?
+          %i.glyphicon.glyphicon-user.big{:rel => "tooltip", :title => users_map || "", :class => "assigned_users"}
+    %td= transaction.location.name if transaction.location
+    %td= transaction.close_sate.strftime('%b %d, %Y') unless transaction.close_sate.blank?

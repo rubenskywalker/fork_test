@@ -1,0 +1,30 @@
+- location_permissions = transaction.location.location_permissions.find_by_user_id(current_user.id)
+- if (location_permissions.l12? && transaction.user == current_user) || location_permissions.l2? || (current_user.super_admin? || current_user.p_all?)
+
+  %tr.transaction
+
+    %td.information
+      %span.glyphicon.glyphicon-info-sign{title: (render partial: "transactions/tooltip-information", locals: {transaction: transaction}).html_safe, data: {toggle: "html-tooltip", placement: "top"}}
+
+    %td.address
+      %a{href: transaction_path(transaction)}
+        = tname(@global_company.transaction_details.first, transaction)
+    
+    %td.status{class: (transaction.transaction_status.name.downcase if transaction.transaction_status)}
+      = transaction.transaction_status.name.capitalize if transaction.transaction_status
+    
+    %td.checklist
+      - if transaction.checklist_items.unchecked_only.any?
+        %span.label.label-default{title: (render partial: "transactions/tooltip-checklist", locals: {transaction: transaction}).html_safe, data: {toggle: "html-tooltip", placement: "top"}}
+          %span.number= "#{transaction.checklist_items.checked_only.length} / #{transaction.checklist_items.length}"
+          %span.progress-bar{:style => "width:#{bar_width(transaction.checklist_items.length, transaction.checklist_items.checked_only.length)}%"} 
+      - else
+        %span.label.label-default
+          %span.number= "#{transaction.checklist_items.checked_only.length} / #{transaction.checklist_items.length}"
+          %span.progress-bar{:style => "width:#{bar_width(transaction.checklist_items.length, transaction.checklist_items.checked_only.length)}%"} 
+      
+    %td.location.hidden-xs
+      = transaction.location.name if transaction.location
+    
+    %td.date.hidden-xs
+      = transaction.close_sate.strftime("%b %d, %Y") unless transaction.close_sate.blank?

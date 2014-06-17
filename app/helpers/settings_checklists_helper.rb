@@ -1,0 +1,2 @@
+module SettingsChecklistsHelper
+end

@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+    <head> 
+        <title>FlexPaper AdaptiveUI</title>                
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width" />
+        <style type="text/css" media="screen"> 
+			html, body	{ height:100%; }
+			body { margin:0; padding:0; overflow:auto; }   
+			#flashContent { display:none; }
+			a { color:#aaaaaa}
+        </style> 
+		
+		<link rel="stylesheet" type="text/css" href="css/flexpaper.css?r=1301149934" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.extensions.min.js?r=130102"></script>
+		<script type="text/javascript" src="js/flexpaper.js?r=130214222"></script>
+		<script type="text/javascript" src="js/flexpaper_handlers.js"></script>
+    </head> 
+    <body bgcolor="#222222">  
+    
+		<div id="documentViewer" class="flexpaper_viewer" style="position:absolute;left:10px;top:10px;width:80%;height:98%"></div>
+	        
+	        <script type="text/javascript">   
+		        function getDocumentUrl(document){
+					return "php/services/view.php?doc={doc}&format={format}&page={page}".replace("{doc}",document);	        
+		        }
+		         
+		        var startDocument = "Paper";
+				var td = (function(){try {return 'ontouchstart' in document.documentElement;} catch (e) {return false;} })();
+	        		if(td){$('#documentViewer').css({width:'100%',height:'100%'});}
+
+				$('#documentViewer').FlexPaperViewer(
+				 		{ config : {
+
+						 SwfFile : "samples/NZ_Tourism_2007.pdf.swf?r=121031",
+						 IMGFiles : "samples/NZ_Tourism_2007.pdf_{page}.png",
+						 ThumbIMGFiles : "samples/NZ_Tourism_2007.pdf_{page}_res_200.jpg", 
+						 JSONFile : "samples/NZ_Tourism_2007.pdf.js",
+						 PDFFile : "samples/NZ_Tourism_2007.pdf",
+
+						 key : '$8ed9d54d152a6cfe113',
+						 Scale : 0.6, 
+						 ZoomTransition : 'easeOut',
+						 ZoomTime : 0.5, 
+						 ZoomInterval : 0.2,
+						 FitPageOnLoad : true,
+						 FitWidthOnLoad : false, 
+						 FullScreenAsMaxWindow : false,
+						 ProgressiveLoading : false,
+						 MinZoomSize : 0.2,
+						 MaxZoomSize : 5,
+						 SearchMatchAll : true,
+					
+						 RenderingOrder : 'html,flash',
+						 EnableCornerDragging : true,
+
+						 ViewModeToolsVisible : true,
+						 ZoomToolsVisible : true,
+						 NavToolsVisible : true,
+						 CursorToolsVisible : true,
+						 SearchToolsVisible : true,
+  						 WMode : 'transparent',
+  						 localeChain: 'en_US'
+						 }});
+	        </script>  
+        
+<div style="position:absolute; left:82%; top:20px; font-size:15px;font-family:'District Thin', helvetica, arial;width:15%;font-weight:lighter;color:#aaaaaa" id="infobox">
+			You are currently viewing this document using HTML4 <br/><br/>Did you know that our <font style='color:#ffffff'>HTML5</font> mode doesn't require any
+ conversion of the document? <br/><br/><a href='NZ_Tourism_2007.php?ro=html5,html&prefer=true'>Click here</a> to try rendering this document using <font style='color:#ffffff'>HTML5</font>
+		</div>
+
+<script type="text/javascript"> 
+
+if(td){$('#infobox').hide();}
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+<script type="text/javascript"> 
+try {
+var pageTracker = _gat._getTracker("UA-10148899-3");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+<!-- Piwik --> 
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://www.devaldi.com/piwik/" : "http://www.devaldi.com/piwik/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src="http://www.devaldi.com/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+<!-- End Piwik Tracking Code -->
+
+
+
+   </body> 
+</html>

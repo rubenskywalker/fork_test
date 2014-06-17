@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  transaction_detail_id: 1
+  name: MyString
+
+two:
+  transaction_detail_id: 1
+  name: MyString

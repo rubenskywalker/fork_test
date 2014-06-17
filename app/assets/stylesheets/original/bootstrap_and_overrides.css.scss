@@ -1,0 +1,186 @@
+$navbarCollapseWidth: 768px;
+$navbar-height: 38px;
+$zindex-popover: 10101;
+
+.dropdown-menu {
+  z-index: 1000000000 !important;
+}
+.navbar-fixed-top, .navbar-fixed-bottom {
+  position: fixed !important;
+}
+.progress {
+  position: relative !important;
+  margin-bottom: 0 !important;
+}
+.progress span {
+    position: absolute;
+    z-index: 200;
+    color: #000;
+    text-align: center;
+    width: 100%;
+    left: 0;
+}
+.tooltip{
+  text-align: left !important;
+}
+.well-light {
+    background-color: #FFFFFF;
+}
+.well-dark {
+    background-color: #FFFFFF;
+}
+input, select {
+    margin-bottom: 0px !important;
+}
+.label {
+  font-size: 14px;
+
+}
+input.p, select.p {
+    margin-bottom: 10px !important;
+}
+
+
+body {
+   
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+#main_container {
+  
+}
+.main_nav > li > a {
+  font-size: 13px !important;
+  color: rgba(255,255,255,0.8) !important;
+}
+.main_nav_b > li > a {
+  font-size: 13px !important;
+}
+.main_nav > li > ul > li > a {
+  font-size: 13px !important;
+}
+.dropdown-menu {
+  z-index: 99999 !important;
+}
+.navbar .plbrand .plbrand-text {
+  color: rgba(255,255,255,0.8);
+  font-size: 1em;
+  line-height: 1px;
+}
+.super-label {
+    width: 100%;
+    
+    font-size: 14px;
+    line-height: 24px;
+}
+.left-text {
+    text-align: left !important;
+}
+.popover {
+  max-width: 500px !important
+}
+
+.login_bar li a{
+  background: none !important;
+}
+.light-gray {
+  background-color: #eeeeee !important;
+}
+
+h1 {
+font-size: 36px;
+}
+
+.left-text {
+    text-align: left;
+  }
+
+.panel-title {font-weight:bold;}
+  
+.noborder {
+      border-top:0 !important;
+    }
+
+.panel-default > .panel-heading {
+    background-color: #bbb;
+    color: white;
+  }
+
+.custom-row {
+    padding: 19px;
+  }
+
+.custom-row2 {
+    padding-bottom: 19px;
+  }
+
+.btn-custom {
+    background-color: #bbb;
+    color:white;
+    font-weight:bold;
+    font-size:16px;
+  }
+
+  .btn-custom:hover {
+            background-color: #aaa;
+    color:white;
+    font-weight:bold;
+  }
+
+.dashed-border {
+    border:2px dashed #ccc;
+  }
+
+
+.emailsmalltext {
+font-size: 11px;
+padding-bottom: 5px;
+}
+
+.custom-row3 {
+padding-bottom: 9px;
+}
+
+.paddedpanel {
+padding: 19px;
+background: white;
+}
+
+.login-wrapper {
+	width: 100%;
+	height: 100%;
+	margin: 20% auto 0 auto;
+}
+
+.login {
+  width: 360px;
+}
+
+.login-button {
+  width: 175px;
+  margin-right:5px;
+}
+
+
+.register-wrapper {
+	width: 100%;
+	height: 100%;
+	margin: 5% auto;
+}
+
+.register-container {
+	width: 66%;
+}
+
+.signup-button {
+      width: 100%;
+    
+    }
+.signup-text {
+    margin-right:5px;
+    }
+
+.center {
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+}

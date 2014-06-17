@@ -1,0 +1,30 @@
+.row
+  .col-md-12
+    %h1= "Edit #{tname(@global_company.transaction_details.first, @transaction)}"
+.row
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Transaction Details
+      .paddedpanel
+        = render "form"
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Contacts
+      .paddedpanel
+        = render "contacts/transaction", :transaction => @transaction
+          
+        .row
+          .outside_agents_well.hidden_item.defailt_padding
+            = render "contacts/new_form_add"
+    
+
+.row.defailt_padding
+  .col-md-12
+    %button.btn.btn-info.save_transaction
+      %i.glyphicon.glyphicon-ok 
+      Save
+    = link_to icon("share-alt", "Cancel"), transaction_path(@transaction), :class => "btn btn-default"
+    - unless disable_access(:destroy, @transaction)
+      = link_to icon("trash", "Delete Transaction"), transaction_path(@transaction), :method => :delete, :confirm => 'Are you sure?', :class => "btn btn-danger"

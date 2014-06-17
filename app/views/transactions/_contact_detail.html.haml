@@ -1,0 +1,36 @@
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th{:colspan => 2}
+        = contact.role.name if contact.role
+  %tbody
+    %tr
+      %td
+        %strong Name:
+      %td
+        .pull-right
+          = "#{contact.first_name} #{contact.last_name}"
+    %tr
+      %td
+        %strong Phone:
+      %td
+        .pull-right= contact.phone
+
+    %tr
+      %td
+        %strong Title:
+      %td
+        .pull-right= contact.info
+    %tr
+      %td
+        %strong Fax:
+      %td
+        .pull-right= contact.fax
+    %tr
+      %td
+        %strong Email:
+      %td
+        .pull-right= contact.email
+
+      
+

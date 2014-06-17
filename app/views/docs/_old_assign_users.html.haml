@@ -1,0 +1,9 @@
+- main_uid = []
+- User.all.each do |u|
+  - lp = @transaction.location.location_permissions.find_by_user_id(u.id)
+  - if (lp && lp.l2?) || u.super_admin? || u.p_all?
+    %i.glyphicon.glyphicon-user.big{:rel => "tooltip", :title => u.fullname, :class => "assigned_users", :style => "color: gray"}
+    - main_uid << u.id
+- doc.users.each do |user|
+  - unless main_uid.include?(user.id) || user == doc.user
+    %i.glyphicon.glyphicon-user.big{:rel => "tooltip", :title => user.fullname, :class => "assigned_users"}

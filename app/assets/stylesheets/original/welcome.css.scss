@@ -1,0 +1,265 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.defailt_padding {
+    padding-top: 20px;
+}
+ul.default {
+    list-style-type: none;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.dropdown-menu {
+z-index: 100000;
+}
+
+.tooltip-inner {
+    max-width: 400px;
+    font-size:14px;
+}
+
+.default_right_padding {
+    padding-right: 10px;
+}
+.text_center {
+  text-align: center;
+}
+.title_f {
+  font-size: 16px;
+}
+i.big {
+    font-size: 22px;
+}
+li.child {
+    margin-left: 30px;
+}
+.hidden_item {
+    display: none;
+}
+.contact_table th, .contact_table td { 
+  border-top: none; 
+  width: 200px;
+  height: 12px !important;
+}
+ 
+.htable th {
+  background-color: #efefef;
+  background-image: -webkit-gradient(linear, 0 0%, 0 100%, from(#fdfdfd), to(#eaeaea));
+  background-image: -webkit-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
+  background-image: -moz-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
+  background-image: -ms-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
+  background-image: -o-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
+  background-image: -linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdfdfd', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
+  border-bottom: 1px solid #CDCDCD;
+  border-right: 1px solid #CDCDCD;
+  border-top: 1px solid #CDCDCD;
+}
+.login_bar {
+    font-size: 9px;
+}
+.login_progress {
+    z-index: 10000000;
+    height: 16px;
+    width: 100px;
+    float: right;
+    margin-left: -180px;
+    margin-right: 35px;
+    margin-top: 33px;
+    margin-bottom: -40px;
+    z-index: 100000;
+    
+    
+}
+.login_progress .bar {
+  font-size: 10px;
+}
+
+.color_red {
+  color: red;
+}
+
+
+.drag {
+    width: 200px;
+    height: 20px;
+    border: 2px dashed #545e62; 
+    text-align: center;
+    padding-top: 2px;
+    border-radius:25px;
+}
+.popup_buttons_container {
+   text-align: center;
+    a {
+        width: 50px;
+    }
+}
+
+#loader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.0)  url('/assets/loader.gif') no-repeat center center;
+    left: 0;
+    top: 0;
+    z-index: 20000;
+    display: none;
+
+}
+.field_with_errors {
+    display: inline !important;
+}
+
+#user_state {
+  width: 92px;
+  margin-bottom: 10px !important;
+}
+.dragover {
+  background: #0088cc;
+}
+
+a.show_as {
+  color: #999;
+}
+span.drag {
+padding: 5px;
+}
+
+.plans {
+width: 380px;
+height: 400px;
+margin-left: 300px;
+}
+#super_alert {
+  margin-top: 40px;
+  margin-bottom: -40px;
+}
+.field_with_errors input {
+  color: #b94a48;
+  border-color: #b94a48;
+}
+input.error {
+  color: #ff0000;
+  border-color: #b94a48;
+}
+select.error {
+  color: #ff0000;
+  border-color: #b94a48;
+}
+input.valid {
+  color: #468847;
+  border-color: #468847;
+}
+
+////// CUSTOM NAV BAR
+.navbar-brand
+{
+ background: url(http://piratetesternow.com/wp-content/uploads/2013/10/logo_small.jpg) no-repeat left center;
+ height: 70px;
+ width: 210px;
+ margin-left: 0 !important;
+
+}
+
+
+.navbar-inverse
+{
+background-color: #000000;
+}
+
+.nav-tabs
+{
+border-bottom: 0px;
+}
+
+.well-light {
+	background-color: #FFFFFF;
+}
+
+a.tlabel {
+    color: white;
+}
+
+btn.nofloat {
+	float:none;
+}
+
+h3.heavy {
+  font-weight:bold;
+}
+
+.navbar
+ {
+     margin-bottom: 0px;
+
+ }
+
+.secondnavbar
+ {
+     margin-bottom: 0px;
+     min-height:40px;
+     height:40px;
+ }
+
+.firstnavbar {
+z-index: 1001;
+}
+
+.navbar-custom {
+    background-color:#000;
+    color:#ffffff;
+    border-radius:0;
+}
+
+.navbar-custom .navbar-nav > li > a {
+    color:#000;
+    background-color:#fafafa;
+    border-radius: 2px 2px 0 0;
+}
+.navbar-custom .navbar-nav > .active > a {
+    color: #000;
+    background-color:#EEEEEE;
+  	border-radius: 2px 2px 0 0;
+}
+
+.navbar-custom .navbar-nav > .active > a:hover  {
+    color: #fff;
+    background-color:#EEEEEE;
+  	border-radius: 2px 2px 0 0;
+}
+
+.navbar-custom .navbar-nav .navbar-inverse> .active > a:focus {
+    color: #fff;
+    background-color:#EEEEEE;
+  	border-radius: 2px 2px 0 0;
+}
+
+.customtab > li > a:hover {
+    background-color:#EEEEEE !important;
+}
+
+.customtab > li > a {
+  	padding-top: 10px;
+  	min-height:40px;
+    height:40px;
+  }
+
+.searchbox  {
+    border-radius: 2px;
+    height:25px;
+    margin-top: 5px;
+   
+  }
+  
+  
+.searchbtn {
+  border-radius: 2px;
+  height:25px;
+  padding-top: 0 !important;
+  margin-top: 5px;
+}
+
+
+
+

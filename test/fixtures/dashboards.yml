@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  transactions_summary: false
+  transactions_alosing: false
+  transaction_added: false
+  transactions_past: false
+  recent_activity: false
+  listings: false
+
+two:
+  transactions_summary: false
+  transactions_alosing: false
+  transaction_added: false
+  transactions_past: false
+  recent_activity: false
+  listings: false

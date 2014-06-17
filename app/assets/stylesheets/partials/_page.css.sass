@@ -1,0 +1,73 @@
+body
+
+  .page-header
+    +clearfix
+    margin-bottom: 30px
+    padding-bottom: 20px
+    border-bottom: 1px solid rgba(black, .1)
+  
+    .heading
+      float: left
+      margin: 0
+      font-weight: normal
+      font-size: 25px
+  
+    .actions
+      margin-left: 20px
+      float: right
+      .btn
+        float: left
+        margin-left: 15px
+
+  .page-sub-header
+    @extend .page-header
+    margin-bottom: 20px
+    .heading
+      font-size: 20px
+      color: rgba(black, .6)
+  
+  .page-actions
+    margin-bottom: 50px
+
+  .panel,
+  .panel-default,
+  .panel-primary
+    margin-bottom: 50px
+    background-color: transparent
+    border: 0
+  
+    > .panel-heading
+      margin-bottom: 20px
+      padding: 0
+      color: rgba(black, .6)
+      background-color: transparent
+      border: 0
+      .heading
+        margin: 2px 0 0
+        font-size: 20px
+        font-weight: normal
+
+    .panel-body
+      padding: 5px 20px 5px
+      background-color: white
+      border-radius: 3px
+      border: 1px solid #ddd
+  
+  .nav-tabs
+    .active
+      a
+        font-weight: bold
+    a
+      color: rgba(black, .6)
+    .number
+      margin-left: 15px
+      font-weight: normal
+      color: rgba(black, .4)
+  
+  .tab-content
+    clear: both
+    padding: 15px 15px 5px
+    background-color: white
+    border: 1px solid #ddd
+    .empty
+      margin-top: 0

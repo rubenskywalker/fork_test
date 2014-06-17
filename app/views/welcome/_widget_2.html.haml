@@ -1,0 +1,25 @@
+.panel.panel-default.nosortable_item{:id => dom_id(widget)}
+  .panel-heading
+    %h2.heading
+      %span.glyphicon.glyphicon-resize-vertical.hidden_item.dashboard_edit_mode_well
+      = "#{title}"
+      .pull-right.hidden_item.dashboard_edit_mode_well
+        = link_to icon("remove", ""), user_widget_path(current_user, widget), :class => "btn btn-danger btn-xs", :method => :delete, :confirm => "Are you sure?"
+  .panel-body
+
+    - if transactions.any?
+  
+      %table.transactions.transactions-table
+        %tr.headings
+          %th &nbsp;
+          %th Address
+          %th Status
+          %th Checklist
+          %th.hidden-xs Location
+          %th.hidden-xs Closing date
+        
+        - transactions.each do |transaction|
+          = render partial: "transactions/overview-list", locals: {transaction: transaction}
+    
+    - else
+      %p.empty No items yet.

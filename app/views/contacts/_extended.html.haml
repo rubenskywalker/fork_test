@@ -1,0 +1,23 @@
+%tr.contact_extended{:id => "extended_#{dom_id(contact)}"}
+  %td
+  %td{:colspan => 6}
+    %table.contact_table{:style => "width: 100%"}
+      %tr
+        %td
+          = image_tag contact.def_avatar, :size => "64x64", :style => "vertical-align: middle;"
+          %strong= contact.fullname
+      %tr
+        %td
+          %table.table.table-striped.table-condensed.sortable
+            %thead
+              %tr
+                %th Transaction Name
+                %th Status
+                - unless current_user.real_guest?
+                  %th Checklist
+                  %th Contacts
+                %th Location
+                %th{:style => "width: 120px"} Close Date
+            %tbody
+              - contact.attach_contacts.each do |ac|
+                = render "transactions/transaction", :transaction => ac.transaction

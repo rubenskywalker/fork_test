@@ -1,0 +1,26 @@
+.row
+  .col-md-12
+    %h1= "Edit #{@mail_template.category}" 
+
+.panel.panel-default
+  .panel-heading
+    %h3.heavy.panel-title= @mail_template.category
+        
+  .panel-body
+    = form_for(@mail_template, :method => :put) do |f|
+      .row
+        .form-group.col-sm-12
+          %label{for: "mail_template_body"}= "Please use this variables (#{@mail_template.variables_list}), ex. #verify_email_link"
+          = f.text_area :body, :class => "form-control", :rows => 20
+      .row
+        .col-md-12
+          %button.btn.btn-info
+            %i.glyphicon.glyphicon-ok 
+            Save
+    %h3 Send test email
+    = form_tag('/send_test_mail', :method => :get) do
+      .input-group.margin
+        = text_field_tag :mail, "", :placeholder => "Email" , :class => "form-control"
+        = hidden_field_tag :mail_template, @mail_template.id, :class => "form-control"
+        %span{:class => "input-group-btn"}
+          %button{:class => "btn btn-default", :type => "submit"} Go!

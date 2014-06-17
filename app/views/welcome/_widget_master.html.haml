@@ -1,0 +1,50 @@
+.container
+  %h1 Dashboard
+  .row.defailt_padding.dashboard_edit_mode_well
+    .col-md-12
+      %a.btn.btn-default{:href => ""}
+        %i.glyphicon.glyphicon-plus-sign
+        Add Transaction
+      %button.btn.btn-default.dashboard_edit_mode_on
+        %i.glyphicon.glyphicon-pencil
+        Edit Dashboard
+  %br/
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Transactions Past Their Closing Date
+    .panel-body
+      %table.table.table-striped.table-condensed.sortable
+        %thead
+          %tr
+            %th{:sortkey => "0", :style => "width: 300px", :value => "Transaction Name"} Transaction Name
+            %th{:sortkey => "1", :style => "width: 100px", :value => "Status"} Status
+            %th{:sortkey => "2", :style => "width: 200px", :value => "Checklist"} Checklist
+            %th{:sortkey => "3", :style => "width: 70px", :value => "Contacts"} Contacts
+            %th{:sortkey => "4", :style => "width: 200px", :value => "Location"} Location
+            %th{:sortkey => "5", :value => "Close Date"} Close Date
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Transactions Closing In The Next 30 Days
+    .panel-body
+      %table.table.table-striped.table-condensed.sortable
+        %thead
+          %tr
+            %th{:sortkey => "0", :style => "width: 300px", :value => "Transaction Name"} Transaction Name
+            %th{:sortkey => "1", :style => "width: 100px", :value => "Status"} Status
+            %th{:sortkey => "2", :style => "width: 200px", :value => "Checklist"} Checklist
+            %th{:sortkey => "3", :style => "width: 70px", :value => "Contacts"} Contacts
+            %th{:sortkey => "4", :style => "width: 200px", :value => "Location"} Location
+            %th{:sortkey => "5", :value => "Close Date"} Close Date
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Listings
+    .panel-body
+      %table.table.table-striped.table-condensed.sortable
+        %thead
+          %tr
+            %th{:sortkey => "0", :style => "width: 300px", :value => "Transaction Name"} Transaction Name
+            %th{:sortkey => "1", :style => "width: 100px", :value => "Status"} Status
+            %th{:sortkey => "2", :style => "width: 200px", :value => "Checklist"} Checklist
+            %th{:sortkey => "3", :style => "width: 70px", :value => "Contacts"} Contacts
+            %th{:sortkey => "4", :style => "width: 200px", :value => "Location"} Location
+            %th{:sortkey => "5", :value => "Close Date"} Close Date

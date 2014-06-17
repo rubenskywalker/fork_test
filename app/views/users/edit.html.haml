@@ -1,0 +1,37 @@
+.row.defailt_padding
+  .col-md-12
+    %h1 Edit User
+    = form_for @user, :url => user_path(@user), :method => :put do |f|
+      .row.defailt_padding
+        .col-md-12
+          .well.well-light
+            .row
+              .col-md-12
+                %table.table.table-condensed.table-hover
+                  %tbody
+                    %tr
+                      %td{:style => "width: 188px"}
+                        %strong First Name:
+                      %td= f.text_field :first_name, :class => "form-control input-xxlarge", :placeholder => "First Name"
+                    %tr
+                      %td{:style => "width: 188px"}
+                        %strong Last Name:
+                      %td= f.text_field :last_name, :class => "form-control input-xxlarge", :placeholder => "Last Name"
+                    %tr
+                      %td
+                        %strong Email:
+                      %td= f.text_field :email, :class => "form-control input-xxlarge", :placeholder => "Email"
+                    %tr
+                      %td
+                        %strong Transaction count:
+                      %td= f.text_field :transaction_count, :class => "form-control input-xxlarge", :placeholder => "Transaction count"
+                    %tr
+                      %td
+                        %strong Allow add users:
+                      %td= f.check_box :accept_users, :class => "form-control input-xxlarge", :placeholder => "Allow add users"
+      .row.defailt_padding
+        .col-md-12
+          %button.btn.btn-info
+            %i.glyphicon.glyphicon-ok 
+            Save
+          = link_to icon("share-alt", "Cancel"), "/users/console", :class => "btn btn-default"

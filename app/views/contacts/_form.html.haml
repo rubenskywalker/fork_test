@@ -1,0 +1,36 @@
+- role_present ||= nil
+= f.hidden_field :contact_only, :value => true
+= f.hidden_field :parent_id, :value => current_user.id
+- unless params[:controller] == "contacts"
+  .alert.alert-info
+    Add a contact to your transaction. Don`t worry, your contacts are private unless you share them.
+.row.defailt_padding
+  .col-md-6
+    = f.text_field :first_name, :class => "form-control p", :style => "width: 200px", :placeholder => "First Name"
+    = f.text_field :last_name, :class => "form-control p", :style => "width: 200px", :placeholder => "Last Name"
+    = f.text_field :email, :class => "form-control p", :style => "width: 200px", :placeholder => "Email"
+    = f.text_field :phone, :class => "form-control p", :style => "width: 200px", :placeholder => "Phone"
+    = f.text_field :contact_company, :class => "form-control p", :style => "width: 200px", :placeholder => "Company"
+  .col-md-6
+    = f.text_area :info, :class => "form-control", :placeholder => "Type your message to send with invitation (optional)", :style => "height: 160px"
+    %br
+    = f.check_box :send_welcome
+    - if @transaction
+      Send email invitation to view the transaction
+    - else
+      Send email invitation to be a guest user
+%hr
+- if role_present  
+  .row
+    .col-md-12
+      Add to transaction with role: 
+      = collection_select(:user, :role_id, Role.all, :id, :name, {:prompt => 'Please select role'}, {:style => "width: 165px", :class => "form-control"}) 
+
+.alert.created_alert.hidden_item.fade.in Contact successfully created
+.form-actions
+  = f.submit "Save", :class => "btn btn-info"
+  - if params[:controller] == "contacts"
+    = link_to "Cancel", "/contacts", :class => "btn btn-default"
+  - else
+    = link_to "Cancel", "#", :class => "outside_agents_btn create_contact_well_on btn btn-default"
+   

@@ -1,0 +1,35 @@
+.nav.navbar-nav
+  .navbar-inner
+    .container
+      %a.btn.navbar-btn{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+        %span.glyphicon.glyphicon-bar
+        %span.glyphicon.glyphicon-bar
+        %span.glyphicon.glyphicon-bar
+      %a.navbar-brand{:href => "/"} CMS
+      .nav-collapse.collapse
+        %ul.nav
+          %li.divider-vertical
+          %li
+            %a{:href => "#"}
+              %i.glyphicon.glyphicon-home.glyphicon.glyphicon-white
+              Home
+        .pull-right
+          %ul.nav.pull-right
+            %li.dropdown
+              %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                Welcome, User
+                %b.caret
+              %ul.dropdown-menu
+                %li
+                  %a{:href => "/user/preferences"}
+                    %i.glyphicon.glyphicon-cog
+                    Preferences
+                %li
+                  %a{:href => "/help/support"}
+                    %i.glyphicon.glyphicon-envelope
+                    Contact Support
+                %li.divider
+                %li
+                  %a{:href => "/auth/logout"}
+                    %i.glyphicon.glyphicon-off
+                    Logout

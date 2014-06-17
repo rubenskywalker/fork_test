@@ -1,0 +1,5 @@
+$('#checklists').append('<%= escape_javascript(render("checklist", :checklist => @checklist))%>')
+Hlp.Load.load_checklist_items()
+$(".add_an_checklist_well").hide()
+Hlp.Load.check_checklist_item()
+Hlp.Load.new_checklist_input()

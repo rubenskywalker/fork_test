@@ -1,0 +1,18 @@
+.col-md-4.col-md-offset-4.bottom_radius.black_box_inset_shadow{:style => "margin-top: 100px"}
+  = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+    = f.hidden_field :reset_password_token
+    .sign_up
+      .row
+        .col-md-12
+          %span.title_f NEW PASSWORD
+          = f.password_field :password, :style => 'width: 98%'
+          = f.hidden_field :current_password, :value => '111111'
+      .row.default_padding
+        .col-md-12
+          %span.title_f CONFIRM NEW PASSWORD
+          = f.password_field :password_confirmation, :style => 'width: 98%', :class => "p"
+
+      .row.default_padding
+        .col-md-12.text_center
+          = f.submit "Change my password", :class => 'btn btn-lg btn-primary'
+          

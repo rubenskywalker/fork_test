@@ -1,0 +1,11 @@
+.row
+  = render "header"
+.row.defailt_padding
+  .col-md-12.defailt_padding
+    %center
+      %h4 The owner of this email is already a member of piratetesternow.com - do you want to invite them to join your account?
+.row
+  .col-md-1.col-md-offset-5
+    = link_to "Yes", invitation_mail_settings_user_path(@settings_user), :class => "btn btn-info", :style => "width: 100%"
+  .col-md-1
+    = link_to "No", new_settings_user_path, :class => "btn btn-default", :style => "width: 100%"

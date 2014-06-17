@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  file: MyString
+  user_id: 1
+  docable_type: MyString
+  docable_id: 1
+
+two:
+  file: MyString
+  user_id: 1
+  docable_type: MyString
+  docable_id: 1

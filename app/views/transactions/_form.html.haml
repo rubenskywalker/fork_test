@@ -1,0 +1,127 @@
+
+= form_for @transaction, :html => {:id => "transaction_form"}, :method => "#{@transaction.new_record? ? 'post' : 'put'}" do |f|
+  = f.fields_for :attach_contacts do |builder|
+    = render "attach_contacts_fields", :f => builder
+  %table.table.table-condensed.table-hover
+    %tbody
+      - if !@transaction.new_record? && @commented
+        %tr
+          %td
+            %strong Lock transaction:
+          %td
+            .pull-right
+              = f.check_box :lock
+      %tr
+        %td
+          %strong Location *:
+        %td
+          .pull-right
+            - if current_user.super_admin? || current_user.p_all?
+              = collection_select(:transaction, :location_id, @global_company.locations.all, :id, :name, {:prompt => 'Please Choose'}, {:style => "width: 228px !important", :class => "tdvalid form-control"})
+            - else
+              = collection_select(:transaction, :location_id, @global_company.locations.for_user(current_user), :id, :name, {:prompt => 'Please Choose'}, {:style => "width: 228px !important", :class => "tdvalid"})
+      - if @transaction.new_record?
+        %tr
+          %td
+            %strong= "My Role in Transaction #{vnv(@td.what_role)}:"
+          %td
+            .pull-right
+              = collection_select(:transaction, :my_role, Role.all, :id, :name, {:prompt => 'Please Choose'}, {:class => "form-control #{vnv_css(@td.what_role)}", :style => "width: 228px !important"}) 
+      %tr
+        %td
+          %strong= "MLS #{vnv(@td.mls)}:"
+        %td
+          .pull-right
+            = f.text_field :mls, :class => "form-control #{vnv_css(@td.mls)}", :placeholder => "...", :style => "width: 228px !important"
+      %tr
+        %td
+          %strong= "Street Address 1 #{vnv(@td.address_1)}:"
+        %td
+          .pull-right 
+            = f.text_field :address_1, :class => "form-control char_valid #{vnv_css(@td.address_1)}", :placeholder => "...", :style => "width: 228px !important"
+      %tr
+        %td
+          %strong= "Street Address 2 #{vnv(@td.address_2)}:"
+        %td
+          .pull-right 
+            = f.text_field :address_2, :class => "form-control char_valid #{vnv_css(@td.address_2)}", :placeholder => "...", :style => "width: 228px !important"
+      %tr
+        %td
+          %strong= "City #{vnv(@td.city)}:"
+        %td
+          .pull-right 
+            = f.text_field :city, :class => "form-control char_valid #{vnv_css(@td.city)}", :placeholder => "...", :style => "width: 228px !important"
+      %tr
+        %td
+          %strong= "County #{vnv(@td.county)}:"
+        %td
+          .pull-right 
+            = f.text_field :county, :class => "form-control  #{vnv_css(@td.county)}", :placeholder => "...", :style => "width: 228px !important"
+      %tr
+        %td
+          %strong= "State #{vnv(@td.state)}:"
+        %td
+          .pull-right 
+            = state_select(:transaction, :state, 'US', {:include_blank => 'Please Choose'}, {:class=>"form-control  #{vnv_css(@td.state)}", :style => "width: 228px !important"})
+      %tr
+        %td
+          %strong= "Zip #{vnv(@td.zip)}:"
+        %td
+          .pull-right 
+            = f.text_field :zip, :class => "form-control  #{vnv_css(@td.zip)}", :placeholder => "...", :style => "width: 228px !important"
+
+      %tr
+        %td
+          %strong= "Status #{vnv(@td.t_status)}:"
+        %td
+          .pull-right
+            = f.select(:transaction_status_id, TransactionStatus.for_company(@global_company.id).checked_only.collect{|ts| ["#{ts.name}", ts.id] }, {include_blank: 'Please Choose'}, {:style => "width: 228px !important", :class => "#{vnv_css(@td.t_status)} form-control"})
+      %tr
+        %td
+          %strong= "Transaction type #{vnv(@td.t_type)}:"
+        %td
+          .pull-right
+            = collection_select(:transaction, :transaction_type_id, TransactionType.for_company(@global_company.id).checked_only, :id, :name, {:prompt => 'Please Choose'}, {:style => "width: 228px !important", :class => "#{vnv_css(@td.t_type)} form-control"})
+      %tr
+        %td
+          %strong= "Acceptance Date #{vnv(@td.acceptance_date)}:"
+        %td
+          .pull-right
+            = f.text_field :acceptance_date, :class => "form-control  #{vnv_css(@td.acceptance_date)} datepicker", :placeholder => "...", :style => "width: 228px !important"
+      %tr
+        %td
+          - close_sate_validate = f.object.new_record?  ? 0 : (!f.object.transaction_status.nil? && (f.object.transaction_status.category == "Pending" || f.object.transaction_status.category == "Closed") ? 1 : 0)
+          %strong#bhv_closing_date= "Closing Date #{vnv(close_sate_validate)}:"
+        %td
+          .pull-right
+            = f.text_field :close_sate, :class => "form-control  #{vnv_css(close_sate_validate)} datepicker", :placeholder => "...", :style => "width: 228px !important"
+      %tr
+        %td
+          %strong= "Expiration Date #{vnv(@td.expiration_date)}:"
+        %td
+          .pull-right
+            = f.text_field :expiration_date, :class => "form-control  #{vnv_css(@td.expiration_date)} datepicker", :placeholder => "...", :style => "width: 228px !important"
+      - unless @td.list_price == 2
+        %tr
+          %td
+          
+            %strong= "List Price #{vnv(@td.list_price)}:"
+          %td
+            .pull-right 
+              = f.text_field :list_price, :class => "form-control  #{vnv_css(@td.list_price)}", :placeholder => "...", :style => "width: 228px !important"
+      - unless @td.sale_price == 2
+        %tr
+          %td
+            %strong= "Sale Price #{vnv(@td.sale_price)}:"
+          %td
+            .pull-right 
+              = f.text_field :sale_price, :class => "form-control  #{vnv_css(@td.sale_price)}", :placeholder => "...", :style => "width: 228px !important"
+
+      %tr
+        %td
+          %strong Added By:
+        %td
+          .pull-right= current_user.name
+     
+          
+         

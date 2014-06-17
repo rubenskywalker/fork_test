@@ -1,0 +1,66 @@
+- @body_class = "home"
+
+
+.introduction
+  
+  .container
+
+    %h1
+      Be a Better Real Estate Broker
+  
+    %ul
+      %li
+        %strong
+          Impress clients
+        &mdash; keep your real estate deals organized and access documents anywhere
+      %li
+        %strong
+          Recruit Agents
+        &mdash; 24/7 virtual office where they can upload paperwork and organize files
+      %li
+        %strong
+          Save Money
+        &mdash; fewer staff needed to run your firm, and spend less on copiers and filing cabinets
+  
+  
+.feature
+
+  .container
+
+    .row
+    
+      .customer.col-md-7
+      
+        %blockquote
+          %p
+            "All our transactions, contacts, and notes are in TransactionBox. We use this software everyday and I can’t imagine running our business without it."
+          %cite
+            Milan Cole, JMA Properties
+      
+        %img.customer-photo{src: image_path("marketing/customer.png"), width: 380, height: 400}
+    
+      .col-md-5
+      
+        .signup-panel
+        
+          %h2
+            Start your free trial.
+        
+          %form{action: register_path, method: "get"}
+          
+            %input{type: "hidden", name: "plan_id", value: "free"}
+          
+            .form-group
+              %label{for: "name"} Your First Name
+              %input.form-control{type: "text", name: "name", id: "name"}
+          
+            .form-group
+              %label{for: "company"} Company or Organization
+              %input.form-control{type: "text", name: "company", id: "company"}
+          
+            .form-group
+              %label{for: "email"} Email Address
+              %input.form-control{type: "email", name: "email", id: "email"}
+          
+            .form-actions
+              %button.btn.btn-success.btn-block.btn-lg{type: "submit"} Start your 2 months free trial

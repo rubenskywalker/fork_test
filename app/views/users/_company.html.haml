@@ -1,0 +1,25 @@
+- owner = User.where(:super_admin => true, :company_id => company.id).first
+- if owner
+  %tr
+    %td= link_to(company.name, "#", :id => "name", "data-type" => "text", "data-pk" => "1", "data-url" => company_user_path(company.id), "data-original-title" => "Enter name", :class => "under_editable", :style => "color: #000")
+    %td
+      = owner.fullname
+      %br
+      =owner.email
+    %td= company.plan_name
+    %td= link_to((company.transactions_included == 0 ? "Unlimited" : company.transactions_included), "#", :id => "transactions_included", "data-type" => "text", "data-pk" => "1", "data-url" => company_user_path(company.id), "data-original-title" => "Enter transactions included (0 for Unlimited)", :class => "under_editable", :style => "color: #000")
+    %td= link_to((company.users_included == 0 ? "Unlimited" : company.users_included), "#", :id => "users_included", "data-type" => "text", "data-pk" => "1", "data-url" => company_user_path(company.id), "data-original-title" => "Enter users included (0 for Unlimited)", :class => "under_editable", :style => "color: #000")
+    %td= link_to(company.price_per_user, "#", :id => "price_per_user", "data-type" => "text", "data-pk" => "1", "data-url" => company_user_path(company.id), "data-original-title" => "Enter price per user", :class => "under_editable", :style => "color: #000")
+    %td= link_to(company.monthly_fee, "#", :id => "monthly_fee", "data-type" => "text", "data-pk" => "1", "data-url" => company_user_path(company.id), "data-original-title" => "Enter monthly fee", :class => "under_editable", :style => "color: #000")
+    %td
+      .btn-group
+        %button.btn.btn-default.btn-xs Actions
+        %button.btn.btn-default.btn-xs.dropdown-toggle{"data-toggle" => "dropdown"}
+          %span.caret
+        %ul.dropdown-menu
+          %li= link_to (company.is_lock? ? "Enable" : "Disable"), lock_company_user_path(company.id)
+          %li= link_to "Login as", "/users/switch_user?user_id=#{owner.id}"
+          %li= link_to "Delete Account", "#", :class => "delete_account", "data-id" => company.id, "data-url" => check_pass_user_path(current_user), "data-user_id" => current_user.id
+    
+    
+ 

@@ -1,0 +1,28 @@
+- date_to = Date.parse(Time.now.to_s)
+- date_from = Date.parse((Time.now - 5.month).to_s)
+- date_range = date_from..date_to
+- date_months = date_range.map {|d| Date.new(d.year, d.month, 1) }.uniq
+.panel.panel-blank.nosortable_item{:id => dom_id(widget), :class => current_user.widgets.first.position == widget.position ? "panel-primary" : "panel-default"}
+  .panel-heading
+    %h2.heading
+      %span.glyphicon.glyphicon-resize-vertical.hidden_item.dashboard_edit_mode_well
+      = "#{title}"
+      .pull-right.hidden_item.dashboard_edit_mode_well
+        = link_to icon("remove", ""), user_widget_path(current_user, widget), :class => "btn btn-danger btn-xs", :method => :delete, :confirm => "Are you sure?"
+  .panel-body
+    .row
+  
+      .col-sm-9
+        .graph
+          - content_for :extra_js do
+            = render "chart", :transactions => transactions, :date_months => date_months
+          .graph-canvas
+        
+      .statistics.col-sm-3
+        
+        - TransactionStatus::STATUSES.each_with_index do |ts, index|
+          - count = transactions.for_status(ts).count
+          %a.statistic{href: transactions_path}
+            %span.statistic-number= count
+            %span.statistic-label= ts
+  

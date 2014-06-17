@@ -1,0 +1,27 @@
+.panel.nosortable_item{:id => dom_id(widget), :class => current_user.widgets.first.position == widget.position ? "panel-primary" : "panel-default"}
+  .panel-heading
+    %h2.heading
+      %span.glyphicon.glyphicon-resize-vertical.hidden_item.dashboard_edit_mode_well
+      = "#{title}"
+      .pull-right.hidden_item.dashboard_edit_mode_well
+        = link_to icon("remove", ""), user_widget_path(current_user, widget), :class => "btn btn-danger btn-xs", :method => :delete, :confirm => "Are you sure?"
+  .panel-body
+
+    - if widget.myself? || widget.location_id == 0
+      - #ras = RecentActivity.where(:user_id => current_user.id).order("created_at DESC").limit(50)
+      - ras = RecentActivity.where(:transaction_id => Transaction.where(:location_id => widget.locations_list).map(&:id)).order("created_at DESC").limit(15)
+    - else
+      - ras = RecentActivity.where(:transaction_id => widget.location.transactions.map(&:id)).order("created_at DESC").limit(50)
+
+
+    %table.activities
+      - ras.each do |ra|
+        %tr.activity
+          %td.avatar= image_tag ra.user.def_avatar, :size => "40x40"
+          %td.name= ra.user.fullname
+          - message = ra.message.gsub("Transaction", "#{link_to("Transaction (#{tname(@global_company.transaction_details.first, ra.transaction)})", "#")}")
+          %td.message= message.gsub("Close sate", "Close date").html_safe
+          %td.time= "#{time_ago_in_words(ra.created_at)} ago"
+        
+    - if ras.empty?
+      %p.empty No activity yet.

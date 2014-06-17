@@ -1,0 +1,14 @@
+.col-md-4.col-md-offset-4.bottom_radius.black_box_inset_shadow{:style => "margin-top: 100px"}
+  = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+    .sign_up
+      .row
+        .col-md-12
+          %center Please enter your email address associated with account
+          = f.email_field :email, :style => 'width: 98%', :class => "p"
+
+      .row
+        .col-md-12.text_center
+          = f.submit "Send password instructions", :class => 'btn btn-lg btn-primary'
+      .row
+        .col-md-12.text_center=# link_to "Not yet a member? Sign up", "/users/sign_up" 
+          

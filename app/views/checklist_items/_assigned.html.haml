@@ -1,0 +1,6 @@
+- if current_user.super_admin? || current_user.p_all?
+  - docs_collection = checklist_item.docs
+- else
+  - docs_collection = checklist_item.docs.select{|doc| doc.users.map(&:id).include?(current_user.id) }
+
+= docs_collection.map{|l| link_to(l.filename, show_pdf_checklist_item_doc_path(checklist_item, l)+"?fname=#{l.filename}", :remote => true)}.join(", ").html_safe

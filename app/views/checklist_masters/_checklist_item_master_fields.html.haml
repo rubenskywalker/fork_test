@@ -1,0 +1,6 @@
+%fieldset.sortable_item{:id => dom_id(f.object)}
+  %br
+  %span.glyphicon.glyphicon-resize-vertical
+  = f.text_field :name, placeholder: 'Name', :class => "form-control", :style => "width: 300px"
+  = f.hidden_field :_destroy
+  = link_to icon("trash", "remove"), '#', class: 'remove_fields btn btn-danger'

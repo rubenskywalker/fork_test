@@ -1,0 +1,1 @@
+$('.delete_<%= dom_id(@checklist_item)%>').remove()

@@ -1,0 +1,26 @@
+.row.defailt_padding.toggle_well_plans.hidden_item
+  #card_well.col-md-12.well
+    %h4.upgrade_title
+    = form_for current_user, :url => upgrade_user_path(current_user), :method => :post, :html => {:id => "upgrade_form"} do |f|
+      = f.hidden_field :company_plan
+      = f.hidden_field :card_four
+      = f.hidden_field :plan_id, :value => "plan10"
+      = f.hidden_field :stripe_card_token
+      .field
+        = f.label :email
+        = f.text_field :email, style: "width: 98%", :class => "form-control"
+      .field
+        = label_tag :card_number, "Credit Card Number "
+        = text_field_tag :card_number, nil, name: nil, style: "width: 98%", :class => "form-control"
+      .field
+        = label_tag :card_code, "Security Code on Card (CVV)"
+        = text_field_tag :card_code, nil, name: nil, style: "width: 98%", :class => "form-control"
+      .field
+        = label_tag :card_month, "Card Expiration"
+        %br
+        = select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month", class: "form-control", style: "width: 200px; float: left; margin-right: 5px;"}
+        = select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", class: "form-control", style: "width: 200px; float: left;"}
+      .actions
+        %br
+        %br
+        = f.submit "Subscribe", :class => "btn btn-info"

@@ -1,0 +1,21 @@
+.row.defailt_padding
+  .col-md-12
+    .well.well-light
+      %h4
+        = f.check_box :send_welcome
+        Send this user a Welcome email
+      .row.defailt_padding
+        .col-md-12
+          %table.table.table-condensed.table-hover
+            %tbody
+              %tr
+                %td{:style => "width: 100px"}
+                  %i.glyphicon.glyphicon-envelope
+                  %strong Subject:
+                %td
+                  = f.text_field :welcome_subject, :style => "width: 98%", :placeholder => "Subject"
+              %tr
+                %td{:colspan => 2}
+                  = f.text_area :welcome_message, :placeholder => "Message", :style => "width: 98%", :rows => 7
+      #welcome_template.row.defailt_padding= render "welcome_template"
+        

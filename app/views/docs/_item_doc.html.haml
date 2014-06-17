@@ -1,0 +1,19 @@
+- doc_file_rand = "rand_doc_#{1+Random.rand(21890232190823212)}"
+%tr
+  %td{:style => "#{'border: none;' if i==0 }width: 425px;"}
+    %i.glyphicon.glyphicon-file.big
+    = link_to doc.filename, "#", "data-id" => doc_file_rand, :class => "show_doc_embed_file"
+  %td{:style => "width: 90px;#{'border: none;' if i==0 }"}
+    = link_to icon("download", "DL"), download_doc_path(doc), :class => "btn btn-info btn-xs", :target => "blank"
+       
+  %td{:style => "#{'border: none;' if i==0 }", :class => "users_#{dom_id(doc)}"}
+    = render "docs/assign_users_process", :doc => doc
+      
+      
+    
+  %td{:style => "#{'border: none;' if i==0 }width: 60px;"}
+    .pull-right
+      %input{:type => "checkbox"}
+%tr
+  %td.hidden_item.file_iframe{:colspan => 4, :style => "height: 900px", :id => doc_file_rand}
+    %iframe{:src => "http://docs.google.com/gview?url=#{show_file_doc_url(doc)}&embedded=true", :style => "width: 100%; height: 900px", :frameborder => 0}

@@ -1,0 +1,7 @@
+- mail_template = MailTemplate.find_by_category(MailTemplate::CATEGORIES_LIST[1]).body
+- mail_template = mail_template.gsub("#name_invitee", @user.fullname)
+- mail_template = mail_template.gsub("#name_inviter", @from_user.fullname)
+- mail_template = mail_template.gsub("#link_to_register", accept_invitation_settings_user_url(@invite.id))
+- mail_template = mail_template.gsub("#company_name", @from_user.company.name)
+
+= mail_template.html_safe

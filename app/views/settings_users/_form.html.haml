@@ -1,0 +1,38 @@
+.col-md-12
+  .well.well-light
+    .row
+      .col-md-12
+        = f.hidden_field :send_welcome, :value => true
+        %table.table.table-condensed.table-hover
+          %tbody
+            %tr
+              %td{:style => "width: 188px"}
+                %strong First Name:
+              %td= f.text_field :first_name, :class => "form-control input-xxlarge", :placeholder => "First Name"
+            %tr
+              %td{:style => "width: 188px"}
+                %strong Last Name:
+              %td= f.text_field :last_name, :class => "form-control input-xxlarge", :placeholder => "Last Name"
+            %tr
+              %td
+                %strong Email:
+              %td= f.text_field :email, :class => "form-control input-xxlarge", :placeholder => "Email"
+            
+            %tr
+              %td
+                %strong Title:
+              %td
+                %input.form-control.input-xxlarge{:placeholder => "Title", :type => "text"}/
+            
+            
+            %tr
+              %td
+                %strong Password:
+              %td= f.password_field :password, :class => "form-control input-xxlarge", :placeholder => "Password"
+            %tr
+              %td
+                %strong Re-enter password:
+              %td= f.password_field :password_confirmation, :class => "form-control input-xxlarge", :placeholder => "Re-enter password"
+
+
+           

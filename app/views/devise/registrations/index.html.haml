@@ -1,0 +1,26 @@
+.row
+  .col-md-3
+    = render "profile_mini"
+  .col-md-9
+    %h1.title.title_b Edit My Profile
+    .buttons_placeholder
+      = link_to "Photos #{content_tag(:span, current_user.photos.length)}".html_safe, my_photos_photos_path, :class => params[:profile] ? class_default_button : class_selected_button, :id =>'user_edit_photos_button', :remote => true
+      = link_to "Videos 0".html_safe, "/", :class => class_default_button
+      = link_to "Events", list_events_path, :class => class_default_button, :remote => true
+      = link_to "Blog", blogs_path, :class => class_default_button, :id =>'user_edit_blog_button', :remote => true
+      = text_field :search, :search, :class => 'search to_right', :id => 'my_page_filter', :style => "display:#{params[:profile] ? 'none' : '' }"
+
+= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true }) do |f|
+  .row{:id => 'my_profile_page'}
+    .col-md-3
+      = avatar current_user, 'profile', 'default_thumb_border'
+      %span.file-wrapper{:id => "profile_change_pictute_button"}
+        = f.file_field :avatar
+        - if params[:profile]
+          %button.button.btn.btn-inverse Change picture
+      = link_to "Edit Profile", "#{edit_user_registration_path}?profile=yes", :class => "button btn btn-inverse", :id => "profile_edit_button", :style => "display:#{params[:profile] ? 'none' : '' }"
+    = render params[:profile] ? "form" : "my_photos", :f => f
+
+
+
+

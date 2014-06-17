@@ -1,0 +1,27 @@
+%table.table.table-striped.table-condensed
+  %thead
+    %tr
+      %th Transaction Name
+      %th Role in transaction
+      %th Status
+      %th Checklist
+      %th Agents
+      %th Location
+      %th{:style => "width: 80px"} Close Date
+  %tbody
+    - if contact.transactions.empty?
+      %tr
+        %td{:colspan => 7, :style => "text-align: center;"} There is no transaction this contact is involved in
+    - contact.transactions.each do |transaction|
+      %tr
+        %td= link_to "#{transaction.city} / #{transaction.street}", transaction_path(transaction)
+        %td= contact.role.name if contact.role
+        %td
+          %span.label.label-success= transaction.status
+        %td.progress
+          .progress-bar{:style => "width: #{bar_width(transaction.checklists.length, transaction.checklists.completed.length)}%;"}
+            = "#{transaction.checklists.length} / #{transaction.checklists.completed.length}"
+          
+        %td 
+        %td= transaction.location.name if transaction.location
+        %td= transaction.close_sate

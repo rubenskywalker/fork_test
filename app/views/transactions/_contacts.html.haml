@@ -1,0 +1,13 @@
+- doc = @transaction.docs.first
+%table.transaction-contacts
+  %thead
+    %tr.headings
+      %th Name
+      %th Role
+      %th Company
+      %th Phone
+      - if current_user.super_admin? || current_user.p_all? || @transaction.user == current_user
+        %th{:style => "width: 100px"} Shared With
+      %th
+  %tbody#transaction_contacts
+    = render "mini_contact"

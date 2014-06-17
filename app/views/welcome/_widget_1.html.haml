@@ -1,0 +1,38 @@
+- date_to = Date.parse(Time.now.to_s)
+- date_from = Date.parse((Time.now - 12.month).to_s)
+- date_range = date_from..date_to
+- date_months = date_range.map {|d| Date.new(d.year, d.month, 1) }.uniq
+          
+.panel.nosortable_item{:id => dom_id(widget), :class => current_user.widgets.first.position == widget.position ? "panel-primary" : "panel-default"}
+  .panel-heading
+    %h2.heading
+      %span.glyphicon.glyphicon-resize-vertical.hidden_item.dashboard_edit_mode_well
+      = "#{title}"
+      .pull-right.hidden_item.dashboard_edit_mode_well
+        = link_to icon("remove", ""), user_widget_path(current_user, widget), :class => "btn btn-danger btn-xs", :method => :delete, :confirm => "Are you sure?"
+  .panel-body
+    %table.table.table-condensed.table-hover
+      %thead
+        %tr
+          %th 
+          - date_months.map {|d| d.strftime('%b') }.each do |m|
+            %th= m
+          %th
+            .pull-right
+              %span.label.label-info 2012 total
+          %th
+            .pull-right
+              %span.label.label-info 2013 total
+      %tbody
+        - TransactionStatus.for_company(@global_company.id).each do |ts|
+          
+          %tr
+            %td= ts.name
+            - date_months.map {|d| d.strftime('%b 1 %Y').downcase }.each do |m|
+              %td= transactions.widget_month_status(Date.parse(m), Date.parse(m) + 1.month, ts.id).length
+            
+            %td 
+              .pull-right 0
+            %td 
+              .pull-right= transactions.widget_month_status(Date.parse('jan 1 2013'), Date.parse('jan 1 2014'), ts.id).length
+     

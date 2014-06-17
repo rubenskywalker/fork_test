@@ -1,0 +1,63 @@
+- @body_class = "pricing"
+- content_for :title do
+  Pricing
+
+
+.introduction
+  
+  .container
+
+    %h1
+      Pricing
+  
+    %p Pricing
+  
+  
+.plans
+
+  .container
+      
+    .plan.free
+      
+      .actions
+        %a.btn.btn-success{:href => "/register/free"}
+          Get Started
+  
+      %h2
+        Free
+      %p
+        Free for 60 days, includes 1 user and 5 transactions
+
+    .row
+              
+      - DefaultPlan::PLANS[2..6].each_with_index do |p, index|
+        .col-md-4
+      
+          .plan
+            
+            .price
+              %span.unit $#{DefaultPlan::PRICES[index+2]}
+              %span.frequency /mo
+            
+            %h2= p
+            %ul
+              %li
+                #{DefaultPlan::USERS_INCLUDED[index+2]} users
+              %li
+                $#{DefaultPlan::PRICE_PER_USER[index+2]} per additional user
+                
+            .actions
+              %a.btn.btn-success.btn-block{:href => "/register/?plan_id=#{index+2}"}
+                Get Started
+
+    .plan.enterprise
+      
+      .actions
+        %a.btn.btn-default{href: "mailto:info@piratetesternow.com"}
+          Email us
+    
+      %h2
+        Enterprise
+      %p
+        Please contact us for details
+

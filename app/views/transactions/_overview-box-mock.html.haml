@@ -1,0 +1,23 @@
+%a.transaction-box{href: "#"}
+  
+  %span.photo.data{style: "background-image: url(#{image_path("transactions/no-photo.jpg")})"}
+
+  %span.information
+    %span.glyphicon.glyphicon-info-sign{title: (render "transactions/tooltip-information-mock").html_safe, data: {toggle: "html-tooltip", placement: "top"}}
+  
+  %span.address.data
+    2552 Poplar Ave, Memphis, Tennessee
+      
+  %span.status.data{class: status.downcase}
+    = status.capitalize
+    
+  %span.checklist.data{title: (render "transactions/tooltip-checklist-mock").html_safe, data: {toggle: "html-tooltip", placement: "top"}}
+    %span.label.label-default
+      %span.number 8 / 12
+      %span.progress-bar{:style => "width:50%"}
+  
+  %span.location.data
+    Main Office
+  
+  %span.date.data
+    24 Dec 2013

@@ -1,0 +1,106 @@
+.well
+  .pull-right
+  %table
+    %tbody
+      %tr
+        %td
+          %i.icon-user
+          %strong First Name:
+        %td
+          = link_to(current_user.first_name, "#", :id => "first_name", "data-type" => "text", "data-pk" => "1", "data-url" => profile_user_path(current_user), "data-original-title" => "Enter first name", :class => "super_editable", :style => "color: #000")
+      %tr
+        %td
+          %i.icon-user
+          %strong Last Name:
+        %td
+          = link_to(current_user.last_name, "#", :id => "last_name", "data-type" => "text", "data-pk" => "1", "data-url" => profile_user_path(current_user), "data-original-title" => "Enter first name", :class => "super_editable", :style => "color: #000")
+      %tr
+        %td
+          %i.glyphicon.glyphicon-envelope
+          %strong Email:
+        %td
+          = link_to(current_user.email, "#", :id => "email", "data-type" => "text", "data-pk" => "1", "data-url" => profile_user_path(current_user), "data-original-title" => "Enter first name", :class => "super_editable", :style => "color: #000")
+      - if current_user.super_admin? || current_user.p_all?
+        %tr
+          %td
+            %i.icon-building
+            %strong Company:
+          %td
+            = link_to(current_user.company.name, "#", :id => "company_name", "data-type" => "text", "data-pk" => "1", "data-url" => profile_user_path(current_user), "data-original-title" => "Enter company name", :class => "super_editable", :style => "color: #000")
+      - elsif current_user.real_guest?
+        %tr
+          %td
+            %i.icon-building
+            %strong Company:
+          %td
+            = link_to(current_user.contact_company, "#", :id => "contact_company", "data-type" => "text", "data-pk" => "1", "data-url" => profile_user_path(current_user), "data-original-title" => "Enter company name", :class => "super_editable", :style => "color: #000")
+      - else
+        %tr
+          %td
+            %i.glyphicon.glyphicon-envelope
+            %strong Company:
+          %td= current_user.contact_company.blank? ? current_user.company.name : current_user.contact_company   
+      %tr
+        %td
+          %i.glyphicon.glyphicon-user
+          %strong Avatar:
+        %td
+          = link_to "Click for change", "#", :class => "add_avatar"
+      %tr.hidden_item.add_avatar_well
+        %td{:colspan => 2}
+          = form_for @user=current_user, :url => small_update_settings_user_path(current_user), :method => :put, :html => { :multipart => true } do |f|
+            = f.file_field :avatar, :style => "width: 98%", :placeholder => "Avatar", :class => "form-control"
+            %br
+            %br
+            %button.btn.btn-info
+              %i.glyphicon.glyphicon-ok 
+              Save
+      %tr
+        %td
+          %i.icon-lock
+          %strong Password:
+        %td
+          = link_to "Click for change", "#", :class => "add_widget"
+      
+      %tr.hidden_item.add_widget_well
+        %td{:colspan => 2}
+          = form_for @user=current_user, :url => small_update_settings_user_path(current_user), :method => :put do |f|
+            = f.password_field :password, :style => "width: 98%", :placeholder => "Password", :class => "form-control"
+            %br
+            %br
+            = f.password_field :password_confirmation, :style => "width: 98%", :placeholder => "Password Confirmation", :class => "form-control"
+            %br
+            %br
+            %button.btn.btn-info
+              %i.glyphicon.glyphicon-ok 
+              Save
+      %tr
+        %td
+          %i.icon-dropbox
+          %strong Dropbox backup:
+        %td
+          = link_to current_user.dropbox_code.blank? ? "Click for setup" : "Click for change", "#", :class => "add_dropbox"
+      - unless current_user.dropbox_code.blank?
+        %tr
+          %td{:colspan => 2}= link_to "Backup New", dropbox_sync_settings_user_path(current_user), :class => "btn btn-info"
+        %tr
+          %td{:colspan => 2}= link_to "Backup Verify", dropbox_sync_verify_settings_user_path(current_user), :class => "btn btn-info"
+        %tr
+          %td{:colspan => 2}= link_to "Upload new", dropbox_restore_settings_user_path(current_user), :class => "btn btn-info"
+        %tr
+          %td{:colspan => 2}
+            %hr{:style => "margin:0; padding:0;"}
+            %span.login_bar= "Dropbox account: #{DropboxSync.new(:access_token => current_user.dropbox_code).account_info()['email']}"
+            %br
+            %span.login_bar= "Last backup: #{current_user.last_dropbox_backup.blank? ? 'Never' : current_user.last_dropbox_backup.strftime('%b %d, %Y')}"
+      %tr.hidden_item.add_dropbox_well
+        %td{:colspan => 2}
+          = link_to "Get Dropbox Auth Code", DropboxSync.auth_link, :target => :blank
+          %br
+          = form_for @user=current_user, :url => dropbox_code_settings_user_path(current_user), :method => :put do |f|
+            = f.text_area :dropbox_code, :style => "width: 98%", :rows => 3, :placeholder => "Dropbox Auth Code"
+            %br
+            %br
+            %button.btn.btn-info
+              %i.glyphicon.glyphicon-ok 
+              Save

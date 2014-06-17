@@ -1,0 +1,53 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+          
+    %title= content_for?(:title) ? yield(:title) + " &mdash; Transaction Box".html_safe : "Transaction Box"
+    = csrf_meta_tags
+    = stylesheet_link_tag "marketing"
+    = javascript_include_tag "marketing"
+
+  %body{class: "#{params[:controller]} #{params[:action]} #{@body_class}", id: params[:controller].to_param}
+    
+    %header
+      .container
+        
+        %a.brand{href: "/home"}
+          %img{src: image_path("marketing/logo.png"), width: 260, height: 35}
+          
+        %a.navbar-toggle{data: {toggle: "collapse", target: "#header-navbar"}}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        
+        %nav#header-navbar.navbar-collapse.collapse
+          .link
+            %a{href: "/home/features"} Features
+            %p Latest features
+          .link
+            %a{href: "/home/pricing"} Pricing
+            %p Starts at $20/month
+          .link
+            %a{href: register_path({plan_id: "free"})} 60-day free trial
+            %p Start using right now
+          %a.btn.btn-primary{href: new_user_session_path}
+            Login
+    
+    = yield
+    
+    %footer
+      .container
+        
+        %nav
+          %a{href: "/home"}
+            Home
+          %a{href: "/home/features"}
+            Features
+          %a{href: "/home/pricing"}
+            Pricing
+        
+        %p.copyright
+          &copy;#{Date.today.year} piratetesternow.com LLC

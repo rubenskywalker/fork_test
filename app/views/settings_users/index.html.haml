@@ -1,0 +1,21 @@
+.row
+  .col-md-12
+    %h1 Users
+- unless @global_company.users_ended? 
+  .row.defailt_padding
+    .col-md-12
+      = link_to icon("plus-sign", "Add User"), new_settings_user_path, :class => "btn btn-default"
+.row.defailt_padding
+  .col-md-12
+    .well.well-light
+      %table.table.table-condensed.table-hover
+        %thead
+          %tr
+            %th User
+            %th Email
+            %th 
+              .pull-right Actions
+        %tbody
+          = render :partial => "user", :collection => @settings_users
+            
+            

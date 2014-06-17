@@ -1,0 +1,31 @@
+.row
+  .col-md-12
+    %h1 Contacts
+.row.defailt_padding
+  .col-md-12
+    %button.btn.btn-default.create_contact_well_on
+      %i.glyphicon.glyphicon-plus-sign 
+      Add Contact
+    = link_to icon("upload", "Export contacts"), export_contacts_path, :class => "btn btn-default" unless (current_user.real_guest? || @global_company.real_free?)
+.row.defailt_padding.hidden_item.create_contact_well
+  .col-md-12
+    .well
+      = form_for @contact = User.new(), :url => contacts_path, :html => {:class => "json_validate"}, :remote => true do |f|
+        = render "form", :f => f
+     
+      
+
+.row.defailt_padding
+  .col-md-12
+    .well.well-light
+      %table.table.table-condensed.sortable
+        %thead
+          %tr.contact_sort
+            %th
+            %th Name
+            %th Company
+            %th Email
+            %th Phone
+            %th
+        %tbody
+          = render :partial => "contact", :collection => @users

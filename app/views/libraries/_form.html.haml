@@ -1,0 +1,10 @@
+.row.defailt_padding
+  .col-md-12
+    = f.text_field :name, :class => "form-control input-xlarge p", :placeholder => "Category name"
+%hr
+  
+.row.defailt_padding
+  .col-md-12
+    = f.submit "Save", :class => "btn btn-info"
+    = link_to icon("share-alt", "Cancel"), "#", :class => "create_contact_well_on btn"
+       

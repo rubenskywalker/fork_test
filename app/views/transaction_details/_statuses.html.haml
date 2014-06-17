@@ -1,0 +1,19 @@
+- TransactionStatus::STATUSES.each_with_index do |ts, index|
+  %tr
+    %td= ts
+  .row{:style => "margin-bottom: 10px; background: #eeeeee"}
+    .col-md-2{:style => "padding: 15px 10px 10px 10px"}
+      %strong= ts
+    .col-md-3{:style => "padding-bottom: 10px"}
+      - @transaction_detail.transaction_statuses.where(:category => ts).each do |tt|
+        %p
+        - unless tt.sub_category?
+          - if tt.transactions.length > 0
+            = link_to icon("trash", "D"), "#", :class => "btn btn-xs btn-danger transactions_inside", "data-name" => "transaction status"
+          - else
+            = link_to icon("trash", "D"), transaction_status_path(tt), :class => "btn btn-xs btn-danger", :method => :delete, :confirm => "Are you sure?"
+          &nbsp;
+  
+        = link_to(tt.name, "#", :id => "name", "data-type" => "text", "data-pk" => "1", "data-url" => update_name_transaction_status_path(tt), "data-original-title" => "Enter name", :class => "super_editable", :style => "color: #000")
+        &nbsp;
+        = link_to "(#{tt.transactions.length})", in_status_transaction_path(tt.id)

@@ -1,0 +1,13 @@
+- main_uid = []
+- user_names = []
+- @global_company.users.each do |u|
+  - lp = @transaction.location.location_permissions.find_by_user_id(u.id)
+  - #if (lp && lp.l2?) || u.super_admin? || u.p_all?
+  - if u.super_admin? || u.p_all?
+    - user_names << u.fullname
+- contact_sharing.users.each do |user|
+  - unless main_uid.include?(user.id) || user == contact_sharing.user
+    - user_names << user.fullname
+
+%i.glyphicon.glyphicon-user.big{:rel => "tooltip", :title => user_names.join(", "), :class => "assigned_users"}
+%span= contact_sharing.users_assigned? ? "(#{user_names.length})" : "(ALL)"

@@ -1,0 +1,5 @@
+= link_to "Show / Hide Category", "#", :class => "default_right_padding show_hide_all_details", "data-child-id" => "cl_#{dom_id(library)}"
+- unless library.docs.empty?
+  = link_to "Remove Category", "#", :class => "default_right_padding docs_inside"
+- else
+  = link_to "Remove Category", library_path(library), :class => "default_right_padding", :method => :delete, :confirm => "Are you sure?" unless disable_access(:manage, Library.last)

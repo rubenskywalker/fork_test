@@ -1,0 +1,21 @@
+- unless library.is_default? && @global_company.real_free?
+  .panel.panel-default{:id => dom_id(library)}
+    .panel-heading
+      %h3.heavy.panel-title
+        %span= library.is_default? ? "Company Documents" : "My Documents"
+    .panel-body
+      %div
+        = render "table", :category => 2, :library => library
+        - unless library.is_default? && disable_access(:manage, Library.last)
+          .row.custom-row
+            .col-md-12
+              .well.dashed-border{:id => "drop_upload_button_#{dom_id(library)}"}
+                %button.btn.btn-info.uploader_button{:upload_path => library_docs_path(library), :id => "upload_button_#{dom_id(library)}", :upload_container => "library_doc_#{dom_id(library)}", :process_view => "library_progress", :after_view => "library_doc" }
+                  %i.glyphicon.glyphicon-upload 
+                  Upload new document
+                %button.btn.btn-info.default_right_padding
+                  %i.glyphicon.glyphicon-envelope 
+                  Send it via email attachment
+                = icon("arrow-down", "or Drag n Drop here")
+        
+    

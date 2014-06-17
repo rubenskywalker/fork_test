@@ -1,0 +1,10 @@
+- if (!disable_access(:create, user) && user != current_user) || current_user.super_admin? 
+  - unless user.super_admin? || user.real_guest?
+    %tr
+      %td= "#{user.first_name} #{user.last_name}"
+      %td= user.email
+      %td
+        .pull-right
+          = link_to icon("pencil", "Edit"), edit_settings_user_path(user), :class => "btn btn-xs btn-info" unless user.super_admin?
+          = link_to icon("trash", "Remove"), settings_user_path(user), :class => "btn btn-xs btn-info", :method => :delete, :confirm => "Are you sure?" unless user == current_user || user.super_admin?
+          = link_to icon("user", (user.is_locked? ? "Enable" : "Disable")), lock_user_path(user), :class => "btn btn-xs btn-info" unless user == current_user || user.super_admin?

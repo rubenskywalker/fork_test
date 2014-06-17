@@ -1,0 +1,38 @@
+%tr.contact_extended{:id => "extended_#{dom_id(contact)}"}
+  %td
+  %td{:colspan => 6}
+    %table.contact_table
+      %tr
+        %td Name:
+        %td=contact.fullname
+        %td Street:
+        %td=contact.address
+        %td{:rowspan => 6, :style => "width: 400px"}
+          Notes:
+          %br
+          =contact.info 
+      %tr
+        %td Company:
+        %td=contact.company
+        %td City:
+        %td=contact.city
+      %tr
+        %td Home:
+        %td=contact.home_phone
+        %td Zip Code:
+        %td=contact.zip
+      %tr
+        %td Work:
+        %td=contact.phone
+        %td
+        %td
+      %tr
+        %td Mobile:
+        %td=contact.mobile_phone
+        %td
+        %td
+      %tr
+        %td Fax:
+        %td=contact.fax
+        %td
+        %td

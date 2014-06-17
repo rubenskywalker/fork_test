@@ -1,0 +1,69 @@
+### DON`T DELETE!!!
+
+User Load (1.2ms)  SELECT "users".* FROM "users" WHERE "users"."id" = 44 LIMIT 1
+  Company Load (0.7ms)  SELECT "companies".* FROM "companies" WHERE "companies"."id" = 14 LIMIT 1
+  Transaction Load (0.6ms)  SELECT "transactions".* FROM "transactions" WHERE "transactions"."id" = ? LIMIT 1  [["id", "40"]]
+   (0.2ms)  begin transaction
+  User Exists (31.8ms)  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'j@ty.com' LIMIT 1
+Binary data inserted for `string` type on column `encrypted_password`
+  SQL (23.1ms)  INSERT INTO "users" ("accept_users", "address", "avatar", "city", "company_id", "contact_company", "contact_only", "created_at", "current_sign_in_at", "current_sign_in_ip", "email", "encrypted_password", "extra_admin", "fax", "first_name", "home_phone", "info", "is_locked", "last_name", "last_sign_in_at", "last_sign_in_ip", "mobile_phone", "name", "p_all", "p_library", "p_master", "parent_id", "phone", "plan", "remember_created_at", "reset_password_sent_at", "reset_password_token", "role_id", "send_welcome", "sign_in_count", "state", "super_admin", "transaction_count", "updated_at", "welcome_message", "welcome_subject", "zip") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["accept_users", false], ["address", nil], ["avatar", nil], ["city", nil], ["company_id", nil], ["contact_company", "93450934850"], ["contact_only", true], ["created_at", [], ["current_sign_in_at", nil], ["current_sign_in_ip", nil], ["email", "j@ty.com"], ["encrypted_password", "$2a$10$ag3kg5TyiNzjBfSG6T.8kuMqu72.v0tJhsrdjFEmsBaRETYmUXZ06"], ["extra_admin", nil], ["fax", nil], ["first_name", "Ljdgiojdf"], ["home_phone", nil], ["info", "3495834905"], ["is_locked", nil], ["last_name", "gdfklgjldkfgj"], ["last_sign_in_at", nil], ["last_sign_in_ip", nil], ["mobile_phone", nil], ["name", nil], ["p_all", false], ["p_library", false], ["p_master", false], ["parent_id", 44], ["phone", "90423904"], ["plan", "none"], ["remember_created_at", nil], ["reset_password_sent_at", nil], ["reset_password_token", nil], ["role_id", 1], ["send_welcome", false], ["sign_in_count", 0], ["state", nil], ["super_admin", false], ["transaction_count", 1], ["updated_at", [], ["welcome_message", nil], ["welcome_subject", nil], ["zip", nil]]
+  SQL (23.4ms)  INSERT INTO "payment_items" ("company_id", "created_at", "deleted_at", "itemable_id", "itemable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["company_id", nil], ["created_at", [], ["deleted_at", nil], ["itemable_id", 45], ["itemable_type", "User"], ["updated_at", []]
+  SQL (21.5ms)  INSERT INTO "widgets" ("closing_in", "created_at", "dashboard_id", "location_id", "month_name", "myself", "position", "ra_for", "updated_at", "user_id", "widget_date", "widget_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["closing_in", nil], ["created_at", [], ["dashboard_id", nil], ["location_id", 0], ["month_name", nil], ["myself", false], ["position", nil], ["ra_for", nil], ["updated_at", [], ["user_id", 45], ["widget_date", nil], ["widget_type", "transactions_summary"]]
+   (1.1ms)  UPDATE "widgets" SET "widget_type" = 'transactions_summary', "location_id" = 0, "user_id" = 45, "created_at" = '2013-06-18 18:42:06.201533', "updated_at" = '2013-06-18 18:42:06.201533', "position" = 1 WHERE "widgets"."id" = 132
+  Location Load (0.2ms)  SELECT "locations".* FROM "locations" WHERE "locations"."id" = 0 LIMIT 1
+  SQL (22.2ms)  INSERT INTO "widgets" ("closing_in", "created_at", "dashboard_id", "location_id", "month_name", "myself", "position", "ra_for", "updated_at", "user_id", "widget_date", "widget_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["closing_in", nil], ["created_at", [], ["dashboard_id", nil], ["location_id", 0], ["month_name", nil], ["myself", false], ["position", nil], ["ra_for", nil], ["updated_at", [], ["user_id", 45], ["widget_date", nil], ["widget_type", "transactions_past"]]
+   (0.4ms)  UPDATE "widgets" SET "widget_type" = 'transactions_past', "location_id" = 0, "user_id" = 45, "created_at" = '2013-06-18 18:42:06.241800', "updated_at" = '2013-06-18 18:42:06.241800', "position" = 2 WHERE "widgets"."id" = 133
+  Location Load (0.2ms)  SELECT "locations".* FROM "locations" WHERE "locations"."id" = 0 LIMIT 1
+  SQL (21.1ms)  INSERT INTO "widgets" ("closing_in", "created_at", "dashboard_id", "location_id", "month_name", "myself", "position", "ra_for", "updated_at", "user_id", "widget_date", "widget_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["closing_in", nil], ["created_at", [], ["dashboard_id", nil], ["location_id", 0], ["month_name", nil], ["myself", false], ["position", nil], ["ra_for", nil], ["updated_at", [], ["user_id", 45], ["widget_date", nil], ["widget_type", "transactions_alosing"]]
+   (0.3ms)  UPDATE "widgets" SET "widget_type" = 'transactions_alosing', "location_id" = 0, "user_id" = 45, "created_at" = '2013-06-18 18:42:06.278079', "updated_at" = '2013-06-18 18:42:06.278079', "position" = 3 WHERE "widgets"."id" = 134
+  Location Load (0.2ms)  SELECT "locations".* FROM "locations" WHERE "locations"."id" = 0 LIMIT 1
+  SQL (21.2ms)  INSERT INTO "widgets" ("closing_in", "created_at", "dashboard_id", "location_id", "month_name", "myself", "position", "ra_for", "updated_at", "user_id", "widget_date", "widget_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["closing_in", nil], ["created_at", [], ["dashboard_id", nil], ["location_id", 0], ["month_name", nil], ["myself", false], ["position", nil], ["ra_for", nil], ["updated_at", [], ["user_id", 45], ["widget_date", nil], ["widget_type", "transaction_added"]]
+   (0.4ms)  UPDATE "widgets" SET "widget_type" = 'transaction_added', "location_id" = 0, "user_id" = 45, "created_at" = '2013-06-18 18:42:06.314421', "updated_at" = '2013-06-18 18:42:06.314421', "position" = 4 WHERE "widgets"."id" = 135
+  Location Load (0.2ms)  SELECT "locations".* FROM "locations" WHERE "locations"."id" = 0 LIMIT 1
+  SQL (21.3ms)  INSERT INTO "widgets" ("closing_in", "created_at", "dashboard_id", "location_id", "month_name", "myself", "position", "ra_for", "updated_at", "user_id", "widget_date", "widget_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["closing_in", nil], ["created_at", [], ["dashboard_id", nil], ["location_id", 0], ["month_name", nil], ["myself", false], ["position", nil], ["ra_for", nil], ["updated_at", [], ["user_id", 45], ["widget_date", nil], ["widget_type", "listings"]]
+   (0.4ms)  UPDATE "widgets" SET "widget_type" = 'listings', "location_id" = 0, "user_id" = 45, "created_at" = '2013-06-18 18:42:06.350858', "updated_at" = '2013-06-18 18:42:06.350858', "position" = 5 WHERE "widgets"."id" = 136
+  Location Load (0.2ms)  SELECT "locations".* FROM "locations" WHERE "locations"."id" = 0 LIMIT 1
+  SQL (20.7ms)  INSERT INTO "widgets" ("closing_in", "created_at", "dashboard_id", "location_id", "month_name", "myself", "position", "ra_for", "updated_at", "user_id", "widget_date", "widget_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["closing_in", nil], ["created_at", [], ["dashboard_id", nil], ["location_id", 0], ["month_name", nil], ["myself", false], ["position", nil], ["ra_for", nil], ["updated_at", [], ["user_id", 45], ["widget_date", nil], ["widget_type", "recent_activity"]]
+   (0.3ms)  UPDATE "widgets" SET "widget_type" = 'recent_activity', "location_id" = 0, "user_id" = 45, "created_at" = '2013-06-18 18:42:06.386528', "updated_at" = '2013-06-18 18:42:06.386528', "position" = 6 WHERE "widgets"."id" = 137
+  Location Load (0.2ms)  SELECT "locations".* FROM "locations" WHERE "locations"."id" = 0 LIMIT 1
+   (2.7ms)  commit transaction
+   (0.2ms)  begin transaction
+  SQL (20.5ms)  INSERT INTO "attach_contacts" ("contact_id", "created_at", "role_id", "transaction_id", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?)  [["contact_id", nil], ["created_at", [], ["role_id", 1], ["transaction_id", 40], ["updated_at", [], ["user_id", 45]]
+  Transaction Load (0.5ms)  SELECT "transactions".* FROM "transactions" WHERE "transactions"."id" = 40 LIMIT 1
+  Doc Load (0.4ms)  SELECT "docs".* FROM "docs" INNER JOIN "doc_accesses" ON "docs"."id" = "doc_accesses"."doc_id" WHERE "doc_accesses"."docable_id" = 40 AND "doc_accesses"."docable_type" = 'Transaction'
+   (1.9ms)  commit transaction
+  Role Load (0.5ms)  SELECT "roles".* FROM "roles" WHERE "roles"."id" = 1 ORDER BY sorting ASC LIMIT 1
+   (0.2ms)  begin transaction
+  SQL (21.5ms)  INSERT INTO "recent_activities" ("created_at", "message", "note_id", "transaction_id", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", [], ["message", "added Ljdgiojdf gdfklgjldkfgj as a Seller"], ["note_id", nil], ["transaction_id", 40], ["updated_at", [], ["user_id", 44]]
+   (2.4ms)  commit transaction
+  SQL (1.3ms)  SELECT "attach_contacts"."id" AS t0_r0, "attach_contacts"."contact_id" AS t0_r1, "attach_contacts"."transaction_id" AS t0_r2, "attach_contacts"."role_id" AS t0_r3, "attach_contacts"."created_at" AS t0_r4, "attach_contacts"."updated_at" AS t0_r5, "attach_contacts"."user_id" AS t0_r6, "roles"."id" AS t1_r0, "roles"."user_id" AS t1_r1, "roles"."name" AS t1_r2, "roles"."created_at" AS t1_r3, "roles"."updated_at" AS t1_r4, "roles"."level" AS t1_r5, "roles"."sorting" AS t1_r6 FROM "attach_contacts" LEFT OUTER JOIN "roles" ON "roles"."id" = "attach_contacts"."role_id" WHERE "attach_contacts"."transaction_id" = 40 ORDER BY roles.level
+  User Load (0.8ms)  SELECT "users".* FROM "users" WHERE "users"."id" = 44 LIMIT 1
+  Rendered transactions/_contact_detail.html.haml (218.0ms)
+  Rendered contacts/_contact_item.html.haml (243.6ms)
+  User Load (0.8ms)  SELECT "users".* FROM "users" WHERE "users"."id" = 45 LIMIT 1
+  Role Load (0.4ms)  SELECT "roles".* FROM "roles" WHERE "roles"."id" = 1 ORDER BY sorting ASC LIMIT 1
+  Rendered transactions/_contact_detail.html.haml (11.5ms)
+  Rendered contacts/_contact_item.html.haml (22.6ms)
+  Location Load (0.5ms)  SELECT "locations".* FROM "locations" WHERE "locations"."id" = 23 LIMIT 1
+  LocationPermission Load (1.1ms)  SELECT "location_permissions".* FROM "location_permissions" WHERE "location_permissions"."location_id" = 23 AND "location_permissions"."user_id" = 44 LIMIT 1
+  AttachContact Load (0.7ms)  SELECT "attach_contacts".* FROM "attach_contacts" WHERE "attach_contacts"."transaction_id" = 40
+  INS (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = 44 LIMIT 1
+  INS (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = 45 LIMIT 1
+  INS (0.0ms)  SELECT "location_permissions".* FROM "location_permissions" WHERE "location_permissions"."location_id" = 23 AND "location_permissions"."user_id" = 44 LIMIT 1
+  Rendered contacts/_transaction.html.haml (348.9ms)
+  Doc Load (0.9ms)  SELECT "docs".* FROM "docs" INNER JOIN "doc_accesses" ON "docs"."id" = "doc_accesses"."doc_id" WHERE "doc_accesses"."docable_id" = 40 AND "doc_accesses"."docable_type" = 'Transaction'
+  Rendered transactions/_all_docs.html.haml (13.2ms)
+  TransactionDetail Load (0.7ms)  SELECT "transaction_details".* FROM "transaction_details" WHERE "transaction_details"."company_id" = 14 LIMIT 1
+   (0.4ms)  SELECT COUNT(*) FROM "attach_contacts" WHERE "attach_contacts"."transaction_id" = 40 AND "attach_contacts"."role_id" = 1
+  AttachContact Load (0.6ms)  SELECT "attach_contacts".* FROM "attach_contacts" WHERE "attach_contacts"."transaction_id" = 40 AND "attach_contacts"."role_id" = 1 ORDER BY "attach_contacts"."id" DESC LIMIT 1
+  INS (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = 45 LIMIT 1
+   (0.5ms)  SELECT COUNT(*) FROM "attach_contacts" WHERE "attach_contacts"."transaction_id" = 40 AND "attach_contacts"."role_id" = 2
+  INS (0.0ms)  SELECT "attach_contacts".* FROM "attach_contacts" WHERE "attach_contacts"."transaction_id" = 40
+  INS (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = 44 LIMIT 1
+  INS (0.0ms)  SELECT "roles".* FROM "roles" WHERE "roles"."id" = 1 ORDER BY sorting ASC LIMIT 1
+  INS (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = 45 LIMIT 1
+  INS (0.0ms)  SELECT "roles".* FROM "roles" WHERE "roles"."id" = 1 ORDER BY sorting ASC LIMIT 1
+  LocationPermission Load (0.7ms)  SELECT "location_permissions".* FROM "location_permissions" WHERE "location_permissions"."location_id" = 23 AND "location_permissions"."l7" = 't'
+  Rendered notes/_form.html.haml (92.5ms)
+  RecentActivity Load (1.4ms)  SELECT "recent_activities".* FROM "recent_activities" WHERE "recent_activities"."transaction_id" = 40 ORDER BY created_at DESC
+  INS (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = 44 LIMIT 1

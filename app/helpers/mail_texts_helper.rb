@@ -1,0 +1,2 @@
+module MailTextsHelper
+end

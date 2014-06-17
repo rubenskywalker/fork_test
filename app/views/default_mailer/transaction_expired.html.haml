@@ -1,0 +1,6 @@
+%p
+  = "Hi, #{@user.fullname}"
+%p
+  Some of you transactions below have reached the expiration date and status set to expired:
+%p
+  = link_to transaction_url(@transaction), transaction_url(@transaction)

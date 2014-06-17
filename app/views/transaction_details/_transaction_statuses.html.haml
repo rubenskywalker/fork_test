@@ -1,0 +1,14 @@
+- @transaction_detail.transaction_statuses.each do |ts|
+  %tr
+    %td= ts.name
+    %td= ts.category
+    %td
+      %span.label.label-default
+        = link_to "#{ts.transactions.length}", in_status_transaction_path(ts.id), :style => "color: #fff"
+    %td
+      - unless ts.sub_category?
+        - if ts.transactions.length > 0
+          = link_to icon("trash", "D"), "#", :class => "btn btn-xs btn-danger transactions_inside", "data-name" => "transaction status"
+        - else
+          = link_to "Delete", transaction_status_path(ts), :class => "btn btn-xs btn-danger", :method => :delete, :confirm => "Are you sure?"
+          = link_to ts.checked? ? "Disable" : "Enable", check_transaction_status_path(ts), :class => "btn btn-xs btn-default"

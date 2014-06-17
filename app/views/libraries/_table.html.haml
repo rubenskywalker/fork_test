@@ -1,0 +1,9 @@
+%table.table.table-condensed.table-hover
+  %thead
+    %tr{"data-librarywell" => "library_doc_#{dom_id(library)}", :class => "#{library.is_default? ? '' : 'toggle_library_well'}"}
+      %th{:style => "width: 380px"} Document
+      %th{:style => "width: 125px"}
+      %th{:style => "width: 140px"} Added by
+      %th
+        .pull-right Date
+  %tbody{:id => "library_doc_#{dom_id(library)}"}=render :partial => "docs/library_doc", :collection => library.docs, :locals => {:library => library}

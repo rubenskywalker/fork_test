@@ -1,0 +1,39 @@
+.row
+  .col-md-12
+    %h1= "#{@checklist_master.new_record? ? 'Add New' : 'Edit'} Checklist"
+.row.defailt_padding
+
+  .col-md-12
+    .well.well-light
+      %span.label.label-default Checklist Name:
+      %br
+      %br
+      = f.text_field :name, :class => "form-control input-xxlarge", :placeholder => "Master Checklist Name"
+      .row.defailt_padding#checklist_items_sort{"data-update-url" => sort_checklist_items_path}
+        .col-md-12
+          %span.label.label-default Checklist Items:
+          
+          = f.fields_for :checklist_item_masters do |builder|
+            = render 'checklist_item_master_fields', f: builder
+          = link_to_add_fields "Add Checklist Item", f, :checklist_item_masters
+
+      .row.defailt_padding
+
+        .col-md-12
+          %span.label.label-default Automatically add checklist to the following Transaction Types:
+          %br
+          %br
+          - @global_company.transaction_details.first.transaction_types.each do |t|
+            = check_box_tag "checklist_master[transaction_type_ids][]", t.id, @checklist_master.transaction_type_ids.include?(t.id)
+            = t.name
+            %br
+          %br
+
+
+.row.defailt_padding
+  .col-md-12
+    %button.btn.btn-info
+      %i.glyphicon.glyphicon-ok 
+      = "#{@checklist_master.new_record? ? 'Add' : 'Save'} Checklist"
+    = link_to icon("share-alt", "Cancel"), "/checklists", :class => "btn btn-default"
+ 

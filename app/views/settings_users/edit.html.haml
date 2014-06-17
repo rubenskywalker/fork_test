@@ -1,0 +1,39 @@
+.row
+  .col-md-12
+    %h1 Edit User
+= form_for @settings_user, :url => settings_user_path(@settings_user), :method => :put do |f|
+  .row.defailt_padding= render "form", :f => f
+  - if current_user.super_admin? || current_user.p_all? || current_user.p_master? || current_user.p_library?
+    .row.defailt_padding
+      .col-md-12
+        %span.label.label-default Permissions
+    .row.defailt_padding
+      .col-md-12
+        .well.well-light
+          %span.label.label-default GLOBAL - For All Locations:
+          %ul.default
+            - if current_user.super_admin? || current_user.p_all?
+              %li
+                = f.check_box :p_all
+                all permissions to all locations
+            - if current_user.super_admin? || current_user.p_master?
+              %li
+                = f.check_box :p_master
+                create and edit master checklists
+            - if current_user.super_admin? || current_user.p_library?
+              %li 
+                = f.check_box :p_library
+                full access to library
+        
+  = f.fields_for :location_permissions do |location_permissions|
+    = render "permissions", :location => location_permissions.object.location, :f => location_permissions
+
+  = render "welcome", :f => f
+
+                
+  .row.defailt_padding
+    .col-md-12
+      %button.btn.btn-info
+        %i.glyphicon.glyphicon-ok 
+        Save
+      = link_to icon("share-alt", "Cancel"), settings_users_path, :class => "btn btn-default"

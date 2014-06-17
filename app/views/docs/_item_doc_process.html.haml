@@ -1,0 +1,15 @@
+%tr{:id => "container_#{params[:id]}"}
+  %td
+    .progress{:id => params[:id], :style => "width:140px"}
+      .progress-bar{:style => "width: 1px"}
+  %td{:style => "width: 211px;"}
+    = edit_button "download", "DL"
+       
+  %td
+          
+    - for i in (0..3+Random.rand(7)).to_a
+      %i.glyphicon.glyphicon-user.big{:rel => "tooltip", :title => "User Name"}
+    = edit_button "user", "Add"
+  %td
+    .pull-right
+      %input{:type => "checkbox"}

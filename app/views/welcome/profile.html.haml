@@ -1,0 +1,20 @@
+.row
+  .col-md-12
+    %h1 Profile
+- if current_user.super_admin?
+  = render @global_company.trial? ? "welcome/profiles/trial" : "welcome/profiles/payd"
+- elsif current_user.real_guest?
+  = render "welcome/profiles/guest"
+- else
+  .row
+    .col-md-12
+      - if @global_company.disabled?
+        %center
+          %strong.color_red This Account Is Currently Inactive. Please Contact Your Administrator To Resolve.
+      - if @global_company.users_ended? || @global_company.transactions_ended?
+        %center
+          %strong.color_red
+            You are using a trial account. Please contact your administrator to upgrade.
+      = render "welcome/profiles/user"
+
+%hr      

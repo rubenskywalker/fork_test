@@ -1,0 +1,91 @@
+%h3.heading Filter results
+
+= form_for @transaction, :url => search_transactions_path, :method => :get do |f|
+
+  .field
+    
+    %label MLS
+  
+    = f.text_field :mls
+
+  .field
+    
+    %label Street Address 1
+  
+    = f.text_field :address_1
+  
+  .field
+    
+    %label Street Address 2
+  
+    = f.text_field :address_2
+  
+  .field
+    
+    %label County
+  
+    = f.text_field :county
+  
+  .field
+    
+    %label City
+  
+    = f.text_field :city
+      
+  .field
+    
+    %label State
+  
+    = state_select(:transaction, :state, 'US', {:include_blank => 'Please Choose'})
+      
+  .field
+    
+    %label Status:
+  
+    = collection_select(:transaction, :transaction_status_id, @global_company.transaction_details.last.transaction_statuses.checked_only, :id, :name, {:prompt => 'Please Choose'})
+
+  .field
+    
+    %label Location:
+  
+    = collection_select(:transaction, :location_id, @global_company.locations.all, :id, :name, {:prompt => 'Please Choose'})
+         
+  -#
+    .field
+    
+      %label Acceptance Date
+    
+      = f.text_field :acceptance_date_from, :class => "datepicker", :placeholder => "FROM"
+      = f.text_field :acceptance_date_to, :class => "datepicker", :placeholder => "TO"
+      
+  .field
+    
+    %label Closing Date
+ 
+    = f.text_field :close_sate_from, :class => "datepicker", :placeholder => "FROM"
+    = f.text_field :close_sate_to, :class => "datepicker", :placeholder => "TO"
+      
+  .field
+    
+    %label Expiration Date
+
+    = f.text_field :expiration_date_from, {:class => "datepicker", :placeholder => "FROM"}
+    = f.text_field :expiration_date_to, :class => "datepicker", :placeholder => "TO"
+      
+  .field
+    
+    %label List Price
+  
+    = f.text_field :list_price_from, :class => "price", :placeholder => "FROM"
+    = f.text_field :list_price_to, :class => "price", :placeholder => "TO"
+    
+  .field
+  
+    %label Sale Price
+
+    = f.text_field :sale_price_from, :class => "price", :placeholder => "FROM"
+    = f.text_field :sale_price_to, :class => "price", :placeholder => "TO"
+      
+  .field
+    %button.btn.btn-primary{type: "submit"} Filter Results
+    

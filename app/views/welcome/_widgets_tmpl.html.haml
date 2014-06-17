@@ -1,0 +1,126 @@
+.row.defailt_padding.sortable_item{:id => dom_id(widget)}
+  .col-md-12
+    .well.well-light
+      .row
+        .col-md-6
+          %h4= "#{title}"
+        .col-md-6
+          .pull-right.hidden_item.dashboard_edit_mode_well
+            = link_to icon("remove", ""), user_widget_path(current_user, widget), :class => "btn btn-danger", :method => :delete, :confirm => "Are you sure?"
+        
+
+      .row
+        .col-md-12
+          %table.table.table-condensed.table-hover
+            %thead
+              %tr
+                %th 
+                %th Jan
+                %th Feb
+                %th Mar
+                %th Apr
+                %th May
+                %th Jun
+                %th Jul
+                %th Aug
+                %th Sep
+                %th Oct
+                %th Nov
+                %th Dec
+                %th
+                  .pull-right
+                    %span.label.label-info 2012 total
+                %th
+                  .pull-right
+                    %span.label.label-info 2013 total
+            %tbody
+              - TransactionStatus.for_company(@global_company.id).each do |ts|
+                %tr
+                  %td= ts.name
+                  %td= transactions.widget_month_status(Date.parse('jan 1 2013'), Date.parse('feb 1 2013'), ts.id).length
+                  %td= transactions.widget_month_status(Date.parse('feb 1 2013'), Date.parse('mar 1 2013'), ts.id).length
+                  %td= transactions.widget_month_status(Date.parse('mar 1 2013'), Date.parse('apr 1 2013'), ts.id).length
+                  %td= transactions.widget_month_status(Date.parse('apr 1 2013'), Date.parse('may 1 2013'), ts.id).length
+                  %td= transactions.widget_month_status(Date.parse('may 1 2013'), Date.parse('jun 1 2013'), ts.id).length
+                  %td= transactions.widget_month_status(Date.parse('jun 1 2013'), Date.parse('jul 1 2013'), ts.id).length
+                  %td= transactions.widget_month_status(Date.parse('jul 1 2013'), Date.parse('aug 1 2013'), ts.id).length
+                  %td= transactions.widget_month_status(Date.parse('aug 1 2013'), Date.parse('sep 1 2013'), ts.id).length
+                  %td= transactions.widget_month_status(Date.parse('sep 1 2013'), Date.parse('oct 1 2013'), ts.id).length
+                  %td= transactions.widget_month_status(Date.parse('oct 1 2013'), Date.parse('nov 1 2013'), ts.id).length
+                  %td= transactions.widget_month_status(Date.parse('nov 1 2013'), Date.parse('dec 1 2013'), ts.id).length
+                  %td= transactions.widget_month_status(Date.parse('dec 1 2013'), Date.parse('jan 1 2014'), ts.id).length
+                  %td 
+                    .pull-right 0
+                  %td 
+                    .pull-right= transactions.widget_month_status(Date.parse('jan 1 2013'), Date.parse('jan 1 2014'), ts.id).length
+============== TWO            
+.row.defailt_padding.sortable_item{:id => dom_id(widget)}
+  .col-md-12
+    .well.well-light
+      .row
+        .col-md-6
+          %h4= "#{title}"
+        .col-md-6
+          .pull-right.hidden_item.dashboard_edit_mode_well
+            = link_to icon("remove", ""), user_widget_path(current_user, widget), :class => "btn btn-danger", :method => :delete, :confirm => "Are you sure?"
+        
+
+      .row
+        .col-md-12
+          %table.table.table-striped.table-condensed.sortable
+            %thead
+              %tr
+                %th{:style => "width: 300px"} Transaction Name
+                %th{:style => "width: 100px"} Status
+                %th{:style => "width: 200px"} Checklist
+                %th{:style => "width: 70px"} Contacts
+                %th{:style => "width: 200px"} Location
+                %th Close Date
+            %tbody
+              - transactions.each do |transaction|
+                - location_permissions = transaction.location.location_permissions.find_by_user_id(widget.user_id)
+                - if (location_permissions.l12? && transaction.user == widget.user) || location_permissions.l2? || (widget.user.super_admin? || widget.user.p_all?)
+                  %tr
+                    %td= link_to tname(@global_company.transaction_details.first, transaction), transaction_path(transaction)
+                    %td
+                      %span.label.label-success= transaction.transaction_status.name if transaction.transaction_status
+                    %td{ "data-value" => (bar_width(transaction.checklist_items.length, transaction.checklist_items.checked_only.length) / 10) }
+                      .progress{:class => "super_tooltip", :title => render("transaction_info", :transaction => transaction).html_safe}
+                        %span= "#{transaction.checklist_items.checked_only.length} / #{transaction.checklist_items.length}"
+                        .progress-bar{:style => "width: #{bar_width(transaction.checklist_items.length, transaction.checklist_items.checked_only.length)}%;"}
+                        
+                  
+          
+                    %td
+                      - users_map = transaction.attach_contacts.select{|c| (current_user.contact_accesses.map(&:contact_id).include?(c.user.id) || c.user.company_id == current_user.company_id) }.map{|c| "#{c.user.fullname} (#{c.role.name})"}.join(", ")
+                      - unless users_map.empty?
+                       
+                        %i.glyphicon.glyphicon-user.big{:rel => "tooltip", :title => users_map || "", :class => "assigned_users"}
+                    
+                    %td= transaction.location.name if transaction.location
+                    %td= transaction.close_sate.strftime('%b %d, %Y') unless transaction.close_sate.blank?
+============== TREE
+
+.row.defailt_padding
+  .col-md-12
+    .well.well-light
+      .row
+        .col-md-6
+          %h4 My Recent Activity
+        .col-md-6
+          .pull-right
+            .btn-group
+              %button.btn.btn-info Recent activity of myself
+              %button.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown"}
+                %span.caret
+              %ul.dropdown-menu
+                %li
+                  %a{:href => "#"} Ronald
+                %li
+                  %a{:href => "#"} Vladimir
+            %button.btn.btn-danger
+              %i.glyphicon.glyphicon-remove
+
+      .row
+        .col-md-12
+          No recent activity

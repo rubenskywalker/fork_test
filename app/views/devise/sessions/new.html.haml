@@ -1,0 +1,26 @@
+.login-wrapper
+  .row
+    .col-md-12
+      .container.bottom_radius.black_box_inset_shadow.login
+        %h1 Sign in
+        = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+          .sign_up
+            .form-group
+              = f.email_field :email, :style => 'width: 98%', :class => "form-control", :placeholder => "Email"
+            .form-group
+              = f.password_field :password, :style => 'width: 98%', :class => "form-control", :placeholder => "Password"
+            .form-group
+              
+              = link_to "Forgot your password?", new_password_path(resource_name), :class => 'to_right'
+              %span.title_f.pull-right
+                Remember me
+                = f.check_box :remember_me
+    
+            .row
+              .col-md-12
+              
+                .form-group.pull-right
+                  = f.submit "Sign in", :class => 'btn btn-lg btn-primary pull-right login-button'
+            .row
+              .col-md-12.text_center=# link_to "Not yet a member? Sign up", "/users/sign_up" 
+          

@@ -1,0 +1,72 @@
+- doc_file_rand = "rand_doc_#{1+Random.rand(21890232190823212)}"
+- dublicate = @transaction.docs.where("docs.file = ? AND docs.created_at < ?", doc.filename, doc.created_at).first
+- unless dublicate
+  %tr.document{:id => "scroll_#{doc_file_rand}", :class => "delete_#{dom_id(doc)}"}
+    %td.name
+      %strong
+        - if doc.filename.include?("pdf")
+          = link_to doc.alias, "#", "data-id" => doc_file_rand, :class => "show_doc_embed_file", "data-key" => get_secret_key_doc_path(doc), "data-iframe" => "iframe_#{dom_id(doc)}"
+        - else
+          = link_to doc.alias, "#", "data-id" => doc_file_rand, :class => "not_pdf", "data-key" => get_secret_key_doc_path(doc), "data-iframe" => "iframe_#{dom_id(doc)}"
+      - if dublicate
+        .pull-right
+          = link_to "Overwrite", overwrite_transaction_doc_path(@transaction, doc), :class => "btn btn-xs btn-danger"
+          = link_to "Cancel", doc_path(doc), :method => :delete, :class => "btn btn-xs cancel_after_close", "data-url" => doc_path(doc)
+      = form_for doc, :method => :put, :html => {:class => "hidden_item"} do |f|
+        = f.text_field :alias
+        = f.submit "save", :class => "btn btm-mini"
+        = link_to "cancel", "#", :class => "btn btm-mini show_hide_rename_form", "data-formid" => "#edit_#{dom_id(doc)}"
+    %td.checklist
+      - if doc.doc_accesses.only_ci.empty?
+        = ""
+      - else
+        = link_to "Assigned", "#", :class => "assigned_checklists", :title => doc_assigned_checklist_items(doc), :rel => 'tooltip'
+      .btn-group
+        %button.btn.btn-default.btn-xs.dropdown-toggle{"data-toggle" => "dropdown", :disabled => disable_access(:assign_files, @transaction)}
+          Checklist
+          %span.caret
+        %ul.dropdown-menu
+          - @transaction.checklist_items.each do |checklist_item|
+            %li
+              = link_to ms_link_items(checklist_item.name, "only_ci", checklist_item, doc), "#", :class => "multicheck #{'checked' if doc.doc_accesses.only_ci.map(&:docable_id).include?(checklist_item.id)}", "data-fileid" => checklist_item.id
+          %li
+            .popup_buttons_container
+              = link_to "Save", "#", :class => "btn btn-xs btn-default assign_files_to", "data-url" => move_to_checklist_items_doc_path(doc)+"?transaction_id=#{@transaction.id}"
+              = link_to icon("share-alt", "Cancel"), "#", :class => "close_assign_files btn btn-xs"
+    -#
+      %td= doc.user.fullname
+      %td= doc.created_at.strftime('%b %d, %Y')
+        
+ 
+    %td.review
+      - unless @global_company.real_free?
+        %input{:type => "checkbox", "checked" => doc.review?, :class => "check_checklist_item", "data-url" => review_doc_path(doc)+"?transaction_id=#{@transaction.id}", :disabled => disable_access(:mark_file, @transaction)}
+    %td.actions
+      .btn-group
+        %button.btn.btn-default.btn-xs.dropdown-toggle{"data-toggle" => "dropdown"}
+          Actions
+          %span.caret
+        %ul.dropdown-menu
+          %li= link_to icon("pencil", "Rename"), "#", :class => "show_hide_rename_form", "data-formid" => "#edit_#{dom_id(doc)}"
+          - unless disable_access(:delete_files, @transaction)
+            %li= link_to icon("trash", "Delete"), doc_path(doc)+"?transaction_id=#{@transaction.id}", :method => :delete, :remote => true, :confirm => "Are you sure?"
+            %li= link_to icon_fa("refresh", "Flip 180"), flip_doc_path(doc)
+            %li= link_to icon_fa("undo", "Left"), left_doc_path(doc)
+            %li= link_to icon_fa("repeat", "Right"), right_doc_path(doc)
+            %li= mail_to current_user.email+"?attachment=#{doc.file.url}", icon_fa("file-text", "Send as attachments")
+            
+          - unless disable_access(:download, @transaction)
+            %li= link_to icon("download", "Download"), download_doc_path(doc), :target => "blank"
+    - if current_user.super_admin? || current_user.p_all? || @transaction.user == current_user
+      %td.contacts{:class => "users_#{dom_id(doc)}"}
+          
+    
+        = render "docs/assign_users_process", :doc => doc
+          
+        
+  %tr
+    - if params[:action] == "pdf"
+      %td.hidden_item.file_iframe{:colspan => 5, :style => "height: 400px", :id => doc_file_rand, :class => "documentViewer"}
+    - else
+      %td.hidden_item.file_iframe{:colspan => 7, :id => doc_file_rand}
+        %div{:style => "width: 100%; height: 100%;", :frameborder => 0, :id => "iframe_#{dom_id(doc)}"}

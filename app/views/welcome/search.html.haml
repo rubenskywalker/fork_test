@@ -1,0 +1,43 @@
+.row
+  .col-md-12
+    %h1 Search
+- if @transactions
+  .row.defailt_padding
+    .col-md-12
+      %span.label.label-info= "Transactions (#{@transactions.length})"
+  .row
+    .col-md-12
+      - @transactions.each do |t|
+        .row.defailt_padding
+          .col-md-12
+            .well.well-light
+              %table.table.table-striped.table-condensed
+                %thead
+                  %tr
+                    %th Transaction Name
+                    %th Status
+                    %th Checklist
+                    %th Agents
+                    %th Location
+                    %th{:style => "width: 80px"} Close Date
+                %tbody= render t
+- if @docs
+  .row.defailt_padding
+    .col-md-12
+      %span.label.label-info= "Files (#{@docs.length})"
+  .row
+    .col-md-12
+      %table.table.table-striped.table-condensed
+        %thead
+          %tr
+            %th File name
+            %th Date
+            %th Uploaded by
+            %th Assigned
+            %th 
+              .pull-right
+                Shared With
+        %tbody#documents
+          - @docs.each do |doc|
+            = render "doc", :doc => doc
+    

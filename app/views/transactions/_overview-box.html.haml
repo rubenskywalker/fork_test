@@ -1,0 +1,26 @@
+- location_permissions = transaction.location.location_permissions.find_by_user_id(current_user.id)
+- if (location_permissions.l12? && transaction.user == current_user) || location_permissions.l2? || (current_user.super_admin? || current_user.p_all?)
+
+  %a.transaction-box{href: transaction_path(transaction)}
+  
+    %span.photo.data{style: "background-image: url(#{image_path("transactions/no-photo.jpg")})"}
+
+    %span.information
+      %span.glyphicon.glyphicon-info-sign{title: (render partial: "transactions/tooltip-information", locals: {transaction: transaction}).html_safe, data: {toggle: "html-tooltip", placement: "top"}}
+  
+    %span.address.data
+      = tname(@global_company.transaction_details.first, transaction)
+      
+    %span.status.data{class: (transaction.transaction_status.name.downcase if transaction.transaction_status)}
+      = transaction.transaction_status.name.capitalize if transaction.transaction_status
+    
+    %span.checklist.data{title: (render "transactions/tooltip-checklist-mock").html_safe, data: {toggle: "html-tooltip", placement: "top"}}
+      %span.label.label-default{title: (render partial: "transactions/tooltip-checklist", locals: {transaction: transaction}).html_safe, data: {toggle: "html-tooltip", placement: "top"}}
+        %span.number= "#{transaction.checklist_items.checked_only.length} / #{transaction.checklist_items.length}"
+        %span.progress-bar{:style => "width:#{bar_width(transaction.checklist_items.length, transaction.checklist_items.checked_only.length)}%"} 
+  
+    %span.location.data
+      = transaction.location.name if transaction.location
+  
+    %span.date.data
+      = transaction.close_sate.strftime("%b %d, %Y") unless transaction.close_sate.blank?

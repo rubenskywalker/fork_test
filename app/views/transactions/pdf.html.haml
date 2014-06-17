@@ -1,0 +1,79 @@
+.row
+  .col-md-12
+    %h1= "#{@transaction.city} / #{@transaction.street}"
+.row.defailt_padding
+  .col-md-4
+    = link_to icon("pencil", "Edit Transaction"), edit_transaction_path(@transaction), :class => "btn btn-default" 
+    %button.btn
+      %i.glyphicon.glyphicon-upload 
+      Upload Doc
+ 
+  .col-md-4
+    = link_to "Upload documents via email attachment"
+    %br
+    = link_to "Add note via email"
+  .col-md-4
+    .pull-right
+      - if @transaction.lock?
+        = link_to icon("lock", "Transaction is locked"), lock_transaction_path(@transaction)
+        
+      - else
+        = link_to icon("unlock", "Transaction is unlocked"), lock_transaction_path(@transaction)
+    
+.well.well-light
+  .row
+    .col-md-12
+      .row
+        = render "detail"
+        = render "pages/transactions/details_2"
+        .col-md-4
+          .row
+            .col-md-12
+              %span.label.label-default.super-label= "Contacts involved (#{@transaction.attach_contacts.length})"
+              #transaction_contacts
+                = render "contacts/transaction", :transaction => @transaction
+  .row
+    .outside_agents_well.hidden_item.defailt_padding
+      = render "contacts/form_add"
+
+.row
+  .col-md-12
+    %button.btn.btn-info.add_an_note.left-text{:style => "width: 100%"}
+      %i.glyphicon.glyphicon-plus 
+      Add Note
+
+.row
+  .col-md-12.add_an_note_well{:style => "display: none;"}
+    = render "notes/form"
+      
+#checklists.row.defailt_padding
+  - @transaction.checklists.each do |checklist|
+    = render "checklists/checklist", :checklist => checklist
+
+.row.defailt_padding
+  .col-md-12
+    %button.btn.btn-info.add_an_checklist.left-text{:style => "width: 100%"}
+      %i.glyphicon.glyphicon-plus 
+      Add New Checklist
+.row.add_an_checklist_well.hidden_item.defailt_padding
+  .col-md-12
+    .well.well-light
+      = render "checklists/form", :transaction => @transaction
+     
+
+.row.defailt_padding
+  = render "documents"
+
+.row.defailt_padding
+  .col-md-12
+    .well
+      .row
+        .col-md-12
+          %span.label.label-default Recent Activity
+          %br
+          %br
+          %ul#recent_activities= render "recent_activities"
+          %br
+          %br
+
+=render "docs/assign_modal"

@@ -1,0 +1,190 @@
+body.transaction-detail
+
+  .transaction-box
+    cursor: default
+    border: 0
+    &:hover
+      background-color: transparent
+  
+    .address,
+    .information,
+    .checklist
+      display: none
+    
+    .data
+      padding-left: 0
+      padding-right: 0
+
+  .panel
+    margin-bottom: 15px
+  
+  .show-more
+    .glyphicon
+      position: relative
+      top: 2px
+      margin-right: 4px
+
+  .affix
+    top: 20px
+    z-index: 1000
+    width: 213px
+  
+  .details
+    margin: 30px 0 50px
+    border-top: 1px solid rgba(black, .1)
+  
+  .detail
+    +clearfix
+    display: block
+    padding: 8px 20px
+    border-bottom: 1px solid rgba(black, .1)
+    text-decoration: none
+    &:hover
+      .detail-label
+        color: black
+  
+  .detail-number
+    float: right
+    color: rgba(black, .8)
+    font-size: 15px
+    font-weight: bold
+    line-height: 25px
+    
+  .detail-label
+    float: left
+    position: relative
+    left: -20px
+    color: rgba(black, .6)
+    line-height: 25px
+  
+  .add-note,
+  .add-contact,
+  .add-checklist
+    margin: 0 0 30px
+  
+  .assign-users
+    &
+      display: block
+    .checked,
+    .actions
+      padding: 5px 20px 0
+    .checked
+      color: rgba(black, .8)
+    .actions
+      border-top: 1px solid rgba(black, .1)
+    .company,
+    .phone
+      color: rgba(black, .6)
+  
+  .contacts,
+  .checklists
+    margin: 30px 0 50px
+    .heading
+      padding-bottom: 10px
+      margin-bottom: 15px
+      color: rgba(black, .6)
+      font-size: 18px
+      font-weight: normal
+      border-bottom: 1px solid rgba(black, .1)
+    .contact,
+    .checklist
+      margin-bottom: 15px
+    .role
+      color: rgba(black, .82)
+  
+  .checklist
+  
+    .sub-heading
+      margin-bottom: 10px
+      font-size: 15px
+    
+    .checklist-progress
+      max-width: 200px
+      margin: 15px 0
+      .progress-bar
+        line-height: 20px
+        font-weight: bold
+    
+    .checklist-actions
+      padding: 15px 0
+      border-top: 1px solid rgba(black, .1)
+    
+    .checklist-item
+      td
+        padding: 0 5px
+      .checkbox,
+      .actions,
+      .documents
+        width: 1%
+        padding-left: 15px
+        padding-right: 15px
+      .checkbox
+        margin: 0
+        padding-left: 0
+        input[type="checkbox"]
+          float: none
+          margin-left: 0
+          margin-top: 9px
+      .actions
+        padding-right: 0
+        text-align: right
+      .name
+        cursor: pointer
+        label
+          display: block
+  
+  .checklist-actions
+    margin-bottom: 20px
+  
+  .add-checklist
+    select
+      margin-bottom: 10px
+  
+  .add-contact
+    clear: both
+    
+    .tab-content
+      padding: 15px
+      
+      form
+        +clearfix
+    
+    .form-group
+      max-width: 350px
+      margin-right: 5px
+    
+    .form-actions
+      display: inline-block
+      position: relative
+      top: 16px
+  
+  .add-checklist
+    margin-bottom: 20px
+  
+  .documents-upload
+    margin-top: 20px
+  
+  .documents
+    
+    .review-heading
+      padding-left: 10px
+      padding-right: 10px
+    
+    .document
+      
+      > .btn-group
+        display: block
+        .btn
+          float: none
+          display: block
+      
+      .review
+        text-align: center
+      
+      td.contacts,
+      td.actions,
+      td.review
+        padding: 0 10px
+      
+      .contacts
+        padding-right: 0

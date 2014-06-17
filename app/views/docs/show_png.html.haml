@@ -1,0 +1,11 @@
+- if @doc.png_docs.empty?
+  %h1 This isn't ready yet
+  = link_to "Open PDF", @doc.file.url, :class => "btn btn-info"
+- else
+  .docviewer{:style => "text-align: center;", "data-current" => 1, "data-total" => @doc.png_docs.length}
+    %br
+    = link_to icon("arrow-left", ""), "#", :style => "font-size: 25px;", :class => "docviewerButton", "data-d" => "left"
+    = link_to icon("arrow-right", ""), "#", :style => "font-size: 25px;", :class => "docviewerButton", "data-d" => "right"
+    %br
+    - @doc.png_docs.order("file ASC").each_with_index do |d, i|
+      = image_tag d.file.url, "data-n" => i+1, :style => i == 0 ? "" : "display:none;", :class => "docviewerImage"

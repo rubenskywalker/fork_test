@@ -1,0 +1,36 @@
+- show_trash ||= 1
+.row
+  .col-md-12
+    %table.table.table-condensed.table-hover
+      %tbody#new-contact-tbody
+        %tr
+          %td{:style => "border-bottom: 1px solid #ededed"}
+            %strong Role
+          %td{:style => "border-bottom: 1px solid #ededed"} 
+            %strong Name
+          %td{:style => "border-bottom: 1px solid #ededed"}
+            %strong Shared With
+            
+        %tbody#contact_items
+          - transaction.attach_contacts.includes(:role).order("roles.level").each_with_index do |contact, index|
+            = render "contacts/contact_item", :contact => contact, :show_trash => show_trash
+
+
+.row.defailt_padding
+  .col-md-12
+    %button.btn.btn-info.outside_agents{:disabled => disable_access(:update, transaction)}
+      %i.glyphicon.glyphicon-plus 
+      Add contacts
+      
+
+%script#new-contact-tmpl{:type => "text/x-tmpl"}
+  %tr
+    %td{:style => "border: 0"}
+      Seller
+    %td#assign_users_process_div{:style => "border: 0"}
+      ${first_name} ${last_name}
+     
+    %td{:style => "border: 0"}
+      .pull-right
+        = link_to icon("trash", ""), "/transactions/${id}/remove_contact" unless disable_access(:update, transaction)
+  

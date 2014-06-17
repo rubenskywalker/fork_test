@@ -1,0 +1,8 @@
+%tr
+  %td= plan.plan_name
+  %td= link_to((plan.transactions_included == 0 ? "Unlimited" : plan.transactions_included), "#", :id => "transactions_included", "data-type" => "text", "data-pk" => "1", "data-url" => plan_user_path(plan.id), "data-original-title" => "Enter transactions included (0 for Unlimited)", :class => "under_editable", :style => "color: #000")
+  %td= link_to((plan.users_included == 0 ? "Unlimited" : plan.users_included), "#", :id => "users_included", "data-type" => "text", "data-pk" => "1", "data-url" => plan_user_path(plan.id), "data-original-title" => "Enter users included (0 for Unlimited)", :class => "under_editable", :style => "color: #000")
+  %td= link_to(plan.price_per_transaction, "#", :id => "price_per_transaction", "data-type" => "text", "data-pk" => "1", "data-url" => plan_user_path(plan.id), "data-original-title" => "Enter price per transaction", :class => "under_editable", :style => "color: #000")
+  %td= link_to(plan.price_per_user, "#", :id => "price_per_user", "data-type" => "text", "data-pk" => "1", "data-url" => plan_user_path(plan.id), "data-original-title" => "Enter price per user", :class => "under_editable", :style => "color: #000")
+  %td= link_to(plan.monthly_fee, "#", :id => "monthly_fee", "data-type" => "text", "data-pk" => "1", "data-url" => plan_user_path(plan.id), "data-original-title" => "Enter monthly fee", :class => "under_editable", :style => "color: #000")
+ 

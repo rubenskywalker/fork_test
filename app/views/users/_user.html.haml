@@ -1,0 +1,7 @@
+%tr
+  %td= "#{user.first_name} #{user.last_name}"
+  %td= user.email
+  %td
+    .pull-right
+      = link_to icon("pencil", "Edit"), edit_user_path(user), :class => "btn btn-xs btn-info"
+      = link_to icon("trash", "Remove"), settings_user_path(user), :class => "btn btn-xs btn-info", :method => :delete, :confirm => "Are you sure?"

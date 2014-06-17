@@ -1,0 +1,92 @@
+.div{:style => "width: 500p;"}
+  = form_for @transaction = Transaction.new(), :url => search_transactions_path, :method => :post do |f|
+    %table.table.table-condensed.table-hover
+      %tbody
+        %tr
+          %td
+            %strong= "MLS:"
+          %td
+            .pull-right
+              = f.text_field :mls, :class => "form-control input-xlarge", :placeholder => ""
+      
+        %tr
+          %td
+            %strong= "Street Address 1:"
+          %td
+            .pull-right 
+              = f.text_field :address_1, :class => "form-control input-xlarge", :placeholder => ""
+        %tr
+          %td
+            %strong= "Street Address 2:"
+          %td
+            .pull-right 
+              = f.text_field :address_2, :class => "form-control input-xlarge", :placeholder => ""
+        %tr
+          %td
+            %strong= "County:"
+          %td
+            .pull-right 
+              = f.text_field :county, :class => "form-control input-xlarge", :placeholder => ""
+        %tr
+          %td
+            %strong= "City:"
+          %td
+            .pull-right 
+              = f.text_field :city, :class => "form-control input-xlarge", :placeholder => ""
+        %tr
+          %td
+            %strong= "State:"
+          %td
+            .pull-right 
+              = state_select(:transaction, :state, 'US', {:include_blank => 'Please Choose'}, {:class=>"form-control input-xlarge", :style => "width: 228px"})
+        %tr
+          %td
+            %strong Status:
+          %td
+            .pull-right
+              = collection_select(:transaction, :transaction_status_id, @global_company.transaction_details.last.transaction_statuses.checked_only, :id, :name, {:prompt => 'Please Choose'}, {:style => "width: 228px", :class => "form-control"})
+        %tr
+          %td
+            %strong Location:
+          %td
+            .pull-right
+              = collection_select(:transaction, :location_id, @global_company.locations.all, :id, :name, {:prompt => 'Please Choose'}, {:style => "width: 228px", :class => "form-control"})
+        %tr
+          %td
+            %strong= "Acceptance Date:"
+          %td{:style => "width: 300px"}
+            .pull-right
+              = f.text_field :acceptance_date_from, :class => "datepicker form-control", :placeholder => "FROM", :style => "width: 120px; float: left; margin-right: 5px;"
+              = f.text_field :acceptance_date_to, :class => "datepicker form-control", :placeholder => "TO", :style => "width: 120px"
+        %tr
+          %td
+            %strong= "Closing Date:"
+          %td
+            .pull-right
+              = f.text_field :close_sate_from, :class => "datepicker form-control", :placeholder => "FROM", :style => "width: 120px; float: left; margin-right: 5px;"
+              = f.text_field :close_sate_to, :class => "datepicker form-control", :placeholder => "TO", :style => "width: 120px"
+        %tr
+          %td
+            %strong= "Expiration Date:"
+          %td
+            .pull-right
+              = f.text_field :expiration_date_from, :class => "datepicker form-control", :placeholder => "FROM", :style => "width: 120px; float: left; margin-right: 5px;"
+              = f.text_field :expiration_date_to, :class => "datepicker form-control", :placeholder => "TO", :style => "width: 120px"
+        %tr
+          %td
+            %strong= "List Price:"
+          %td
+            .pull-right
+              = f.text_field :list_price_from, :class => "", :placeholder => "FROM", :style => "width: 120px; float: left; margin-right: 5px;", :class => "form-control"
+              = f.text_field :list_price_to, :class => "", :placeholder => "TO", :style => "width: 120px", :class => "form-control"
+        %tr
+          %td
+            %strong= "Sale Price:"
+          %td
+            .pull-right
+              = f.text_field :sale_price_from, :class => "", :placeholder => "FROM", :style => "width: 120px; float: left; margin-right: 5px;", :class => "form-control"
+              = f.text_field :sale_price_to, :class => "", :placeholder => "TO", :style => "width: 120px", :class => "form-control"
+        %tr
+          %td{:colspan => 2}
+            = f.submit "Search", :class => "btn btn-default"
+          

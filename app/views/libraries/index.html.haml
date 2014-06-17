@@ -1,0 +1,14 @@
+.row
+  .col-md-12
+    %h1 Documents
+
+  .row.defailt_padding.hidden_item.create_contact_well
+    .col-md-12
+      .well
+        = form_for @library = Library.new() do |f|
+          = render "form", :f => f
+
+.row.defailt_padding
+  .col-md-12
+    = render @libraries
+

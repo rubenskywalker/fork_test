@@ -1,0 +1,8 @@
+- checklist_item.checklist.transaction.docs.each do |doc|
+  - if doc.users.map(&:id).include?(current_user.id) || current_user.super_admin? || current_user.p_all?
+    %li
+      = link_to ms_link_items(doc.filename, "only_ci", checklist_item, doc), "#", :class => "multicheck #{'checked' if doc.doc_accesses.only_ci.map(&:docable_id).include?(checklist_item.id)}", "data-fileid" => doc.id
+%li
+  .popup_buttons_container
+    = link_to icon("ok", "Save"), "#", :class => "btn btn-xs btn-info assign_files_to", "data-url" => move_checklist_item_docs_path(checklist_item)
+    = link_to icon("share-alt", "Cancel"), "#", :class => "close_assign_files btn btn-xs"

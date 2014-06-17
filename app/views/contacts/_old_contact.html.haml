@@ -1,0 +1,22 @@
+- if contact.contact_only? || contact.real_guest?
+  %tr{:style => contact_counter %2 == 0 ? "background-color: #f9f9f9" : "", :id => "parent_#{dom_id(contact)}", :class => "zebra"}
+    %td{:style => "width: 10px"}
+      %input{:type => "checkbox"}
+    %td
+      = link_to contact.fullname, "#", :class => "show_extended", "data-extended" => "extended_#{dom_id(contact)}", "data-url" => extended_contact_path(contact)
+    %td= contact.contact_company
+    %td
+      = mail_to(contact.email) unless contact.no_email?
+    %td
+      = contact.phone
+    %td
+      .pull-right
+        .btn-group
+          %button.btn.btn-info.btn-xs Actions
+          %button.btn.btn-info.btn-xs.dropdown-toggle{"data-toggle" => "dropdown"}
+            %span.caret
+          %ul.dropdown-menu
+            %li= link_to icon("pencil", "Edit"), edit_contact_path(contact)
+            %li= link_to icon("trash", "Delete"), contact_path(contact), :method => :delete, :confirm => "Are you sure?"
+
+      

@@ -1,0 +1,20 @@
+.row
+  .col-md-12
+    %h1 Transaction Details
+.row.defailt_padding
+  .col-md-12
+    = link_to icon("plus-sign", "Add Transaction Details"), new_transaction_detail_path, :class => "btn btn-default"
+.row.defailt_padding
+  .col-md-12
+    .well.well-light
+      %table.table.table-condensed.table-hover
+        %thead
+          %tr
+            %th Name
+            %th Transactions
+            %th 
+              .pull-right Actions
+        %tbody
+          = render @transaction_details
+            
+            

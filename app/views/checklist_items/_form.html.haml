@@ -1,0 +1,8 @@
+= form_for @checklist_item = ChecklistItem.new(), :url => checklist_checklist_items_path(checklist), :remote => true do |f|
+  %table.table.table-condensed.add_checklist_item_well.hidden_item{:id => "form_#{dom_id(checklist)}"}
+    %tbody
+      %tr
+        %td
+          = f.text_field :name, :class => "form-control input-xlarge new_checklist_input", :placeholder => "Name"
+          = f.submit "Save", :class => "btn new_checklist_input_button", :disabled => "true"
+          = link_to "Cancel", "#", :class => "close_checklist_item btn"

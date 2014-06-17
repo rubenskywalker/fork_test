@@ -1,0 +1,27 @@
+.row
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Transaction Details
+      .paddedpanel
+        = render "form"
+-#
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Contacts
+      .paddedpanel
+        #transaction_contacts
+          = render "contacts/transaction", :transaction => @transaction
+          
+        .row
+          .outside_agents_well.hidden_item.defailt_padding
+            = render "contacts/new_form_add"
+
+
+.row.defailt_padding
+  .col-md-12
+    %button.btn.btn-info.save_transaction
+      %i.glyphicon.glyphicon-ok 
+      Save
+    = link_to icon("share-alt", "Cancel"), transactions_path, :class => "btn btn-default"

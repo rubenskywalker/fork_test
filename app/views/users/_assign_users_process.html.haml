@@ -1,0 +1,22 @@
+- unless current_user.real_guest? || disable_access(:update, @transaction)
+  .btn-group.assign-users
+    %button.btn.btn-info.btn-xs.dropdown-toggle{"data-toggle" => "dropdown"}
+      %span.glyphicon.glyphicon-user
+      Contacts
+      %span.caret
+    %ul.dropdown-menu
+      - User.where("id IN (?) AND id != ?", @transaction.attach_contacts.map(&:user_id), current_user.id).each do |user|
+        - unless super_contact == user
+          %li
+            - unless user.contact_accesses.where(:transaction_id => @transaction.id).map(&:contact_id).include?(super_contact.id)
+              = link_to ms_link_users_shared(user.fullname, user, super_contact, @transaction), "#", :class => "multicheck", "data-fileid" => user.id
+            - else
+              .checked
+                %span.glyphicon.glyphicon-ok
+                = user.fullname
+            
+      %li
+        .actions.popup_buttons_container
+          = link_to "Save", "#", :class => "btn btn-xs btn-info assign_files_to", "data-url" => assign_contact_user_path(super_contact)+"?transaction_id=#{@transaction.id}"
+          = link_to "Cancel", "#", :class => "close_assign_files btn btn-default btn-xs"
+

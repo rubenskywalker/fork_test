@@ -1,0 +1,26 @@
+%table.documents
+  %thead
+    %tr.headings
+      %th File name
+      %th Checklist
+      -#
+        %th Uploaded by 
+        %th Date
+        
+      %th.review-heading
+        Review
+      %th Actions
+      - if current_user.super_admin? || current_user.p_all? || @transaction.user == current_user
+        %th Shared
+  %tbody#documents
+    - @transaction.docs.each do |doc|
+      = render "docs/doc", :doc => doc if doc.users.map(&:id).include?(current_user.id) || current_user.super_admin? || current_user.p_all? || @transaction.user == current_user
+      
+
+.documents-upload.well.dashed-border#drop_transactions_upload_button
+  %button.btn.btn-info.uploader_button{:upload_path => transaction_docs_path(@transaction), :id => 'transactions_upload_button', :upload_container => "documents", :process_view => "doc_process", :after_view => "doc" }
+    %i.glyphicon.glyphicon-upload 
+    Upload new document
+  = mail_to @transaction.user_mail_attachment(current_user), icon("envelope", "Send it via email attachment"), :class => "btn btn-info default_right_padding"
+  = icon("arrow-down", "or Drag n Drop here")
+    

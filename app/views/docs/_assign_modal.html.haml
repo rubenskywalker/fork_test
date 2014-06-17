@@ -1,0 +1,28 @@
+#assign_files.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  = form_tag '/', :remote => true, :id => 'move_files_form', :method => :put do 
+    .modal-header
+      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+      %h3#myModalLabel Assign Files
+    .modal-body
+      %p
+        %table.table.table-striped.table-condensed
+          %thead
+            %tr
+              %th 
+              %th{:style => "width: 150px"} File name
+              %th Date
+              %th Uploaded by
+          %tbody
+            - @transaction.docs.each do |doc|
+              %tr
+                %td
+                  = check_box_tag "file_ids[]", doc.id
+                %td
+                  %i.glyphicon.glyphicon-file.big
+                  = link_to doc.filename, ""
+                %td= doc.created_at.to_s(:short)
+                %td= current_user.name
+
+    .modal-footer
+      %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Close
+      %button.btn.btn-primary Save changes

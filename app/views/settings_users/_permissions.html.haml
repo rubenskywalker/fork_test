@@ -1,0 +1,55 @@
+.row.defailt_padding
+  .col-md-12
+    .well.well-light
+      %span.label.label-default= location.name
+      .row.defailt_padding
+        .col-md-6
+          %strong Management Permissions - For All Transactions In This Location:
+          %br
+          %br
+          %ul.default
+            %li
+              %input{:type => "checkbox", :class => "all_permissions"}
+              All
+            %li
+              = f.check_box :l1
+              create/edit users in this location
+            %li
+              = f.check_box :l2
+              view all transactions in this location
+            %li 
+              = f.check_box :l3
+              create / edit all transactions in this location
+            %li 
+              = f.check_box :l6
+              delete any transaction and files in this location
+            %li 
+              = f.check_box :l8
+              edit checklists for all transaction in this location
+            %li 
+              = f.check_box :l10
+              download transaction reports for all transactions in this location
+            %li 
+              = f.check_box :l11
+              mark files as reviewed for all transactions in this location
+            %li
+              = f.check_box :l7
+              display as contact in notes for all transactions in this location
+        .col-md-6
+          %strong My Transactions:
+          %br
+          %br
+          %ul.default
+            %li
+              %input{:type => "checkbox", :class => "all_permissions"}
+              All
+            %li
+              = f.check_box :l12
+              create transactions
+            %li
+              = f.check_box :l13
+              edit my transactions
+            %li 
+              = f.check_box :l18
+              assign files to checklist items for my transactions
+

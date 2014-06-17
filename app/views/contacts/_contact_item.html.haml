@@ -1,0 +1,12 @@
+- show_trash ||= 1
+%tr
+  %td{:style => "border: 0"}
+    = contact.role.name if contact.role
+  %td{:style => "border: 0"}
+    %div{:class => "show_popover", :title => "#{contact.user.first_name} #{contact.user.last_name}", "data-content" => render("transactions/contact_detail", :contact => contact.user).html_safe, :rel => "popover", :id => "contact_item_#{contact.user_id}"}
+      = link_to "#{contact.user.first_name} #{contact.user.last_name}", "#"
+  %td#assign_users_process_div{:style => "border: 0"}
+    .pull-right
+      = link_to icon("trash", ""), "#", :class => "delete_contact_item", "data-user" => contact.user_id, "data-nurl" => remove_notification_transaction_path(@transaction)+"?user_id=#{contact.id}" if show_trash == 1
+    = render "users/assign_users_process", :attach_contacts => current_user.attach_contacts, :super_contact => contact.user
+    

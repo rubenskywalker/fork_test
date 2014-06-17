@@ -1,0 +1,186 @@
+header
+  color: white
+  background-color: $primary
+  
+  .header-primary
+    float: left
+    width: 280px
+  
+  .header-secondary
+    float: right
+    padding: 0
+    &.navbar-collapse.in
+      overflow-y: visible
+      .dropdown-menu
+        left: 0
+        right: auto
+  
+  .brand
+    display: block
+    position: relative
+    left: -10px
+    margin: 10px 0
+    padding: 10px
+  
+  .form-search
+    position: relative
+    display: block
+    width: 100%
+    margin: 0 0 10px
+    white-space: nowrap
+    input
+      width: 100%
+      border: 0
+      padding: 5px 10px
+      font-size: 95%
+      border-radius: 20px
+      box-shadow: rgba(black, .2) 0 1px 0
+      &:focus
+        box-shadow: rgba(white, .6) 0 0 10px
+        outline: 0
+    button
+      position: absolute
+      right: 0
+      top: 0
+      padding: 5px 15px 5px 12px
+      font-size: 95%
+      color: white
+      background-color: rgba($primary, .6)
+      font-weight: bold
+      border: 0
+      border-radius: 0 20px 20px 0
+      &:hover,
+      &:active
+        color: white
+        background-color: rgba($primary, .8)
+  
+  .nav-secondary
+    float: right
+    position: relative
+    right: -15px
+    margin: 10px 0
+    font-size: 95%
+    > a
+      padding: 2px 15px
+      border-left: 1px solid rgba(white, .2)
+      &:first-child
+        border: 0
+        
+    .user
+      display: inline-block
+      margin: 2px 15px
+  
+  .nav-primary
+    float: right
+    clear: right
+    position: relative
+    right: -10px
+    > a,
+    .dropdown > a
+      margin-left: 10px
+      padding: 10px
+      text-align: center
+      &:hover
+        text-decoration: none
+      &:first-child
+        margin-left: 0
+    .glyphicon
+      display: block
+      color: rgba(white, .6)
+      margin-bottom: 10px
+      font-size: 200%
+  
+  .nav
+    > a,
+    .dropdown > a
+      display: inline-block
+      color: rgba(white, .8)
+      text-shadow: rgba(black, .2) 0 1px 0
+      .caret
+        border-top-color: rgba(white, .5)
+      &:hover,
+      &:focus,
+      &.active
+        color: white
+        text-decoration: none
+        .glyphicon
+          color: white
+        .caret
+          border-top-color: white
+    .open
+      > a,
+      > a:hover,
+      > a:focus
+        color: white
+        background-color: transparent
+        text-decoration: none
+        .glyphicon
+          color: white
+        .caret
+          border-top-color: white
+    .dropdown-menu
+      left: auto
+      right: 0
+      a
+        display: block
+        padding: 2px 10px
+        font-weight: bold
+        &:hover
+          color: white
+          background-color: $primary
+          text-decoration: none
+  
+  .navbar-toggle
+    position: relative
+    z-index: 15
+    margin-right: 0
+    margin-top: 10px
+    border: 0
+    .icon-bar
+      background-color: rgba(white, .8)
+    &:hover
+      background-color: rgba(white, .2)
+      .icon-bar
+        background-color: white
+  
+  .navbar-collapse.in,
+  .navbar-collapse.collapsing
+    float: none
+    clear: both
+    .nav
+      float: none
+      > a
+        float: none
+        display: block
+        border: 0
+        text-align: left
+    .user
+      display: none
+    .nav-secondary
+      margin-bottom: 0
+      border-bottom: 1px solid rgba(white, .1)
+      > a
+        margin-bottom: 10px
+    .nav-primary
+      > a
+        margin-left: 5px
+      .glyphicon
+        display: inline-block
+        margin: 0 10px 0 0
+        font-size: 120%
+
+
+@media (max-width: 992px)
+  header
+    .nav-primary
+      > a,
+      .dropdown > a
+        margin-left: 0
+        padding-left: 8px
+        padding-right: 8px
+
+
+@media (max-width: 768px)
+  header
+    .header-primary
+      float: none

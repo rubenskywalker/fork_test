@@ -1,0 +1,12 @@
+.col-md-12
+  Save or Load from templates
+  .btn-group
+    %button.btn.btn-info Choose template
+    %button.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown"}
+      %span.caret
+    %ul.dropdown-menu
+      - current_user.welcome_templates.all.each do |wt|
+        %li
+          = link_to wt.name, "#", :class => "welcome_template", "data-subject" => wt.subject, "data-message" => wt.message
+  %input.form-control.input-large{:placeholder => "Name", :type => "text", :id => "welcome_template_name"}/
+  %button#welcome_template_save.btn.btn-info Save

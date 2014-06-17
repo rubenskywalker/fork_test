@@ -1,0 +1,11 @@
+%tr
+  %td= link_to(location.name, "#", :id => "name", "data-type" => "text", "data-pk" => "1", "data-url" => name_location_path(location), "data-original-title" => "Enter name", :class => "super_editable", :style => "color: #000")
+  %td= location.location_permissions.where("l2 = ? OR l12 = ?", true, true).length
+  %td= link_to location.transactions.length, in_location_transaction_path(location.id)
+  %td
+    .pull-right
+      - if location.transactions.length > 0
+        = link_to icon("trash", "Remove"), "#", :class => "btn btn-xs btn-info transactions_inside", "data-name" => "location"
+      - else
+        = link_to icon("trash", "Remove"), location_path(location), :class => "btn btn-xs btn-info", :method => :delete, :confirm => "Are you sure?"
+     

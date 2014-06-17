@@ -1,0 +1,10 @@
+- checklists = []
+- @transaction.checklist_items.each do |ci|
+  - checklists << ci.name
+
+- mail_template = MailTemplate.find_by_category(MailTemplate::CATEGORIES_LIST[3]).body
+- mail_template = mail_template.gsub("#user_name", @user.fullname)
+- mail_template = mail_template.gsub("#transaction_name", transaction_url(@transaction))
+- mail_template = mail_template.gsub("#checklists", checklists.join("<br>"))
+
+= mail_template.html_safe

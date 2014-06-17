@@ -1,0 +1,206 @@
+- @body_class = "transaction-detail"
+
+.page-header
+
+  %h1.heading
+    = tname(@global_company.transaction_details.first, @transaction)
+  
+  .actions
+    
+    -#
+      - if @transaction.lock?
+        = link_to icon("lock", "Transaction is locked"), lock_transaction_path(@transaction), class: "btn btn-default"
+      - else
+        = link_to icon("unlock", "Transaction is unlocked"), lock_transaction_path(@transaction), class: "btn btn-default"
+    
+    - unless disable_access(:update, @transaction)
+      = link_to icon("pencil", "Edit Transaction"), edit_transaction_path(@transaction), :class => "btn btn-default", :disabled => disable_access(:update, @transaction)
+
+- if @global_company.transaction_details.first.only_pdf?
+  //%a#pdf_only{:mark => "a"}
+- if @transaction.lock? && (!current_user.super_admin? || disable_access(:assign_files, @transaction))
+  %a#lock-transaction{:mark => "a"}
+
+
+.row
+  
+  .col-md-3
+    
+    - location_permissions = @transaction.location.location_permissions.find_by_user_id(current_user.id)
+    - if (location_permissions.l12? && @transaction.user == current_user) || location_permissions.l2? || (current_user.super_admin? || current_user.p_all?)
+      .transaction-box
+        %span.photo.data{style: "background-image: url(#{image_path("transactions/no-photo.jpg")})"}
+
+    
+    .details
+      .detail
+        %span.detail-label Location
+        %span.detail-number= @transaction.location.name if @transaction.location
+      .detail
+        %span.detail-label List Price
+        %span.detail-number=number_to_currency @transaction.list_price, :precision => 0 unless @transaction.list_price.blank?
+      .detail
+        %span.detail-label Sale Price
+        %span.detail-number=number_to_currency @transaction.sale_price, :precision => 0 unless @transaction.sale_price.blank?
+      .detail
+        %span.detail-label Added on
+        %span.detail-number= @transaction.created_at.strftime('%b %d, %Y')
+      .detail
+        %span.detail-label Closing
+        %span.detail-number= @transaction.close_sate.strftime('%b %d, %Y') unless @transaction.close_sate.blank?
+      .detail
+        %span.detail-label Expiring
+        %span.detail-number= @transaction.expiration_date.strftime('%b %d, %Y') unless @transaction.expiration_date.blank?
+    
+    .checklists
+      %h4.heading Checklists
+      - @transaction.checklists.each do |checklist|
+        = render "checklists/checklist", :checklist => checklist
+      
+      .checklist-actions
+    
+        - unless disable_access(:add_remove_checklists, @transaction)
+          %button.btn.btn-default.btn-xs.add_an_checklist
+            .glyphicon.glyphicon-add
+            Add a Checklist
+      .add-checklist.add_an_checklist_well{style: "display: none"}
+        = render "checklists/form", :transaction => @transaction
+  
+  .col-md-9
+    
+    .page-sub-header
+
+      %h2.heading
+        Recent Activity
+    
+    .panel
+      .panel-body
+        
+        %table#activities.activities
+          - @transaction.recent_activities.order("created_at DESC").limit(10).each_with_index do |ra, index|
+            - unless current_user.real_guest? && !current_user.p_all? && ra.note_id.blank?
+              - unless !ra.note_id.blank? && !current_user.p_all?  && !current_user.super_admin? && !ra.note.for_users.split(",").include?(current_user.id.to_s) && ra.note.user != current_user
+                %tr.activity{class: ("hidden" if index >= 3)}
+                  %td.avatar= image_tag ra.user.def_avatar, :size => "40x40"
+                  %td.name= ra.user.fullname
+                  - message = ra.message.gsub("Transaction", "#{link_to("Transaction (#{tname(@global_company.transaction_details.first, ra.transaction)})", "#")}")
+                  %td.message= message.gsub("Close sate", "Close date").html_safe
+                  %td.time= "#{time_ago_in_words(ra.created_at)} ago"
+
+    .page-actions
+      
+      - if @transaction.recent_activities.count > 3
+        %a.btn.btn-default.show-more{href: "#show-more", data: {show: "#activities"}}
+          .glyphicon.glyphicon-chevron-down
+          %span.text Show more
+    
+    
+    -#
+      - unless current_user.real_guest? || @global_company.real_free?
+        .page-sub-header
+
+          %h2.heading
+            Checklists
+    
+        .panel
+          .panel-body
+        
+            - @transaction.checklists.each do |checklist|
+              = render "checklists/checklist", :checklist => checklist
+
+        .page-actions
+      
+          - unless disable_access(:add_remove_checklists, @transaction)
+            %button.btn.btn-default.add_an_checklist
+              .glyphicon.glyphicon-add
+              Add a Checklist
+        
+    
+      .add-checklist.add_an_checklist_well{style: "display: none"}
+        = render "checklists/form", :transaction => @transaction
+    
+
+    .page-sub-header
+
+      %h2.heading
+        Contacts
+    
+    .panel
+      .panel-body
+        = render "contacts"
+  
+    .add-contact.add_an_contact_well{style: "display: none"}
+      = render "contacts/form_add"
+
+    .page-actions
+      - unless disable_access(:update, @transaction)
+        %button.btn.btn-default.add_an_contact
+          .glyphicon.glyphicon-add
+          Add a Contact
+    
+    .add-note.add_an_note_well{style: "display: none"}
+      = render "notes/form"
+
+
+    
+    .page-sub-header
+
+      %h2.heading
+        Documents
+
+      .actions
+      
+        %button.btn.btn-default.uploader_button{:upload_path => transaction_docs_path(@transaction), :id => 'transactions_upload_button_top', :upload_container => "documents", :process_view => "doc_process", :after_view => "doc" }
+          %i.glyphicon.glyphicon-upload 
+          Upload Document
+      
+        %a.btn.btn-default{href: "mailto:#{@transaction.user_mail_attachment(current_user)}"}
+          .glyphicon.glyphicon-add
+          Email a Document
+    
+    .panel
+      .panel-body
+        
+        #documents= render "documents"
+    
+    .page-actions
+    
+    
+    
+    .page-sub-header
+
+      %h2.heading
+        Notes
+
+      .actions
+      
+        %button.btn.btn-default.add_an_note
+          .glyphicon.glyphicon-add
+          Add a Note
+      
+        -#
+          %a.btn.btn-default{href: "mailto:#{@transaction.user_mail_attachment(current_user)}"}
+            .glyphicon.glyphicon-add
+            Email a Note
+    
+    .panel
+      .panel-body
+        
+        #notes.notes
+          - @transaction.notes.each_with_index do |note, index|
+            .well{class: ("hidden" if index >= 3)}
+              .author
+                = image_tag note.user.def_avatar, :size => "40x40", :class => "avatar"
+                %span.name= note.user.fullname
+              .time
+                = "#{time_ago_in_words(note.created_at)} ago"
+              .message
+                = note.note_message.html_safe if note.note_message.present?
+                %pre.message-body= truncate(note.status, length: 250) if note.status
+
+    .page-actions
+      
+      - if @transaction.notes.count > 3
+        %a.btn.btn-default.show-more{href: "#show-more", data: {show: "#notes"}}
+          .glyphicon.glyphicon-chevron-down
+          %span.text Show more

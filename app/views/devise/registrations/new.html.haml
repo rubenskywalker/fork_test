@@ -1,0 +1,116 @@
+- unless params[:free_plan] == "free" || params[:plan_id]
+  = render "pricing"
+- else
+  .register-wrapper
+    .register-container.center
+      .row
+        .col-sm-9
+          .row
+            = form_for(resource, :as => resource_name, :url => "/users", :method => :post, :html => {:id => params[:free_plan] == "free" ? "users_form" : "upgrade_form"}) do |f|
+              %fieldset
+                - if params[:free_plan] == "free"
+                  %legend Create your free account
+                - else
+                  %legend Create your account
+                .row
+                  .form-group.col-sm-6
+                    %label{for: "user_role"} My role is:
+                    %select.form-control
+                      %option{selected: "selected", value: ""} -
+                      %option{value: "buyer"} Home Buyer
+                      %option{value: "seller"} Home Seller
+                      %option{value: "repro"} Real Estate Professional
+                      %option{value: "6"} Escrow Officer
+                      %option{value: "7"} Title Officer
+                      %option{value: "13"} Loan Officer
+                      %option{value: "8"} Home Inspector
+                      %option{value: "14"} Appraiser
+                      %option{value: "15"} Insurance Agent
+                      %option{value: "16"} Attorney
+                      %option{value: "17"} Other
+                .row
+                  = f.hidden_field(:free_plan, :value => "true") if params[:free_plan] == "free"
+                  = f.hidden_field(:super_admin, :value => "true")
+                  .form-group.col-sm-6
+                    / FIRST COLUMN
+                    %label{for: "user_first_name"} First Name
+                    = f.text_field :first_name, :class => "form-control", :value => params[:name]
+                  .form-group.col-sm-6
+                    %label{for: "user_last_name"} Last Name
+                    = f.text_field :last_name, :class => "form-control"
+                .row
+                  .form-group.col-sm-12
+                    %label{for: "user_tmp_company"} Company
+                    = f.text_field :tmp_company, :class => "form-control", :placeholder => "Optional", :value => params[:company]
+                .row
+                  .form-group.col-sm-12
+                    %label{for: "user_phone"} Phone
+                    = f.text_field :phone, :class => "form-control", :placeholder => "Optional"
+                .row
+                  .form-group.col-sm-12
+                    %label{for: "user_email"} Email
+                    = f.text_field :email, :class => "form-control", :value => params[:email]
+                .row
+                  .form-group.col-sm-6
+                    / FIRST COLUMN
+                    %label{for: "user_password"} Password
+                    = f.password_field :password, :class => "form-control"
+                  .form-group.col-sm-6
+                    %label{for: "user_password_confirmation"} Confirm Password
+                    = f.password_field :password_confirmation, :class => "form-control"
+              
+                - if params[:plan_id]
+                  .row
+                    .form-group.col-sm-12
+                      = f.hidden_field :company_plan, :value => params[:plan_id]
+                      = f.hidden_field :card_four
+                      = f.hidden_field :plan_id, :value => "plan10"
+                      = f.hidden_field :stripe_card_token
+                      .field
+                        = label_tag :card_number, "Credit Card Number "
+                        = text_field_tag :card_number, nil, name: nil, style: "width: 98%", :class => "form-control"
+                      .field
+                        = label_tag :card_code, "Security Code on Card (CVV)"
+                        = text_field_tag :card_code, nil, name: nil, style: "width: 98%", :class => "form-control"
+                      .field
+                        = label_tag :card_month, "Card Expiration"
+                        %br
+                        = select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month", class: "form-control", style: "width: 200px; float: left; margin-right: 5px;"}
+                        = select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", class: "form-control", style: "width: 200px; float: left;"}
+                      .actions
+                        %br
+                        %br
+                .row
+                  .form-group.col-sm-6
+                    = "By clicking below you agree to the terms of service."
+                    %br
+                    %button.btn.btn-lg.btn-primary.signup-button.pull-right{name: "commit", type: "submit", value: "Create My Account"}
+                      %i.glyphicon.glyphicon-ok
+                      Create My Account
+              
+                    %a{href: "/users/sign_in"} Already have an account? Log in
+                  .form-group.col-sm-6
+                  
+        .col-sm-3
+          %fieldset
+            %legend
+              Account Info
+            %br
+            .well.well-light
+              - if params[:free_plan] == "free"
+                %strong Account Type: 
+                Free
+                %br
+                %strong Cost: 
+                None
+                %br
+                %strong Transactions included:
+                5
+              - if params[:plan_id]
+                %strong Account Type: 
+                = DefaultPlan::PLANS[params[:plan_id].to_i]
+                %li= "Minimum monthly fee: $#{DefaultPlan::PRICES[params[:plan_id].to_i]}"
+                %li= "Price per User: $#{DefaultPlan::PRICE_PER_USER[params[:plan_id].to_i]}"
+                %li= "Minimum users included: #{DefaultPlan::USERS_INCLUDED[params[:plan_id].to_i]}"
+      - unless params[:free_plan] == "free"
+        = #render "welcome/profiles/payment_plans"

@@ -1,0 +1,66 @@
+- @user = current_user
+.col-md-12
+  - if current_user.have_empty_fields?
+    .alert.alert-error Please fill your profile in full, so that you can go further with Aditap
+  =# form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true }, :validate => true) do |f|
+  = form_for @user, :validate => true do |f|
+    = devise_error_messages!
+   
+    .default_radius.black_box_inset_shadow.big_height
+      .party_block
+        .row
+          .col-md-6
+            %span.title_f FIRST NAME
+            = f.text_field :firstname, :style => 'width: 100%', :class => "form-control"
+          .col-md-6
+            %span.title_f LAST NAME
+            = f.text_field :lastname, :style => 'width: 100%', :class => "form-control"
+        .row
+          .col-md-12
+            = f.radio_button :gender, "m"
+            %span.title_f MALE
+            = f.radio_button :gender, "f"
+            %span.title_f FEMALE
+        .row.no-margin
+          .col-md-12
+            %span.title_f ABOUT ME
+            = f.text_area :about_me, :style => 'width: 100%', :rows => 4, :class => "form-control"
+        .row
+          .col-md-6
+            %span.title_f E-MAIL
+            %br
+            %span.gray= current_user.email
+          .col-md-6
+            %span.title_f SCREEN NAME (will be your official name seen by your roster)
+            %br
+            = f.text_field :screen_name, :style => 'width: 100%', :class => "form-control"
+        .row.no-margin
+          .col-md-12
+            %span.title_f DATE OF BIRTH
+            %br
+            = f.date_select :birth_date, {:order => [:day, :month, :year], :start_year => Time.now.year - 110, :end_year => Time.now.year - 14} 
+        .row.no-margin
+          .col-md-12
+            %span.title_f PIN
+            %br
+            = image_tag create_captcha_invitations_path
+        .row.no-margin
+          .col-md-12
+            %span.title_f TIME ZONE
+            %br
+            = f.time_zone_select :time_zone
+            
+        .row.no-margin
+          .col-md-12
+            %span.title_f SECRET QUESTION
+            %br
+            = f.select :secret_question, User::UQESTION, :style => 'width: 100%', :class => "form-control"
+        .row
+          .col-md-12
+            %span.title_f SECRET ANSWER
+            %br
+            = f.text_field :secret_answer, :style => 'width: 100%', :class => "form-control"
+
+        .row
+          .col-md-12
+            = f.submit "Update", :class => 'btn-lg btn btn-primary'

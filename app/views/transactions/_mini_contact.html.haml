@@ -1,0 +1,17 @@
+- @transaction.attach_contacts.each do |contact|
+  - if current_user.contact_accesses.where(:transaction_id => @transaction.id).map(&:contact_id).include?(contact.user.id) || current_user.super_admin? || current_user.p_all? || @transaction.user == current_user
+    %tr
+      %td.name
+        %strong
+          - if contact.user.no_email?
+            = contact.user.fullname 
+          - else
+            = mail_to(contact.user.email, contact.user.fullname)
+      %td.role
+        = contact.role.name
+      %td.company= !contact.user.company.nil? && contact.user.contact_company.blank? ? contact.user.company.name : contact.user.contact_company
+      
+      %td.phone= contact.user.phone
+      - if current_user.super_admin? || current_user.p_all? || @transaction.user == current_user
+        %td#assign_users_process_div
+          = render "users/assign_users_process", :attach_contacts => current_user.attach_contacts, :super_contact => contact.user

@@ -1,0 +1,27 @@
+- unless @transaction.new_record?
+
+  %ul#myTab.nav.nav-tabs
+    %li.active
+      %a{:href => "#existing_contact", "data-toggle" => "tab"} Add Existing Contact
+    %li
+      %a{:href => "#new_contact", "data-toggle" => "tab"} Add New Contact
+  .tab-content
+    #existing_contact.tab-pane.active
+      .alert.created_alert.hidden_item.fade.in Contact successfully created
+      = form_for @transaction, :url => add_contact_transaction_path(@transaction), :method => :put, :remote => true, :html => {:class => "json_validate form-inline"} do |f|
+  
+        .form-group
+          %label Find existing contact
+          = f.autocomplete_field :company_name, autocomplete_user_fullname_transactions_path, :placeholder => "start typing contact`s name", :class => "form-control"
+        
+        .form-group
+          %label Role
+          = collection_select(:transaction, :role_id, Role.all, :id, :name, {:prompt => 'Please select role'}, {:class => "form-control"}) 
+      
+        .form-actions
+          %button.btn.btn-info{type: "submit"} Add
+          = link_to "Cancel", "#", :class => "outside_agents_btn btn btn-default btn-small"
+    
+    #new_contact.tab-pane
+      = form_for @contact = User.new(), :url => add_contact_transaction_path(@transaction), :remote => true, :method => :put, :html => {:class => "json_validate form-inline"} do |f|
+        = render "/contacts/form", :f => f, :role_present => true

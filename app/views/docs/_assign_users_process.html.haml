@@ -1,0 +1,24 @@
+- user_ids = []
+- @global_company.users.each do |u|
+  - if u.super_admin? || u.p_all?
+    - user_ids << u.id
+=# render "docs/assign_users", :doc => doc
+- unless current_user.real_guest? || disable_access(:update, @transaction)
+  .btn-group.assign-users
+    %button.btn.btn-default.btn-xs.dropdown-toggle{"data-toggle" => "dropdown"}
+      Contacts
+      %span.caret
+    %ul.dropdown-menu
+      - User.where("id IN (?) AND id != ?", @transaction.attach_contacts.map(&:user_id), current_user.id).each do |user|
+        - unless user_ids.include?(user.id)
+          %li
+            - unless doc.users.map(&:id).include?(user.id)
+              = link_to ms_link_users(user.fullname, user, doc.users), "#", :class => "multicheck", "data-fileid" => user.id
+            - else
+              .checked
+                %span.glyphicon.glyphicon-ok
+                = user.fullname
+      %li
+        .actions.popup_buttons_container
+          = link_to "Save", "#", :class => "btn btn-xs btn-info assign_files_to", "data-url" => assign_users_doc_path(doc)+"?transaction_id=#{@transaction.id}"
+          = link_to "Cancel", "#", :class => "close_assign_files btn btn-default btn-xs"

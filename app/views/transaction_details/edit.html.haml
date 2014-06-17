@@ -1,0 +1,248 @@
+.row
+  .col-md-12
+    %h1 Transaction Details
+
+.panel.panel-default
+  .panel-heading
+    %h3.heavy.panel-title Select Transaction Types:
+  .panel-body
+    %table.table.table-striped{:width => "100%"}
+      %thead
+        %tr
+          %th{:style => "width: 25%"} Name
+          %th{:style => "width: 25%"} &nbsp;
+          %th{:style => "width: 25%"} # Transactions
+          %th{:style => "width: 25%"} Actions
+      %tbody
+        - @transaction_detail.transaction_types.each do |tt|
+          %tr
+            %td= link_to(tt.name, "#", :id => "name", "data-type" => "text", "data-pk" => "1", "data-url" => update_name_transaction_type_path(tt), "data-original-title" => "Enter name", :class => "super_editable", :style => "color: #000")
+            %td{:style => "width: 25%"} &nbsp;
+            %td
+              %span.label.label-default
+                = link_to "#{tt.transactions.length}", in_type_transaction_path(tt.id), :style => "color: #fff"
+            %td
+              - if tt.transactions.length > 0
+                = link_to "Delete", "#", :class => "btn btn-xs btn-danger transactions_inside", "data-name" => "transaction type"
+              - else
+                = link_to "Delete", transaction_type_path(tt), :class => "btn btn-xs btn-danger", :method => :delete, :confirm => "Are you sure?"
+      
+    %br
+    %br
+    = form_for @transaction_type = TransactionType.new(), :html => {:class => "form-inline"} do |ff|
+      Add another type
+      = ff.hidden_field :checked, :value => true
+      = ff.text_field :name, :class => "form-control", :style => "width: 417px"
+      = ff.hidden_field :transaction_detail_id, :value => @transaction_detail.id
+      = ff.submit "Save", :class => "btn btn-default"
+  
+
+.panel.panel-default
+  .panel-heading
+    %h3.heavy.panel-title Select Transaction Statuses:
+  .panel-body                
+    .row
+      .col-md-12#transaction_statuses
+        %table.table.table-striped{:width => "100%"}
+          %thead
+            %tr
+              %th{:style => "width: 25%"} Status Name
+              %th{:style => "width: 25%"} Category
+              %th{:style => "width: 25%"} # Transactions
+              %th{:style => "width: 25%"} Actions
+          %tbody
+            = render "transaction_statuses"
+    .row
+      .col-md-12
+        %br
+        %br
+        = form_for @transaction_status = TransactionStatus.new(), :html => {:class => "form-inline"} do |ff|
+          Add another status
+          = ff.hidden_field :checked, :value => true
+          = ff.select :category, TransactionStatus::STATUSES[0..4], {}, {:class => "form-control", :style => "width: 200px"}
+          = ff.text_field :name, :class => "form-control", :style => "width: 200px"
+          = ff.hidden_field :transaction_detail_id, :value => @transaction_detail.id
+          = ff.submit "Save", :class => "btn btn-default"
+    
+= form_for @transaction_detail, :method => :put do |f|
+  .panel.panel-default
+    .panel-heading
+      %h3.heavy.panel-title Select Transaction Details:
+    .panel-body 
+    
+      %table.table-condensed
+        %tbody
+        %tr
+          %td{:style => "width: 180px"} What is your role in this transaction
+        
+          %td
+            = f.radio_button :what_role, 1
+            required
+          %td
+            = f.radio_button :what_role, 0
+            optional
+          %td
+          %tr
+            %td{:style => "width: 180px"} Street Address 1
+            %td
+              = f.radio_button :address_1, 1
+              required
+            %td
+              = f.radio_button :address_1, 0
+              optional
+            %td
+          %tr
+            %td Street Address 2
+            %td
+              = f.radio_button :address_2, 1
+              required
+            %td
+              = f.radio_button :address_2, 0
+              optional
+            %td
+          %tr
+            %td City
+            %td
+              = f.radio_button :city, 1
+              required
+            %td
+              = f.radio_button :city, 0
+              optional
+            %td
+          %tr
+            %td County
+            %td
+              = f.radio_button :county, 1
+              required
+            %td
+              = f.radio_button :county, 0
+              optional
+            %td
+          %tr
+            %td State
+            %td
+              = f.radio_button :state, 1
+              required
+            %td
+              = f.radio_button :state, 0
+              optional
+            %td
+          %tr
+            %td Zip Code
+            %td
+              = f.radio_button :zip, 1
+              required
+            %td
+              = f.radio_button :zip, 0
+              optional
+            %td
+          %tr
+            %td MLS Number
+            %td
+              = f.radio_button :mls, 1
+              required
+            %td
+              = f.radio_button :mls, 0
+              optional
+            %td
+          %tr
+            %td Acceptance Date 
+            %td
+            
+              = f.radio_button :acceptance_date , 1
+              required
+            %td
+              = f.radio_button :acceptance_date, 0
+              optional
+            %td
+          %tr
+            %td Expiration Date
+            %td
+              = f.radio_button :expiration_date, 1
+              required
+            %td
+              = f.radio_button :expiration_date, 0
+              optional
+            %td
+          %tr
+            %td List Price
+            %td
+              = f.radio_button :list_price, 1
+              required
+            %td
+              = f.radio_button :list_price, 0
+              optional
+          %tr
+            %td Sale Price
+          
+            %td
+              = f.radio_button :sale_price, 1
+              required
+            %td
+              = f.radio_button :sale_price, 0
+              optional
+          %tr
+            %td Transaction Status
+            %td
+              = f.radio_button :t_status, 1
+              required
+            %td
+              = f.radio_button :t_status, 0
+              optional
+          %tr
+            %td Transaction Type
+            %td
+              = f.radio_button :t_type, 1
+              required
+            %td
+              = f.radio_button :t_type, 0
+              optional
+ 
+  -#              
+    .panel.panel-default
+      .panel-heading
+        %h3.heavy.panel-title Select Transaction Name Format:
+      .panel-body
+        = f.radio_button :l1n, 1, :class => "change_td_example", "data-ex" => "James to Smith - 123 Any Street"
+        Seller to Buyer - Address
+        %br
+        = f.radio_button :l1n, 2, :class => "change_td_example", "data-ex" => "James to Smith"
+        Seller to Buyer
+        %br
+        = f.radio_button :l1n, 3, :class => "change_td_example", "data-ex" => "123 Any Street - James to Smith"
+        Address - Seller to Buyer
+        %br
+        = f.radio_button :l1n, 4, :class => "change_td_example", "data-ex" => "123 Any Street"
+        Address
+        %br
+        = f.radio_button :l1n, 5, :class => "change_td_example", "data-ex" => "123 Any Street"
+        Address, City
+        %br
+        = f.radio_button :l1n, 6, :class => "change_td_example", "data-ex" => "123 Any Street"
+        Address, City, State
+        %br
+        %br
+        %span.label.label-info.change_td_example_well Example: James to Smith - 123 Any Street
+        %br
+        %br
+  .panel.panel-default
+    .panel-heading
+      %h3.heavy.panel-title Miscellaneous:
+    .panel-body
+      = f.check_box :only_pdf
+      Allow Uploads of PDF Files Only
+  - if @commmened
+    .row.defailt_padding
+      .col-md-12
+        .well
+          
+          = f.check_box :auto_lock
+          Auto-Lock Transaction When All Checklists Are Complete
+              
+
+  .row.defailt_padding
+    .col-md-12
+      %button.btn.btn-info
+        %i.glyphicon.glyphicon-ok 
+        Save
+      = link_to icon("share-alt", "Cancel"), transaction_details_path, :class => "btn btn-default"

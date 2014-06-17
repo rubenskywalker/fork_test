@@ -1,0 +1,19 @@
+- locations_list = (current_user.super_admin? || current_user.p_all?) ? Location.all : Location.for_user(current_user)
+.row
+  .col-md-4
+  .col-md-4{:style => "text-align: center;"}
+    = form_for current_user.widgets.new(), :url => user_widgets_path(current_user) do |f|
+      %h4 Widget type
+      
+      %select{:name => "widget[widget_type]", :class => "form-control"}
+        - uw = current_user.widgets.map(&:widget_type)
+        - Widget::TYPES.each do |k, v|
+          %option{:value => v, :disabled => uw.include?(v) ? true : false}= k
+      =# f.select :widget_type, Widget::TYPES, {}, {:class => "form-control"}
+      = f.hidden_field :location_id, :value => 0
+      =# f.select :location_id, f.object.ra_for_array(locations_list)
+      %br
+      %br
+      = f.submit "Create Widget", :class => "btn btn-primary"
+  .col-md-4
+  

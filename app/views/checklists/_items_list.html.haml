@@ -1,0 +1,5 @@
+- checklist_items.each do |checklist_item|
+  %tr.checklist-item{:id => "drop_upload_#{dom_id(checklist_item)}", :class => "delete_#{dom_id(checklist_item)} #{checklist_item.checklist.checklist_master.lock? ? 'locked_checklist' : '' }"}
+    = render "checklist_items/checklist_item", :checklist_item => checklist_item
+  %tr.hidden_item.file_iframe{:id => "show_pdf_#{dom_id(checklist_item)}"}
+    %td{:colspan => 5}

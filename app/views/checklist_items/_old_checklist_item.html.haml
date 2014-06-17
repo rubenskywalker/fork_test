@@ -1,0 +1,39 @@
+%tr
+  %td{:style => "width: 10px"}
+    %input{:type => "checkbox", "checked" => checklist_item.checked?, :class => "check_checklist_item", "data-url" => check_checklist_item_path(checklist_item)}
+  %td{:style => "width: 140px"}
+    %i.glyphicon.glyphicon-star-empty
+    %strong= checklist_item.name
+  %td{:style => "width: 100px"}
+    %button.btn.btn-info.btn-xs.uploader_button{:upload_path => checklist_item_docs_path(checklist_item), :id => "upload_#{dom_id(checklist_item)}", :upload_container => "file_table#{dom_id(checklist_item)}", :process_view => "item_doc_process", :after_view => "item_doc" }
+      %i.glyphicon.glyphicon-upload 
+      U
+    =# link_to icon("plus", "A"), "#assign_files", :role => "button", :class => "btn btn-info btn-xs", "data-toggle" => "modal", "data-moveurl" => move_checklist_item_docs_path(checklist_item)
+    .btn-group
+      %button.btn.btn-info.btn-xs A
+      %button.btn.btn-info.btn-xs.dropdown-toggle{"data-toggle" => "dropdown"}
+        %span.caret
+      %ul.dropdown-menu
+        - checklist_item.checklist.transaction.docs.each do |doc|
+          %li
+            = link_to ms_link_items(doc.filename, "only_ci", checklist_item, doc), "#", :class => "multicheck #{'checked' if doc.doc_accesses.only_ci.map(&:docable_id).include?(checklist_item.id)}", "data-fileid" => doc.id
+        %li
+          .popup_buttons_container
+            = link_to icon("ok", "Save"), "#", :class => "btn btn-xs btn-info assign_files_to", "data-url" => move_checklist_item_docs_path(checklist_item)
+            = link_to icon("share-alt", "Cancel"), "#", :class => "close_assign_files btn btn-xs"
+            
+
+    =# edit_button "plus", "A"
+  %td
+    .drag{:id => "drop_upload_#{dom_id(checklist_item)}"}
+      Drag n Drop
+  %td
+  %td
+%tr
+  %td{:style => "width: 10px"}
+  %td{:style => "width: 140px"}
+  %td{:colspan => 4}
+    %table.table.table-condensed.table-hover{:style => "background-color : transparent;"}
+      %tbody{:id => "file_table#{dom_id(checklist_item)}"}
+        = render "checklist_items/file_table", :checklist_item => checklist_item
+        

@@ -1,0 +1,54 @@
+- unless disable_access(:read, tr)
+  %tr
+    %td= link_to tname(@global_company.tr_details.first, tr), tr_path(tr)
+    %td
+      %span.label.label-success= tr.tr_status.name if tr.tr_status
+    - unless current_user.real_guest?
+      %td{ "data-value" => (bar_width(tr.checklist_items.length, tr.checklist_items.checked_only.length) / 10) }
+        .progress{:class => "super_tooltip", :title => render("welcome/tr_info", :tr => tr).html_safe}
+          %span= "#{tr.checklist_items.checked_only.length} / #{tr.checklist_items.length}"
+          .progress-bar{:style => "width: #{bar_width(tr.checklist_items.length, tr.checklist_items.checked_only.length)}%;"}
+         
+    
+      %td
+        - users_map = tr.attach_guests.map{|c| "#{c.user.fullname} (#{c.role.name})"}.join(", ")
+        - unless users_map.empty?
+          %i.glyphicon.glyphicon-user.big{:rel => "tooltip", :title => users_map || "", :class => "assigned_users"}
+    %td= tr.location.name if tr.location
+    %td= tr.close_sate.strftime('%b %d, %Y') unless tr.close_sate.blank?
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th{:colspan => 2}
+        = guest.role.name if guest.role
+  %tbody
+    %tr
+      %td
+        %strong Name:
+      %td
+        .pull-right
+          = "#{guest.first_name} #{guest.last_name}"
+    %tr
+      %td
+        %strong Phone:
+      %td
+        .pull-right= guest.phone
+
+    %tr
+      %td
+        %strong Title:
+      %td
+        .pull-right= guest.info
+    %tr
+      %td
+        %strong Fax:
+      %td
+        .pull-right= guest.fax
+    %tr
+      %td
+        %strong Email:
+      %td
+        .pull-right= guest.email
+
+      
+

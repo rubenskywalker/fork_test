@@ -1,0 +1,245 @@
+.row
+  = render "header"
+.row.defailt_padding
+  .col-md-12
+    %h1 Transaction Details
+
+.row.defailt_padding
+  .col-md-12
+    .row
+      .col-md-12
+        .well.well-light
+          .row
+            .col-md-12
+              %span.label.label-default Select Transaction Types:
+              %br
+              - TransactionType.all.each do |tt|
+                %br
+                %input{:type => "checkbox"}
+                = tt.name
+              %br
+              %br
+              = form_for @transaction_type = TransactionType.new() do |ff|
+                Add another type
+                = ff.text_field :name, :class => "form-control input-large"
+                = ff.submit "Save", :class => "btn btn-info"
+                  
+= form_for @transaction_detail do |f|
+  .row.defailt_padding
+    .col-md-12
+      .row
+        .col-md-12
+          .well.well-light
+            .row
+              .col-md-12
+                %span.label.label-default Select Transaction Statuses:
+                %br
+                %table.table-condensed
+                  %thead
+                    %tr
+                      %th{:style => "width: 200px"}
+                      %th Number of transactions:
+                  %tbody
+                    %tr
+                      %td
+                        %input{:type => "checkbox"}
+                        Offer
+                      %td= f.text_field :offer, :class => "form-control input-small"
+                    %tr
+                      %td
+                        %input{:type => "checkbox"}
+                        Pending
+                      %td= f.text_field :pending, :class => "form-control input-small"
+                    %tr
+                      %td
+                        %input{:type => "checkbox"}
+                        Listing
+                      %td= f.text_field :listing, :class => "form-control input-small"
+
+  .row.defailt_padding
+    .col-md-12
+      .row
+        .col-md-12
+          .well.well-light
+            .row
+              .col-md-12
+                %span.label.label-default Сhoose wich transaction details are optional:
+                %br
+                %h4 Who are represending in this transaction?
+                %br
+                %table.table-condensed
+                  %tbody
+                    %tr
+                      %td{:style => "width: 180px"} Street Address 1
+                      %td
+                        %input{:type => "radio"}
+                        required
+                      %td
+                        %input{:type => "radio"}
+                        optional
+                      %td
+                    %tr
+                      %td Street Address 2
+                      %td
+                        %input{:type => "radio"}
+                        required
+                      %td
+                        %input{:type => "radio"}
+                        optional
+                      %td
+                    %tr
+                      %td City
+                      %td
+                        %input{:type => "radio"}
+                        required
+                      %td
+                        %input{:type => "radio"}
+                        optional
+                      %td
+                    %tr
+                      %td State
+                      %td
+                        %input{:type => "radio"}
+                        required
+                      %td
+                        %input{:type => "radio"}
+                        optional
+                      %td
+                    %tr
+                      %td Zip Code
+                      %td
+                        %input{:type => "radio"}
+                        required
+                      %td
+                        %input{:type => "radio"}
+                        optional
+                      %td
+                    %tr
+                      %td MLS Number
+                      %td
+                        %input{:type => "radio"}
+                        required
+                      %td
+                        %input{:type => "radio"}
+                        optional
+                      %td
+                    %tr
+                      %td Close Date
+                      %td
+                        %input{:type => "radio"}
+                        required
+                      %td
+                        %input{:type => "radio"}
+                        optional
+                      %td
+                    %tr
+                      %td Expiration Date
+                      %td
+                        %input{:type => "radio"}
+                        required
+                      %td
+                        %input{:type => "radio"}
+                        optional
+                      %td
+                    %tr
+                      %td List Price
+                      %td
+                        %input{:type => "radio"}
+                        required
+                      %td
+                        %input{:type => "radio"}
+                        optional
+                      %td
+                        %input{:type => "radio"}
+                        hidden
+                    %tr
+                      %td Sale Price
+                      %td
+                        %input{:type => "radio"}
+                        required
+                      %td
+                        %input{:type => "radio"}
+                        optional
+                      %td
+                        %input{:type => "radio"}
+                        hidden
+                    %tr
+                      %td Buyer`s Agent Commision
+                      %td
+                        %input{:type => "radio"}
+                        required
+                      %td
+                        %input{:type => "radio"}
+                        optional
+                      %td
+                        %input{:type => "radio"}
+                        hidden
+                    %tr
+                      %td Listing Agent Commision
+                      %td
+                        %input{:type => "radio"}
+                        required
+                      %td
+                        %input{:type => "radio"}
+                        optional
+                      %td
+                        %input{:type => "radio"}
+                        hidden
+                    %tr
+                      %td Commision Note
+                      %td
+                        %input{:type => "radio"}
+                        required
+                      %td
+                        %input{:type => "radio"}
+                        optional
+                      %td
+                        %input{:type => "radio"}
+                        hidden
+                %br
+              
+
+  .row.defailt_padding
+    .col-md-12
+      .row
+        .col-md-12
+          .well.well-light
+            .row
+              .col-md-12
+                %span.label.label-default Select Transaction Name Format:
+                %br
+                %br
+                %input{:type => "radio"}
+                Seller to Buyer - Address
+                %br
+                %input{:type => "radio"}
+                Seller to Buyer
+                %br
+                %input{:type => "radio"}
+                Address - Seller to Buyer
+                %br
+                %input{:type => "radio"}
+                Address
+                %br
+                %br
+                %span.label.label-info Example: James to Smith - 123 Any Street
+                %br
+                %br
+  .row.defailt_padding
+    .col-md-12
+      .well
+        %input{:type => "checkbox"}
+        Auto-Lock Transaction When All Checklists Are Complete
+              
+
+  .row.defailt_padding
+    .col-md-12
+      %button.btn.btn-info
+        %i.glyphicon.glyphicon-ok 
+        Save
+      %button.btn
+        %i.glyphicon.glyphicon-share-alt 
+        Cancel
+      %button.btn.btn-danger
+        %i.glyphicon.glyphicon-trash
+        Reset to default 

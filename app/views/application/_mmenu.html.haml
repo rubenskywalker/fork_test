@@ -1,0 +1,54 @@
+.navbar.navbar-inverse.navbar-fixed-top{:style => "height: 5px"}
+  .container.left_container
+    %a.navbar-brand.plbrand{:href => "/"}
+      %h2.plbrand-text TM1
+    %a.btn.navbar-btn.right_container{"data-target" => ".navbar-responsive-collapse", "data-toggle" => "collapse"}
+      %span.glyphicon.glyphicon-bar
+      %span.glyphicon.glyphicon-bar
+      %span.glyphicon.glyphicon-bar
+    .nav-collapse.collapse.navbar-responsive-collapse
+      %ul.main_nav.nav
+        - unless !user_signed_in? || current_user.real_guest?
+          %li{:class => menu_active("welcome")}
+            = link_to "Dashboard", "/"
+        %li{:class => menu_active("transactions")}
+          = link_to "Transactions", transactions_path
+        - unless !user_signed_in? || current_user.real_guest?
+          %li{:class => menu_active("library")}
+            = link_to "Library", "/library"
+          %li{:class => menu_active("contacts")}
+            = link_to "Contacts", contacts_path
+          %li
+            = link_to "Settings", "/users", :class => "small_display", :style => "display: none;" unless disable_access(:create, User.last) || (user_signed_in? && current_user.real_guest?)
+        - if user_signed_in? && (!disable_access(:create, User.last) || !disable_access(:manage, ChecklistMaster.last)) && !current_user.real_guest?
+          %li.dropdown.small_no_display
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              Settings
+              %b.caret
+            %ul.dropdown-menu
+              %li
+                = link_to "Users", "/users" unless disable_access(:create, User.last) || (user_signed_in? && current_user.real_guest?)
+
+              %li
+                = link_to "Locations", locations_path if user_signed_in? && current_user.super_admin?
+              %li
+                = link_to "Transaction Details", transaction_details_path if user_signed_in? && current_user.super_admin? 
+              %li
+                = link_to "Checklists", "/checklists" unless disable_access(:manage, ChecklistMaster.last)
+      
+      %ul.nav.navbar-nav.pull-right
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            = icon("user", current_user.fullname)
+            %b.caret
+          %ul.dropdown-menu
+            %li
+              = link_to icon("user", "Profile"), "/profile"
+            %li
+              = link_to icon("off", "Logout"), destroy_user_session_path, :method => :delete
+      = form_tag('/search', :method => :get, :class => 'navbar-search pull-right small_display', :style => "display:none;") do
+        = text_field_tag :search, "", :placeholder => "Search",  :autocomplete => "off"
+      = form_tag('/search', :method => :get, :class => 'navbar-search pull-right small_no_display') do
+        = text_field_tag :search, "", :placeholder => "Search", :class => "search-query col col-lg-8", :style => "width: 140px", :autocomplete => "off"
+        %a{:href => "#", :class => "show_as", :title => "Advanced Search", "data-content" => (render("as_form").html_safe if user_signed_in?)}
+          %i.glyphicon.glyphicon-chevron-down

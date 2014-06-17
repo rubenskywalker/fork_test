@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  l1: false
+  l1n: 1
+  address_1: 1
+  address_2: 1
+  city: 1
+  state: 1
+  zip: 1
+  mls: 1
+  close_date: 1
+  expiration_date: 1
+  list_price: 1
+  ba_commision: 1
+  la_commision: 1
+  commision_note: 1
+  transaction_format: 1
+
+two:
+  l1: false
+  l1n: 1
+  address_1: 1
+  address_2: 1
+  city: 1
+  state: 1
+  zip: 1
+  mls: 1
+  close_date: 1
+  expiration_date: 1
+  list_price: 1
+  ba_commision: 1
+  la_commision: 1
+  commision_note: 1
+  transaction_format: 1
